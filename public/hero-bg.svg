@@ -1,0 +1,68 @@
+<svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+        <radialGradient id="bg" cx="50%" cy="0%" r="95%">
+            <stop offset="0%" stop-color="#0F2745"/>
+            <stop offset="60%" stop-color="#0B1629"/>
+            <stop offset="100%" stop-color="#0A0F1A"/>
+        </radialGradient>
+
+        <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+            <path d="M48 0H0V48" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        </pattern>
+
+        <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#08B2E3" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#46D2FF" stop-opacity=".30"/>
+            <stop offset="100%" stop-color="#08B2E3" stop-opacity="0"/>
+        </linearGradient>
+
+        <radialGradient id="glowBlue" cx="25%" cy="10%" r="50%">
+            <stop offset="0%" stop-color="#4CC3FF" stop-opacity=".38"/>
+            <stop offset="100%" stop-color="#4CC3FF" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="glowCyan" cx="85%" cy="15%" r="55%">
+            <stop offset="0%" stop-color="#0EA5E9" stop-opacity=".26"/>
+            <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>
+        </radialGradient>
+
+        <filter id="blur80" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="80"/>
+        </filter>
+        <filter id="star" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.1"/>
+        </filter>
+
+        <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+            <stop offset="55%" stop-color="rgba(0,0,0,0)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+        </radialGradient>
+
+        <!-- Maske: alles sichtbar (weiß), zentrale Ellipse ausgeblendet (schwarz)  -->
+        <mask id="avoidCenter">
+            <rect width="100%" height="100%" fill="#fff"/>
+            <!-- Ellipse um Titel/Scroll-Text – hier 50%/57%, anpassbar -->
+            <ellipse cx="50%" cy="57%" rx="260" ry="140" fill="#000"/>
+        </mask>
+    </defs>
+
+    <rect width="100%" height="100%" fill="url(#bg)"/>
+    <rect width="100%" height="100%" fill="url(#grid)" opacity=".45"/>
+
+    <g filter="url(#blur80)" opacity=".9">
+        <rect x="-200" y="-120" width="1840" height="520" fill="url(#glowBlue)"/>
+        <rect x="-100" y="-40" width="1640" height="760" fill="url(#glowCyan)"/>
+    </g>
+
+    <g mask="url(#avoidCenter)" opacity=".85">
+        <circle cx="210" cy="180" r="2.1" fill="#7DD3FC" filter="url(#star)"/>
+        <circle cx="1180" cy="150" r="2.1" fill="#93C5FD" filter="url(#star)"/>
+        <circle cx="980" cy="700" r="2.1" fill="#38BDF8" filter="url(#star)"/>
+        <circle cx="360" cy="640" r="2.1" fill="#60A5FA" filter="url(#star)"/>
+        <circle cx="860" cy="260" r="2.1" fill="#7DD3FC" filter="url(#star)"/>
+        <circle cx="560" cy="820" r="2.1" fill="#93C5FD" filter="url(#star)"/>
+        <circle cx="134" cy="512" r="1.8" fill="#93C5FD" filter="url(#star)"/>
+        <circle cx="1260" cy="520" r="1.8" fill="#67E8F9" filter="url(#star)"/>
+    </g>
+
+    <rect width="100%" height="100%" fill="url(#vignette)"/>
+</svg>
