@@ -6,7 +6,7 @@
   >
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-sm leading-relaxed text-slate-700">
-        Money Koi möchte anonymisierte Analytics-Daten erfassen, um die Website zu verbessern. Einverstanden?
+        Ich möchte anonymisierte Analytics-Daten erfassen, um die Website zu verbessern. Einverstanden?
       </p>
       <div class="flex shrink-0 gap-2">
         <button

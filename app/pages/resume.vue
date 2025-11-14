@@ -2,7 +2,6 @@
   <main class="min-h-screen bg-[#0B1220] text-slate-200">
     <section class="relative bg-center bg-cover" style="background-image:url('/hero-bg.svg')">
       <div class="mx-auto max-w-6xl px-6 pt-28 pb-10">
-        <!-- Title row -->
         <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Lebenslauf</h1>
 
@@ -63,42 +62,73 @@
             </div>
 
             <div class="mt-4 flex flex-wrap gap-2">
-              <a class="inline-flex items-center rounded-xl bg-white text-slate-900 px-3.5 py-2 text-sm font-semibold ring-1 ring-white/20"
-                 href="https://moneykoi.app" rel="noopener"
-                 target="_blank">Website
-                ↗</a>
-              <a class="inline-flex items-center rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
-                 href="https://github.com/GeraldGmainer/moneykoi" rel="noopener"
-                 target="_blank">GitHub
-                ↗</a>
+              <a
+                  class="inline-flex items-center gap-1 rounded-xl bg-white text-slate-900 px-3.5 py-2 text-sm font-semibold ring-1 ring-white/20"
+                  href="https://moneykoi.app"
+                  rel="noopener"
+                  target="_blank"
+              >
+                <span>Website</span>
+                <Icon name="lucide:arrow-up-right" size="16"/>
+              </a>
+              <a
+                  class="inline-flex items-center gap-1 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
+                  href="https://github.com/GeraldGmainer/moneykoi"
+                  rel="noopener"
+                  target="_blank"
+              >
+                <span>GitHub</span>
+                <Icon name="simple-icons:github" size="16"/>
+              </a>
             </div>
           </div>
         </div>
 
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center gap-3">
-            <span
-                class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30">🧩</span>
-            <h2 class="text-xl font-semibold">Berufserfahrung</h2>
+          <span
+              class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30"
+          >🧩</span>
+
+            <div class="flex w-full items-center">
+              <h2 class="text-xl font-semibold">Berufserfahrung</h2>
+              <span class="ml-auto text-sm font-normal text-slate-400">11 Jahre</span>
+            </div>
           </div>
+
           <ol class="mt-6 space-y-8">
             <li v-for="job in experience" :key="job.role" class="relative pl-6">
               <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-cyan-400"></span>
               <div class="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 class="font-semibold text-white">{{ job.role }}</h3>
-                <span class="text-xs text-slate-400">{{ job.time }}</span>
+                <div class="flex flex-col items-end text-xs">
+                  <span class="text-slate-400">{{ job.time }}</span>
+                  <span
+                      v-if="formatExperienceDuration(job.time)"
+                      class="text-[11px] text-slate-500"
+                  >
+        {{ formatExperienceDuration(job.time) }}
+      </span>
+                </div>
               </div>
               <p class="text-sm text-slate-300">{{ job.company }}</p>
               <ul class="mt-3 list-outside space-y-2 text-sm text-slate-300">
-                <li v-for="b in job.bullets" :key="b" class="flex gap-2"><span class="text-cyan-400">•</span><span>{{
-                    b
-                  }}</span></li>
+                <li
+                    v-for="b in job.bullets"
+                    :key="b"
+                    class="flex gap-2"
+                >
+                  <span class="text-cyan-400">•</span><span>{{ b }}</span>
+                </li>
               </ul>
               <div class="mt-3 flex flex-wrap gap-2">
-                <span v-for="t in job.stack" :key="t"
-                      class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">{{
-                    t
-                  }}</span>
+    <span
+        v-for="t in job.stack"
+        :key="t"
+        class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10"
+    >
+      {{ t }}
+    </span>
               </div>
               <div v-if="job.links?.length" class="mt-3 flex flex-wrap gap-2">
                 <a
@@ -113,6 +143,7 @@
                 </a>
               </div>
             </li>
+
           </ol>
         </div>
 
@@ -160,8 +191,69 @@
     </section>
   </main>
 </template>
-
 <script lang="ts" setup>
+const formatYearsMonthsDe = (years: number, months: number): string => {
+  const parts: string[] = []
+  if (years > 0) {
+    parts.push(years === 1 ? '1 Jahr' : `${years} Jahre`)
+  }
+  if (months > 0) {
+    parts.push(months === 1 ? '1 Monat' : `${months} Monate`)
+  }
+  return parts.join(' ')
+}
+
+const formatExperienceDuration = (time: string): string | null => {
+  const parts = time.split('–').map(p => p.trim())
+  if (parts.length !== 2) return null
+
+  const [startStr, rawEndStr] = parts
+  const endStr = rawEndStr.toLowerCase()
+
+  const monthYearRegex = /^(\d{2})\/(\d{4})$/
+  const yearRegex = /^(\d{4})$/
+
+  const startMonthYearMatch = startStr.match(monthYearRegex)
+
+  if (startMonthYearMatch) {
+    const [, sm, sy] = startMonthYearMatch
+    const startMonth = Number(sm)
+    const startYear = Number(sy)
+
+    let endYear: number
+    let endMonth: number
+
+    const endMonthYearMatch = rawEndStr.match(monthYearRegex)
+    if (!endMonthYearMatch) return null
+    const [, em, ey] = endMonthYearMatch
+    endMonth = Number(em)
+    endYear = Number(ey)
+
+    const startTotal = startYear * 12 + (startMonth - 1)
+    const endTotal = endYear * 12 + (endMonth - 1)
+    const diffMonths = endTotal - startTotal
+
+    if (diffMonths <= 0) return null
+
+    const years = Math.floor(diffMonths / 12)
+    const months = diffMonths % 12
+    return formatYearsMonthsDe(years, months)
+  }
+
+  const startYearMatch = startStr.match(yearRegex)
+  const endYearMatch = rawEndStr.match(yearRegex)
+
+  if (startYearMatch && endYearMatch) {
+    const startYear = Number(startYearMatch[1])
+    const endYear = Number(endYearMatch[1])
+    const diffYears = endYear - startYear
+    if (diffYears <= 0) return null
+    return formatYearsMonthsDe(diffYears, 0)
+  }
+
+  return null
+}
+
 const education = [
   {
     title: 'HTL Steyr · Elektronik mit Computer- und Leittechnik',
@@ -175,7 +267,7 @@ const experience = [
   {
     role: 'Teamlead & Software Entwickler',
     company: 'Objectbay GmbH',
-    time: '06/2024 – heute',
+    time: '06/2024 – 01/2026',
     bullets: [
       'Backend-Modernisierung für Security-Software',
       'Mobile App und Admin-Web für Sommerrodelbahnen',
