@@ -50,7 +50,7 @@
               </li>
               <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Supabase mit RLS, Triggern, Migrations und Edge Functions</span>
               </li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>CI/CD, Crash-Monitoring und Store-Vorbereitung</span>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Inklusive moderner Next.js-Weboberfläche für Haushaltsbuch-Führung und Verwaltung</span>
               </li>
             </ul>
 
@@ -121,14 +121,12 @@
                   <span class="text-cyan-400">•</span><span>{{ b }}</span>
                 </li>
               </ul>
-              <div class="mt-3 flex flex-wrap gap-2">
-    <span
-        v-for="t in job.stack"
-        :key="t"
-        class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10"
-    >
-      {{ t }}
-    </span>
+              <div class="mt-3 flex flex-wrap gap-2  max-w-2xl">
+                <span v-for="stack in job.stack"
+                      :key="stack"
+                      class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">
+                  {{ stack }}
+                </span>
               </div>
               <div v-if="job.links?.length" class="mt-3 flex flex-wrap gap-2">
                 <a
@@ -273,32 +271,46 @@ const experience = [
       'Mobile App und Admin-Web für Sommerrodelbahnen',
       'Regelwerks- und Schadenmanagement für Versicherungsverbund'
     ],
-    stack: ['Spring Boot', 'Angular', 'React', 'Flutter', 'Supabase', 'Docker']
+    stack: ['Spring Boot', 'Angular', 'React', 'Flutter', 'Supabase', 'Docker', 'Keycloak']
   },
   {
     role: 'Software Entwickler',
     company: 'Aescudata GmbH',
     time: '03/2024 – 06/2024',
     bullets: [
-      'Full-Stack für Materialwirtschaft & Logistik',
+      'Neuentwicklung der bestehenden AngularJS Software auf moderne Angular-17-Architektur',
       'State-Management mit ngrx/rxJS'
     ],
     stack: ['Angular', 'Java', 'Spring Boot']
   },
   {
     role: 'Senior Software Entwickler',
-    company: 'Designium Inc. (JP)',
+    company: 'Designium Inc. (Japan)',
     time: '02/2020 – 12/2023',
     bullets: [
+      'Programming-Dojos vorbereitet und durchgeführt',
       '3D-Konfigurator für Schulrucksäcke',
+      'AR- & VR Experimente',
       'Apps & Admin-Web für D-Drive und Schneepflugdienst',
-      'Reiseführer-App für Aizuwakamatsu'
+      'Reiseführer-App für Aizuwakamatsu',
+      'D-Drive Fahrassistent',
+      'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds'
     ],
-    stack: ['Vue', 'Flutter', 'Unity', 'React', 'Supabase', 'Three.js', 'PostgreSQL']
+    stack: ['Vue', 'Nuxt', 'React', 'Flutter', 'React Native', 'Supabase', 'AWS Amplify', 'Node.js', 'Three.js', 'PostgreSQL', 'Unity', 'ARKit/ARCore', 'Photoshop']
+  },
+  {
+    role: 'Full-Stack Entwickler',
+    company: 'Freelance',
+    time: '11/2019 – 02/2020',
+    bullets: [
+      'Mitgliedsverwaltung für Stocksportverein OÖ',
+      'Für 15.000 Mitglieder und Scheckkarten System',
+      'Projekt wurde aufgrund der Corona-Pandemie in der Entwicklungsphase beendet'],
+    stack: ['Angular', 'Spring Boot', 'Bootstrap', 'MySQL']
   },
   {
     role: 'Unity Entwickler',
-    company: 'NeNe Corp. (Tokyo)',
+    company: 'NeNe Corp. (Japan)',
     time: '04/2019 – 07/2019',
     bullets: ['Face-Tracking auf 3D-Modell in Echtzeit'],
     stack: ['Unity', 'C#', 'C++']
@@ -312,12 +324,6 @@ const experience = [
       'Mobile Game „Tamping Game“ (Android/iOS)'
     ],
     stack: ['Unity', 'Blender', 'Photoshop'],
-    links: [
-      {
-        label: 'Tamping Game – Google Play',
-        href: 'https://play.google.com/store/apps/details?id=com.plassertheurer.tampinggame&hl=de_AT'
-      }
-    ]
   },
   {
     role: 'Software Entwickler',

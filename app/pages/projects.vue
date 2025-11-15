@@ -205,7 +205,7 @@ const projects: Project[] = [
     company: 'Designium Inc.'
   },
   {
-    title: 'D-Drive Fahrassistenz',
+    title: 'D-Drive Fahrassistent',
     description: 'App und Admin-Web für Fahrunterstützungsdienst.',
     image: '/images/ddrive2.png',
     date: '2022-06-01',

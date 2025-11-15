@@ -244,7 +244,7 @@ const skills = {
     {label: 'PostgreSQL', value: 95},
     {label: 'MySQL / Oracle SQL', value: 38},
     {label: 'Supabase', value: 95},
-    {label: 'Keycloak', value: 66},
+    {label: 'Keycloak', value: 48},
     {label: 'Docker / Kubernetes', value: 42}
   ],
   app: [

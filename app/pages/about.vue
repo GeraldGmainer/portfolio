@@ -8,10 +8,12 @@
               class="h-64 w-64 rounded-2xl ring-2 ring-white/15 shadow-lg shadow-blue-500/20 object-cover"
               src="/images/profile.png"
           />
-          <h1 class="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl">Über mich</h1>
+          <h1 class="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Über mich
+          </h1>
           <p class="mt-3 max-w-2xl text-slate-300">
-            Full-Stack-Entwickler mit Fokus auf Flutter-Apps, moderne Web-Stacks und 3D Anwendungen. Ich baue
-            performante Produkte mit sauberer Architektur, Offline-First und Liebe zum Detail.
+            Full-Stack-Entwickler mit Schwerpunkt auf Flutter-Apps, moderne Web-Technologien und 3D-Anwendungen.
+            Ich entwickle robuste, nutzerzentrierte Produkte mit sauberer Architektur und Liebe zum Detail.
           </p>
           <div class="mt-6 inline-flex flex-wrap justify-center gap-2">
             <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
@@ -24,7 +26,7 @@
               Web · App · 3D
             </span>
             <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
-              Hobby-Tischler
+              Holzhandwerk
             </span>
           </div>
           <div class="mt-8 flex gap-3">
@@ -52,66 +54,65 @@
         <h2 class="text-xl font-semibold">Kurzprofil</h2>
         <ul class="mt-4 space-y-3 text-s text-slate-300">
           <li class="flex gap-2">
-        <span class="mt-0.5 text-cyan-400">
-          <Icon name="lucide:dot" size="16"/>
-        </span>
+            <span class="mt-0.5 text-cyan-400">
+              <Icon name="lucide:dot" size="16"/>
+            </span>
             <span>
-          End-to-end Entwicklung: Konzeption, UI/UX, Architektur, Implementierung, Testing und Release.
-        </span>
+              End-to-end-Entwicklung von Konzeption über UI/UX und Architektur bis zu Implementierung, Tests und Release.
+            </span>
           </li>
           <li class="flex gap-2">
-        <span class="mt-0.5 text-cyan-400">
-          <Icon name="lucide:dot" size="16"/>
-        </span>
+            <span class="mt-0.5 text-cyan-400">
+              <Icon name="lucide:dot" size="16"/>
+            </span>
             <span>
-          Flutter-Apps mit lokalem Cache, konfliktarmem Sync, sauberen State-Patterns und Fokus auf Stabilität.
-        </span>
+              Flutter-Apps mit lokalem Cache, konfliktarmem Sync und stabiler State-Architektur.
+            </span>
           </li>
           <li class="flex gap-2">
-        <span class="mt-0.5 text-cyan-400">
-          <Icon name="lucide:dot" size="16"/>
-        </span>
+            <span class="mt-0.5 text-cyan-400">
+              <Icon name="lucide:dot" size="16"/>
+            </span>
             <span>
-          Web mit TypeScript, modernen Frameworks, sicheren APIs und durchdachten Datenmodellen.
-        </span>
+              Moderne Webentwicklung mit TypeScript, klar strukturierten APIs und durchdachten Datenmodellen.
+            </span>
           </li>
           <li class="flex gap-2">
-        <span class="mt-0.5 text-cyan-400">
-          <Icon name="lucide:dot" size="16"/>
-        </span>
+            <span class="mt-0.5 text-cyan-400">
+              <Icon name="lucide:dot" size="16"/>
+            </span>
             <span>
-          Architektur & Code-Qualität: saubere Domänen, starke Typisierung, Tests (Unit/E2E) und CI-Gates.
-        </span>
+              Architektur, Typisierung, Unit- und E2E-Tests sowie CI-Qualitätskontrollen.
+            </span>
           </li>
           <li class="flex gap-2">
-        <span class="mt-0.5 text-cyan-400">
-          <Icon name="lucide:dot" size="16"/>
-        </span>
+            <span class="mt-0.5 text-cyan-400">
+              <Icon name="lucide:dot" size="16"/>
+            </span>
             <span>
-          Nutzerzentrierte, ergebnisorientierte Zusammenarbeit mit klarer Kommunikation, guten Tickets/Docs und hohem Ownership.
-        </span>
+              Nutzerzentrierte Zusammenarbeit mit klarer Kommunikation, guten Tickets und hohem Ownership.
+            </span>
           </li>
         </ul>
       </div>
     </section>
-
 
     <section class="mx-auto max-w-6xl px-6 py-16">
       <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
         Skillset
       </h2>
       <p class="mt-2 text-center text-slate-400">
-        Technologien, mit denen ich regelmäßig arbeite
+        Technologien, mit denen ich arbeite
       </p>
 
       <div class="mt-10 grid gap-8 md:grid-cols-1">
         <div
             v-for="group in [
-        { key: 'frontend', title: 'Frontend', shadow: 'shadow-sky-500/20' },
-        { key: 'backend', title: 'Backend & CI/CD', shadow: 'shadow-blue-500/20' },
-        { key: 'app', title: 'App', shadow: 'shadow-sky-500/20' },
-        { key: 'threeD', title: '3D & Realtime', shadow: 'shadow-indigo-500/20' }
-      ]"
+            { key: 'frontend', title: 'Frontend', shadow: 'shadow-sky-500/20' },
+            { key: 'backend', title: 'Backend & CI/CD', shadow: 'shadow-blue-500/20' },
+            { key: 'app', title: 'App', shadow: 'shadow-sky-500/20' },
+            { key: 'threeD', title: '3D & Realtime', shadow: 'shadow-indigo-500/20' }
+          ]"
             :key="group.key"
             :class="group.shadow"
             class="rounded-3xl border border-white/10 bg-white/5 p-7"
@@ -122,12 +123,14 @@
             </h3>
           </div>
           <div class="mt-5 flex flex-wrap gap-5">
-        <span v-for="s in stackSkills[group.key]"
-              :key="s.label"
-              class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-s text-slate-100 ring-1 ring-white/10">
-          <Icon :name="s.icon" class="h-8 w-8 "/>
-          <span>{{ s.label }}</span>
-        </span>
+            <span
+                v-for="s in stackSkills[group.key]"
+                :key="s.label"
+                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-s text-slate-100 ring-1 ring-white/10"
+            >
+              <Icon :name="s.icon" class="h-8 w-8"/>
+              <span>{{ s.label }}</span>
+            </span>
           </div>
         </div>
       </div>
@@ -154,13 +157,9 @@
       <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
         Holzarbeiten
       </h2>
-      <p class="mt-2 text-center text-slate-400">
-        Kleines Nebenprojekt – echtes Handwerk
-      </p>
       <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-300">
-        Angefangen hat alles mit einer einfachen Holzrassel für meinen ältesten Sohn.
-        Aus diesem ersten Projekt wurde Schritt für Schritt eine echte Leidenschaft
-        für Spielzeug, Möbel und kleine Alltagshelfer aus Massivholz.
+        Angefangen hat alles mit einer kleinen Holzrassel für meinen Sohn.
+        Daraus wurde Schritt für Schritt eine Leidenschaft für Spielzeug, Möbel und Alltagshelfer aus Massivholz.
       </p>
 
       <div class="mt-10 grid gap-6 md:grid-cols-3">
@@ -198,19 +197,19 @@ const stackSkills = {
     {label: 'Next.js', icon: 'simple-icons:nextdotjs'},
     {label: 'Tailwind CSS', icon: 'simple-icons:tailwindcss'},
     {label: 'Vite', icon: 'simple-icons:vite'},
-    {label: 'Three.js/WebGL', icon: 'simple-icons:threedotjs'},
-    {label: 'Zustand/Redux/ngrx', icon: 'simple-icons:redux'},
+    {label: 'Three.js', icon: 'simple-icons:threedotjs'},
+    {label: 'State Management', icon: 'simple-icons:redux'},
     {label: 'Jest', icon: 'simple-icons:jest'},
     {label: 'Cypress', icon: 'simple-icons:cypress'},
     {label: 'Accessibility', icon: 'lucide:accessibility'}
   ],
-
   backend: [
     {label: 'Java', icon: 'simple-icons:coffeescript'},
     {label: 'Spring Boot', icon: 'simple-icons:spring'},
     {label: 'Node.js', icon: 'simple-icons:nodedotjs'},
     {label: 'Express/Nest', icon: 'lucide:route'},
-    {label: 'GraphQL/REST', icon: 'simple-icons:graphql'},
+    {label: 'REST', icon: 'lucide:server'},
+    {label: 'GraphQL', icon: 'simple-icons:graphql'},
     {label: 'PostgreSQL', icon: 'simple-icons:postgresql'},
     {label: 'Supabase', icon: 'simple-icons:supabase'},
     {label: 'MySQL', icon: 'simple-icons:mysql'},
@@ -223,9 +222,8 @@ const stackSkills = {
     {label: 'Jenkins', icon: 'simple-icons:jenkins'},
     {label: 'Vercel', icon: 'simple-icons:vercel'},
     {label: 'CI/CD', icon: 'lucide:workflow'},
-    {label: 'Monitoring/Logging', icon: 'lucide:activity'}
+    {label: 'Observability', icon: 'lucide:activity'}
   ],
-
   app: [
     {label: 'Flutter', icon: 'simple-icons:flutter'},
     {label: 'Dart', icon: 'simple-icons:dart'},
@@ -235,13 +233,12 @@ const stackSkills = {
     {label: 'Background Tracking', icon: 'lucide:locate-fixed'},
     {label: 'Maps/Geolocation', icon: 'lucide:map'},
     {label: 'Push Notifications', icon: 'lucide:bell'},
-    {label: 'Sentry/Crashlytics', icon: 'lucide:alert-triangle'},
+    {label: 'Fehlertracking', icon: 'lucide:alert-triangle'},
     {label: 'Fastlane', icon: 'simple-icons:fastlane'},
     {label: 'FVM', icon: 'lucide:layers'},
-    {label: 'Localization/i18n', icon: 'lucide:languages'},
-    {label: 'Store-Assets & Releases', icon: 'lucide:app-window'}
+    {label: 'i18n/Localization', icon: 'lucide:languages'},
+    {label: 'Store Releases', icon: 'lucide:app-window'}
   ],
-
   threeD: [
     {label: 'Unity', icon: 'simple-icons:unity'},
     {label: 'C#', icon: 'simple-icons:csharp'},
@@ -251,7 +248,7 @@ const stackSkills = {
     {label: 'Shader (HLSL/GLSL)', icon: 'lucide:sparkles'},
     {label: 'Post-Processing', icon: 'lucide:contrast'},
     {label: 'Physics/Animation', icon: 'lucide:orbit'},
-    {label: 'Optimization/Profiling', icon: 'lucide:gauge'},
+    {label: 'Profiling/Optimierung', icon: 'lucide:gauge'},
     {label: 'ARKit/ARCore', icon: 'lucide:scan'},
     {label: 'Blender', icon: 'simple-icons:blender'},
     {label: 'Photoshop', icon: 'simple-icons:adobephotoshop'}
@@ -264,9 +261,9 @@ const tools = [
   {label: 'VS Code', icon: 'simple-icons:visualstudiocode'},
   {label: 'Git', icon: 'simple-icons:git'},
   {label: 'GitHub', icon: 'simple-icons:github'},
-  {label: 'Linux/Ubuntu', icon: 'simple-icons:ubuntu'},
-  {label: 'Mac OS', icon: 'simple-icons:macos'},
-  {label: 'Jenkins/CI', icon: 'simple-icons:jenkins'},
+  {label: 'Ubuntu/Linux', icon: 'simple-icons:ubuntu'},
+  {label: 'macOS', icon: 'simple-icons:macos'},
+  {label: 'Jenkins', icon: 'simple-icons:jenkins'},
   {label: 'Docker Desktop', icon: 'simple-icons:docker'},
   {label: 'Postman', icon: 'simple-icons:postman'},
   {label: 'Supabase Studio', icon: 'simple-icons:supabase'},
@@ -281,43 +278,15 @@ const tools = [
   {label: 'Blender', icon: 'simple-icons:blender'}
 ]
 
-
 const woodProjects = [
-  {
-    title: 'Schaukelpferd',
-    image: '/images/pferd.png',
-  },
-  {
-    title: 'Spielzeuglastwagen',
-    image: '/images/truck.png',
-  },
-  {
-    title: 'Kinder-Tisch & Stuhl-Set',
-    image: '/images/tisch.png',
-  },
-  {
-    title: 'Musik Box mit RFID Karten',
-    image: '/images/leobox.png',
-  },
-  {
-    title: 'Sitzbank',
-    image: '/images/bank.png',
-  },
-  {
-    title: 'DIY Tischkreissäge',
-    image: '/images/saw.png',
-  },
-  {
-    title: 'Bierträger Deluxe',
-    image: '/images/kiste.png',
-  },
-  {
-    title: 'Holzrassel',
-    image: '/images/rassel.png',
-  },
-  {
-    title: 'Baby Bett',
-    image: '/images/bett.png',
-  }
+  {title: 'Schaukelpferd', image: '/images/pferd.png'},
+  {title: 'Spielzeuglastwagen', image: '/images/truck.png'},
+  {title: 'Kinder-Tisch & Stuhl-Set', image: '/images/tisch.png'},
+  {title: 'Musik Box mit RFID Karten', image: '/images/leobox.png'},
+  {title: 'Sitzbank', image: '/images/bank.png'},
+  {title: 'DIY Tischkreissäge', image: '/images/saw.png'},
+  {title: 'Bierträger Deluxe', image: '/images/kiste.png'},
+  {title: 'Holzrassel', image: '/images/rassel.png'},
+  {title: 'Baby Bett', image: '/images/bett.png'}
 ]
 </script>
