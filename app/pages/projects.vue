@@ -12,9 +12,27 @@
     </section>
 
     <section class="mx-auto max-w-6xl px-6 pb-20">
+      <div class="mt-6 flex justify-center">
+        <div class="inline-flex flex-wrap justify-center gap-2 rounded-full bg-white/5 p-1 text-xs sm:text-sm">
+          <button
+              v-for="tab in projectTabs"
+              :key="tab.key"
+              :class="activeProjectTab === tab.key
+              ? 'bg-white text-slate-900 shadow-sm shadow-sky-500/40'
+              : 'text-slate-300 hover:bg-white/5 hover:text-white'"
+              class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition"
+              type="button"
+              @click="activeProjectTab = tab.key"
+          >
+            <span class="text-base">{{ tab.icon }}</span>
+            <span>{{ tab.label }}</span>
+          </button>
+        </div>
+      </div>
+
       <div class="mt-6 grid gap-8 md:grid-cols-2">
         <article
-            v-for="p in sorted"
+            v-for="p in filteredProjects"
             :key="p.title"
             class="group flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:ring-white/20"
         >
@@ -31,16 +49,10 @@
               <span class="tabular-nums">{{ fmt(p.date) }}</span>
               <div class="flex flex-wrap gap-2">
                 <span
-                    v-if="p.company"
-                    class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-slate-100 ring-1 ring-white/20"
-                >
-                  {{ p.company }}
-                </span>
-                <span
                     v-if="p.type"
                     class="rounded-full bg-sky-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-200 ring-1 ring-sky-400/40"
                 >
-                  {{ p.type }}
+                  {{ p.company }}
                 </span>
               </div>
             </div>
@@ -104,13 +116,17 @@
 </template>
 
 <script lang="ts" setup>
+import {computed, ref} from 'vue'
+
+type ProjectType = 'Privat' | 'Beruf' | 'Freelance'
+
 type Project = {
   title: string
   description: string
   image: string
   date: string
   stack: string[]
-  type?: string
+  type: ProjectType
   company?: string
   website?: string
   github?: string
@@ -144,10 +160,10 @@ const projects: Project[] = [
     description: 'Buchungen, Scans und Betriebsübersicht für Sommerrodelbahnen.',
     image: '/images/sunkid.png',
     date: '2024-08-20',
-    stack: ['Angular', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
+    stack: ['React Refine', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
     website: 'https://www.bruckschloegl.at/produkte/rodelbahn/',
     type: 'Beruf',
-    company: 'Objectbay · Bruckschlögl'
+    company: 'Objectbay GmbH',
   },
   {
     title: 'Security-Software Backend Modernisierung',
@@ -157,7 +173,7 @@ const projects: Project[] = [
     stack: ['Spring Boot', 'Java', 'Kotlin', 'Docker', 'Kubernetes'],
     website: 'https://www.seqify.net/en/',
     type: 'Beruf',
-    company: 'Objectbay · Seqify'
+    company: 'Objectbay GmbH'
   },
   {
     title: 'Materialwirtschaft & Logistik',
@@ -169,32 +185,43 @@ const projects: Project[] = [
     company: 'Aescudata GmbH'
   },
   {
+    title: 'Transit Driver RT',
+    description: 'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds inkl. Routenwahl und Hintergrund-Tracking.',
+    image: '/images/gtfs.png',
+    date: '2023-11-01',
+    stack: ['Flutter', 'Maps', 'Background Tracking', 'GTFS-RT', 'Supabase'],
+    type: 'Beruf',
+    company: 'Designium Inc.'
+  },
+  {
+    title: 'Raraya 3D Rucksack-Konfigurator',
+    description: 'Web-3D Konfigurator für japanische Schulrucksäcke.',
+    image: '/images/raraya_desktop.png',
+    date: '2023-05-01',
+    stack: ['Three.js', 'Vue', 'PostProcessing', 'Node.js', 'Blender', 'Photoshop'],
+    website: 'https://sim.raraya.co.jp/',
+    type: 'Beruf',
+    details: '/project/raraya',
+    company: 'Designium Inc.'
+  },
+  {
+    title: 'D-Drive Fahrassistenz',
+    description: 'App und Admin-Web für Fahrunterstützungsdienst.',
+    image: '/images/ddrive2.png',
+    date: '2022-06-01',
+    stack: ['Flutter', 'Vue', 'Supabase', 'React Admin'],
+    type: 'Beruf',
+    website: 'https://www.ubiteq.co.jp/service_product/d-drive-1',
+    details: '/project/ddrive',
+    company: 'Designium Inc.'
+  },
+  {
     title: 'Schneepflugdienst Plattform',
     description: 'Dispo-App und Admin-Web für kommunalen Winterdienst.',
     image: '/images/snowplow.png',
     date: '2021-12-01',
     stack: ['Flutter', 'Vue', 'AWS Amplify'],
     type: 'Beruf',
-    company: 'Designium Inc.'
-  },
-  {
-    title: 'Transit Driver RT',
-    description: 'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds inkl. Routenwahl und Hintergrund-Tracking.',
-    image: '/images/gtfs.png',
-    date: '2023-11-01',
-    stack: ['Flutter', 'Maps', 'Background Tracking', 'GTFS-RT', 'Supabase'],
-    type: 'Prototyp',
-    company: 'Designium Inc.'
-  },
-  {
-    title: 'D-Drive Fahrassistenz',
-    description: 'App und Admin-Web für Fahrunterstützungsdienst.',
-    image: '/images/ddrive.png',
-    date: '2022-06-01',
-    stack: ['Flutter', 'Vue', 'Supabase'],
-    type: 'Beruf',
-    website: 'https://www.ubiteq.co.jp/service_product/d-drive-1',
-    details: '/project/ddrive',
     company: 'Designium Inc.'
   },
   {
@@ -214,17 +241,6 @@ const projects: Project[] = [
     date: '2020-08-01',
     stack: ['Unity', 'ARKit/ARCore'],
     type: 'Beruf',
-    company: 'Designium Inc.'
-  },
-  {
-    title: 'Raraya 3D Rucksack-Konfigurator',
-    description: 'Web-3D Konfigurator für japanische Schulrucksäcke.',
-    image: '/images/raraya_desktop.png',
-    date: '2023-05-01',
-    stack: ['Three.js', 'Vue', 'PostProcessing'],
-    website: 'https://sim.raraya.co.jp/',
-    type: 'Beruf',
-    details: '/project/raraya',
     company: 'Designium Inc.'
   },
   {
@@ -250,7 +266,7 @@ const projects: Project[] = [
     description: 'Mobile Game rund um Stopfmaschinen, Veröffentlichung im Play Store.',
     image: '/images/tampinggame.png',
     date: '2018-07-01',
-    stack: ['Unity', 'C#', 'Android', 'iOS'],
+    stack: ['Unity', 'C#', 'Photoshop', 'Blender', 'Android', 'iOS'],
     website: 'https://play.google.com/store/apps/details?id=com.plassertheurer.tampinggame&hl=de_AT',
     type: 'Beruf',
     company: 'Enova GmbH'
@@ -291,13 +307,42 @@ const projects: Project[] = [
     stack: ['jQuery', 'Python', 'PostgreSQL', 'Linux'],
     website: 'https://www.case.at/start/',
     type: 'Beruf',
-    company: 'Case Softwaretechnik'
+    company: 'Case Softwaretechnik GmbH'
   }
+]
+
+const projectTabs = [
+  {key: 'highlight', label: 'Highlights', icon: '⭐'},
+  {key: 'beruf', label: 'Beruf', icon: '💼'},
+  {key: 'hobby', label: 'Hobby/Freelance', icon: '🎯'}
+] as const
+
+type ProjectTabKey = (typeof projectTabs)[number]['key']
+
+const activeProjectTab = ref<ProjectTabKey>('highlight')
+
+const highlightTitles = [
+  'MoneyKoi',
+  'Rodelbahn Admin & App',
+  'Raraya 3D Rucksack-Konfigurator',
+  'D-Drive Fahrassistenz',
+  'Tamping Game',
+  'Simulator für Gleisstopfmaschinen'
 ]
 
 const sorted = computed(() =>
     [...projects].sort((a, b) => +new Date(b.date) - +new Date(a.date))
 )
+
+const filteredProjects = computed(() => {
+  if (activeProjectTab.value === 'highlight') {
+    return sorted.value.filter(p => highlightTitles.includes(p.title))
+  }
+  if (activeProjectTab.value === 'beruf') {
+    return sorted.value.filter(p => p.type === 'Beruf')
+  }
+  return sorted.value.filter(p => p.type === 'Privat' || p.type === 'Freelance' || p.type === 'Prototyp')
+})
 
 function fmt(d: string) {
   return new Date(d).toLocaleDateString('de-AT', {year: 'numeric', month: 'short'})

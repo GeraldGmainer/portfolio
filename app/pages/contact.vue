@@ -8,7 +8,7 @@
     </section>
 
     <section class="mx-auto max-w-6xl px-6 pb-20">
-      <div class="grid gap-8 lg:grid-cols-2">
+      <div class="grid gap-8 pt-14 lg:grid-cols-2">
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
           <h2 class="text-xl font-semibold">Direkt</h2>
           <div class="mt-6 grid gap-4">

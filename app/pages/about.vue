@@ -24,7 +24,7 @@
               Web · App · 3D
             </span>
             <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
-              Hobby: Holzhandwerk
+              Hobby-Tischler
             </span>
           </div>
           <div class="mt-8 flex gap-3">
@@ -47,92 +47,54 @@
       </div>
     </section>
 
-    <section class="mx-auto max-w-6xl px-6 py-12">
-      <div class="grid gap-8 lg:grid-cols-2">
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <h2 class="text-xl font-semibold">Kurzprofil</h2>
-          <ul class="mt-4 space-y-3 text-s text-slate-300">
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                End-to-end Entwicklung: Konzeption, UI/UX, Architektur, Implementierung, Testing und Release.
-              </span>
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                Flutter-Apps mit lokalem Cache, konfliktarmem Sync und sauberen State-Patterns.
-              </span>
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                Web mit TypeScript, moderne Frameworks, sichere APIs und Datenmodelle.
-              </span>
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                3D/Realtime: Unity, Three.js/WebGL, Performance-Optimierung und Tooling.
-              </span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <h2 class="text-xl font-semibold">Werte & Arbeitsweise</h2>
-          <ul class="mt-4 space-y-3 text-s text-slate-300">
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                Nutzerzentriert & ergebnisorientiert: klare Ziele, kurze Iterationen, messbare Wirkung (LCP,
-                Crash-Rate, Conversion).
-              </span>
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                Architektur & Code-Qualität: saubere Domänen, stabile APIs, starke Typisierung, Tests (Unit/E2E) und
-                CI-Gates.
-              </span>
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                Performance & Stabilität: Offline-First, Caching/Sync, Profiling, Observability (Logs/Metrics),
-                Sentry/Crashlytics, Security-by-default (RLS, Least-Privilege).
-              </span>
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-0.5 text-cyan-400">
-                <Icon name="lucide:dot" size="16"/>
-              </span>
-              <span>
-                Zusammenarbeit & Ownership: transparente Kommunikation, gute Tickets/Docs, verlässliche Zusagen,
-                respektvolle Reviews.
-              </span>
-            </li>
-          </ul>
-        </div>
+    <section class="mx-auto max-w-4xl px-6 py-12">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+        <h2 class="text-xl font-semibold">Kurzprofil</h2>
+        <ul class="mt-4 space-y-3 text-s text-slate-300">
+          <li class="flex gap-2">
+        <span class="mt-0.5 text-cyan-400">
+          <Icon name="lucide:dot" size="16"/>
+        </span>
+            <span>
+          End-to-end Entwicklung: Konzeption, UI/UX, Architektur, Implementierung, Testing und Release.
+        </span>
+          </li>
+          <li class="flex gap-2">
+        <span class="mt-0.5 text-cyan-400">
+          <Icon name="lucide:dot" size="16"/>
+        </span>
+            <span>
+          Flutter-Apps mit lokalem Cache, konfliktarmem Sync, sauberen State-Patterns und Fokus auf Stabilität.
+        </span>
+          </li>
+          <li class="flex gap-2">
+        <span class="mt-0.5 text-cyan-400">
+          <Icon name="lucide:dot" size="16"/>
+        </span>
+            <span>
+          Web mit TypeScript, modernen Frameworks, sicheren APIs und durchdachten Datenmodellen.
+        </span>
+          </li>
+          <li class="flex gap-2">
+        <span class="mt-0.5 text-cyan-400">
+          <Icon name="lucide:dot" size="16"/>
+        </span>
+            <span>
+          Architektur & Code-Qualität: saubere Domänen, starke Typisierung, Tests (Unit/E2E) und CI-Gates.
+        </span>
+          </li>
+          <li class="flex gap-2">
+        <span class="mt-0.5 text-cyan-400">
+          <Icon name="lucide:dot" size="16"/>
+        </span>
+            <span>
+          Nutzerzentrierte, ergebnisorientierte Zusammenarbeit mit klarer Kommunikation, guten Tickets/Docs und hohem Ownership.
+        </span>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section class="mx-auto max-w-6xl px-6 pb-4">
-    </section>
 
     <section class="mx-auto max-w-6xl px-6 py-16">
       <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -142,68 +104,30 @@
         Technologien, mit denen ich regelmäßig arbeite
       </p>
 
-      <div class="mt-10 grid gap-8 md:grid-cols-2">
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-sm shadow-sky-500/20">
+      <div class="mt-10 grid gap-8 md:grid-cols-1">
+        <div
+            v-for="group in [
+        { key: 'frontend', title: 'Frontend', shadow: 'shadow-sky-500/20' },
+        { key: 'backend', title: 'Backend & CI/CD', shadow: 'shadow-blue-500/20' },
+        { key: 'app', title: 'App', shadow: 'shadow-sky-500/20' },
+        { key: 'threeD', title: '3D & Realtime', shadow: 'shadow-indigo-500/20' }
+      ]"
+            :key="group.key"
+            :class="group.shadow"
+            class="rounded-3xl border border-white/10 bg-white/5 p-7"
+        >
           <div class="flex items-center justify-between gap-3">
-            <h3 class="text-base font-semibold text-white">Frontend</h3>
+            <h3 class="text-base font-semibold text-white">
+              {{ group.title }}
+            </h3>
           </div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <span
-                v-for="s in stackSkills.frontend"
-                :key="s.label"
-                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-xs text-slate-100 ring-1 ring-white/10"
-            >
-              <Icon :name="s.icon" class="h-4 w-4"/>
-              <span>{{ s.label }}</span>
-            </span>
-          </div>
-        </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-sm shadow-blue-500/20">
-          <div class="flex items-center justify-between gap-3">
-            <h3 class="text-base font-semibold text-white">Backend &amp; CI/CD</h3>
-          </div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <span
-                v-for="s in stackSkills.backend"
-                :key="s.label"
-                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-xs text-slate-100 ring-1 ring-white/10"
-            >
-              <Icon :name="s.icon" class="h-4 w-4"/>
-              <span>{{ s.label }}</span>
-            </span>
-          </div>
-        </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-sm shadow-sky-500/20">
-          <div class="flex items-center justify-between gap-3">
-            <h3 class="text-base font-semibold text-white">App</h3>
-          </div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <span
-                v-for="s in stackSkills.app"
-                :key="s.label"
-                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-xs text-slate-100 ring-1 ring-white/10"
-            >
-              <Icon :name="s.icon" class="h-4 w-4"/>
-              <span>{{ s.label }}</span>
-            </span>
-          </div>
-        </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-sm shadow-indigo-500/20">
-          <div class="flex items-center justify-between gap-3">
-            <h3 class="text-base font-semibold text-white">3D &amp; Realtime</h3>
-          </div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <span
-                v-for="s in stackSkills.threeD"
-                :key="s.label"
-                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-xs text-slate-100 ring-1 ring-white/10"
-            >
-              <Icon :name="s.icon" class="h-4 w-4"/>
-              <span>{{ s.label }}</span>
-            </span>
+          <div class="mt-5 flex flex-wrap gap-5">
+        <span v-for="s in stackSkills[group.key]"
+              :key="s.label"
+              class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-s text-slate-100 ring-1 ring-white/10">
+          <Icon :name="s.icon" class="h-8 w-8 "/>
+          <span>{{ s.label }}</span>
+        </span>
           </div>
         </div>
       </div>
@@ -219,7 +143,7 @@
             class="grid h-24 place-items-center rounded-2xl border border-white/10 bg-white/5 text-sm ring-1 ring-white/5"
         >
           <div class="flex flex-col items-center gap-1 text-slate-200">
-            <Icon v-if="tool.icon" :name="tool.icon" class="h-5 w-5"/>
+            <Icon v-if="tool.icon" :name="tool.icon" class="h-8 w-8"/>
             <span class="text-xs text-center">{{ tool.label }}</span>
           </div>
         </div>
@@ -256,9 +180,6 @@
             <h3 class="text-base font-semibold text-white">
               {{ w.title }}
             </h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-300">
-              {{ w.blurb }}
-            </p>
           </figcaption>
         </figure>
       </div>
@@ -285,7 +206,7 @@ const stackSkills = {
   ],
 
   backend: [
-    {label: 'Java', icon: 'simple-icons:java'},
+    {label: 'Java', icon: 'simple-icons:coffeescript'},
     {label: 'Spring Boot', icon: 'simple-icons:spring'},
     {label: 'Node.js', icon: 'simple-icons:nodedotjs'},
     {label: 'Express/Nest', icon: 'lucide:route'},
@@ -341,65 +262,62 @@ const tools = [
   {label: 'Android Studio', icon: 'simple-icons:androidstudio'},
   {label: 'IntelliJ IDEA', icon: 'simple-icons:intellijidea'},
   {label: 'VS Code', icon: 'simple-icons:visualstudiocode'},
-  {label: 'Figma', icon: 'simple-icons:figma'},
-  {label: 'Photoshop', icon: 'simple-icons:adobephotoshop'},
-  {label: 'Blender', icon: 'simple-icons:blender'},
-  {label: 'Linux/Ubuntu', icon: 'simple-icons:ubuntu'},
   {label: 'Git', icon: 'simple-icons:git'},
   {label: 'GitHub', icon: 'simple-icons:github'},
+  {label: 'Linux/Ubuntu', icon: 'simple-icons:ubuntu'},
+  {label: 'Mac OS', icon: 'simple-icons:macos'},
   {label: 'Jenkins/CI', icon: 'simple-icons:jenkins'},
   {label: 'Docker Desktop', icon: 'simple-icons:docker'},
   {label: 'Postman', icon: 'simple-icons:postman'},
   {label: 'Supabase Studio', icon: 'simple-icons:supabase'},
   {label: 'Xcode', icon: 'simple-icons:xcode'},
-  {label: 'Fastlane', icon: 'simple-icons:fastlane'}
+  {label: 'Fastlane', icon: 'simple-icons:fastlane'},
+  {label: 'Vercel', icon: 'simple-icons:vercel'},
+  {label: 'Figma', icon: 'simple-icons:figma'},
+  {label: 'Jira', icon: 'simple-icons:jira'},
+  {label: 'Sentry', icon: 'simple-icons:sentry'},
+  {label: 'Grafana', icon: 'simple-icons:grafana'},
+  {label: 'Photoshop', icon: 'simple-icons:adobephotoshop'},
+  {label: 'Blender', icon: 'simple-icons:blender'}
 ]
+
 
 const woodProjects = [
   {
     title: 'Schaukelpferd',
-    image: 'https://picsum.photos/seed/rockinghorse/1200/900',
-    blurb: 'Massivholz, handgeschliffen, kindersicher geölt.'
+    image: '/images/pferd.png',
   },
   {
-    title: 'Holz-Spielzeugtruck',
-    image: 'https://picsum.photos/seed/toytruck/1200/900',
-    blurb: 'Lenkbarer Aufbau, magnetische Ladefläche, unbehandelt.'
+    title: 'Spielzeuglastwagen',
+    image: '/images/truck.png',
   },
   {
     title: 'Kinder-Tisch & Stuhl-Set',
-    image: 'https://picsum.photos/seed/childset/1200/900',
-    blurb: 'Birke Multiplex, abgerundete Kanten, strapazierfähige Oberfläche.'
+    image: '/images/tisch.png',
   },
   {
-    title: 'Music Box',
-    image: 'https://picsum.photos/seed/musicbox1/1200/900',
-    blurb: 'Holzgehäuse mit Spieluhr-Mechanik.'
+    title: 'Musik Box mit RFID Karten',
+    image: '/images/leobox.png',
   },
   {
     title: 'Sitzbank',
-    image: 'https://picsum.photos/seed/bench/1200/900',
-    blurb: 'Massive Bank mit klarer Formensprache für Flur oder Essbereich.'
+    image: '/images/bank.png',
   },
   {
     title: 'DIY Tischkreissäge',
-    image: 'https://picsum.photos/seed/tablesaw/1200/900',
-    blurb: 'Eigenbau-Säge mit Fokus auf Präzision und Sicherheit.'
+    image: '/images/saw.png',
   },
   {
-    title: 'Männerhandtasche',
-    image: 'https://picsum.photos/seed/mantasche/1200/900',
-    blurb: 'Kompakte Tragelösung aus Holz für Werkzeug oder Kleinteile.'
+    title: 'Bierträger Deluxe',
+    image: '/images/kiste.png',
   },
   {
-    title: 'Werkstatt-Organizer',
-    image: 'https://picsum.photos/seed/organizer/1200/900',
-    blurb: 'Regal für Schrauben, Bits und Zubehör – alles griffbereit.'
+    title: 'Holzrassel',
+    image: '/images/rassel.png',
   },
   {
     title: 'Baby Bett',
-    image: 'https://picsum.photos/seed/babybed/1200/900',
-    blurb: 'Stabiles Gitterbett mit abgerundeten Kanten und natürlicher Oberfläche.'
+    image: '/images/bett.png',
   }
 ]
 </script>

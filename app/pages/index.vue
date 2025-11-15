@@ -152,13 +152,22 @@
           </NuxtLink>
         </div>
       </div>
+
+      <div class="mt-20 flex justify-center">
+        <NuxtLink
+            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
+            to="/projects"
+        >
+          Alle Projekte ansehen
+          <Icon name="lucide:arrow-up-right" size="16"/>
+        </NuxtLink>
+      </div>
     </section>
 
 
     <section id="capabilities" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
-      <div class="mx-auto max-w-6xl px-6"><h2
-          class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl"> Was ich in Projekte
-        einbringe </h2>
+      <div class="mx-auto max-w-6xl px-6">
+        <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Was ich in Projekte einbringe</h2>
         <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-400 sm:text-base"> Von der ersten Idee bis zum
           Deployment: Full-Stack-Umsetzung mit Fokus auf UX, robuste Architektur und eine pragmatische Developer
           Experience. </p>
@@ -285,12 +294,12 @@ const featuredProjects = [
     blurb: 'Flutter-App für Haushaltsbuchführung mit Supabase-Backend, Offline-First-Architektur und liebevoll gestalteter UI.',
     link: '/project/moneykoi',
     image: '/images/moneykoi.png',
-    tags: ['Flutter', 'Supabase'],
+    tags: ['Flutter', 'Next.js', 'Supabase'],
     layout: 'phone',
     scale: 0.9
   },
   {
-    title: 'D-Drive – Driving Assistant & Admin',
+    title: 'D-Drive – Fahrassistant & Admin',
     blurb: 'Telematik-App für Lkw- und Busfahrer mit Bluetooth-Alkoholmessung, GPS-Fahrtenaufzeichnung und Admin-Dashboard für Auswertungen.',
     link: '/project/ddrive',
     image: '/images/ddrive.png',
@@ -302,7 +311,7 @@ const featuredProjects = [
     blurb: 'Interaktiver 3D-Konfigurator für Schulrucksäcke mit Vue und Three.js – Anpassung von Farben und Details in Echtzeit.',
     link: '/project/raraya',
     image: '/images/raraya.png',
-    tags: ['Vue', 'Three.js', 'Node.js'],
+    tags: ['Three.js', 'Vue', 'Node.js'],
     scale: 0.95
   }
 ]
