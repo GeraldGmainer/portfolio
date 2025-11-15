@@ -1,16 +1,15 @@
 <template>
   <main class="min-h-screen bg-[#0B1220] text-slate-200">
-
     <section class="relative bg-center bg-cover" style="background-image:url('/hero-bg.svg')">
       <div class="mx-auto max-w-6xl px-6 pt-28 pb-10">
         <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl"> Alle Projekte</h1>
+          <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Alle Projekte</h1>
         </div>
-
-        <p class="mt-3 text-slate-400">Chronologisch sortiert, inklusive älterer Projekte, Freelance- und Hobby-Arbeiten.</p>
+        <p class="mt-3 text-slate-400">
+          Chronologisch sortiert, inklusive älterer Projekte, Freelance- und Hobby-Arbeiten.
+        </p>
       </div>
     </section>
-
 
     <section class="mx-auto max-w-6xl px-6 pb-20">
       <div class="mt-6 grid gap-8 md:grid-cols-2">
@@ -29,13 +28,21 @@
 
           <div class="flex flex-1 flex-col p-5">
             <div class="flex items-center justify-between text-xs text-slate-400">
-              <span>{{ fmt(p.date) }}</span>
-              <span
-                  v-if="p.type"
-                  class="rounded-full bg-white/5 px-2 py-0.5 ring-1 ring-white/10"
-              >
-            {{ p.type }}
-          </span>
+              <span class="tabular-nums">{{ fmt(p.date) }}</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                    v-if="p.company"
+                    class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-slate-100 ring-1 ring-white/20"
+                >
+                  {{ p.company }}
+                </span>
+                <span
+                    v-if="p.type"
+                    class="rounded-full bg-sky-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-200 ring-1 ring-sky-400/40"
+                >
+                  {{ p.type }}
+                </span>
+              </div>
             </div>
 
             <h3 class="mt-2 text-lg font-semibold text-white">
@@ -47,13 +54,13 @@
                 {{ p.description }}
               </p>
               <div class="mt-3 flex flex-wrap gap-2">
-            <span
-                v-for="t in p.stack"
-                :key="t"
-                class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10"
-            >
-              {{ t }}
-            </span>
+                <span
+                    v-for="t in p.stack"
+                    :key="t"
+                    class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10"
+                >
+                  {{ t }}
+                </span>
               </div>
             </div>
 
@@ -104,6 +111,7 @@ type Project = {
   date: string
   stack: string[]
   type?: string
+  company?: string
   website?: string
   github?: string
   details?: string
@@ -114,20 +122,22 @@ const projects: Project[] = [
     title: 'MoneyKoi',
     description: 'Budget-Book mit Offline-First Sync, polierter UX und Supabase-Backend.',
     image: '/images/moneykoi2.png',
-    date: '2025-10-01',
+    date: '2025-11-15',
     stack: ['Flutter', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Sentry', 'Offline-First'],
     website: 'https://moneykoi.app',
     github: 'https://github.com/GeraldGmainer/moneykoi',
     type: 'Privat',
+    company: 'Hobby',
     details: '/project/moneykoi'
   },
   {
     title: 'Regelwerks- & Schadenmanagement',
     description: 'Module für einen Versicherungsverbund: Regelwerke, Prozesse, Auswertungen.',
     image: '/images/ww.png',
-    date: '2024-06-15',
+    date: '2025-11-01',
     stack: ['Angular', 'Spring Boot', 'PostgreSQL'],
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Objectbay GmbH'
   },
   {
     title: 'Rodelbahn Admin & App',
@@ -136,7 +146,8 @@ const projects: Project[] = [
     date: '2024-08-20',
     stack: ['Angular', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
     website: 'https://www.bruckschloegl.at/produkte/rodelbahn/',
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Objectbay · Bruckschlögl'
   },
   {
     title: 'Security-Software Backend Modernisierung',
@@ -145,31 +156,35 @@ const projects: Project[] = [
     date: '2024-07-01',
     stack: ['Spring Boot', 'Java', 'Kotlin', 'Docker', 'Kubernetes'],
     website: 'https://www.seqify.net/en/',
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Objectbay · Seqify'
   },
   {
     title: 'Materialwirtschaft & Logistik',
-    description: 'Weiterentwicklung der hauseigenen ERP-Module.',
-    image: 'https://picsum.photos/seed/aescudata/1200/800',
+    description: 'Neuentwicklung der bestehenden AngularJS Software auf moderne Angular-17-Architektur.',
+    image: '/images/cgm.png',
     date: '2024-03-15',
     stack: ['Angular', 'Java', 'Spring Boot'],
-    type: 'Beruf'
-  },
-  {
-    title: 'Transit Driver RT',
-    description: 'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds inkl. Routenwahl und Hintergrund-Tracking.',
-    image: '/images/transit-driver.png',
-    date: '2025-03-01',
-    stack: ['Flutter', 'Maps', 'Background Tracking', 'GTFS-RT', 'Supabase'],
-    type: 'Prototyp'
+    type: 'Beruf',
+    company: 'Aescudata GmbH'
   },
   {
     title: 'Schneepflugdienst Plattform',
     description: 'Dispo-App und Admin-Web für kommunalen Winterdienst.',
-    image: 'https://picsum.photos/seed/snow/1200/800',
+    image: '/images/snowplow.png',
     date: '2021-12-01',
-    stack: ['Flutter', 'Vue', 'Supabase'],
-    type: 'Beruf'
+    stack: ['Flutter', 'Vue', 'AWS Amplify'],
+    type: 'Beruf',
+    company: 'Designium Inc.'
+  },
+  {
+    title: 'Transit Driver RT',
+    description: 'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds inkl. Routenwahl und Hintergrund-Tracking.',
+    image: '/images/gtfs.png',
+    date: '2023-11-01',
+    stack: ['Flutter', 'Maps', 'Background Tracking', 'GTFS-RT', 'Supabase'],
+    type: 'Prototyp',
+    company: 'Designium Inc.'
   },
   {
     title: 'D-Drive Fahrassistenz',
@@ -179,7 +194,8 @@ const projects: Project[] = [
     stack: ['Flutter', 'Vue', 'Supabase'],
     type: 'Beruf',
     website: 'https://www.ubiteq.co.jp/service_product/d-drive-1',
-    details: '/project/ddrive'
+    details: '/project/ddrive',
+    company: 'Designium Inc.'
   },
   {
     title: 'Aizuwakamatsu Reiseführer',
@@ -188,7 +204,8 @@ const projects: Project[] = [
     date: '2021-06-01',
     stack: ['Flutter'],
     website: 'https://apps.apple.com/us/app/%E4%BC%9A%E6%B4%A5%E5%8F%A4%E4%BB%8A%E6%97%85%E5%B8%B3/id612672378',
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Designium Inc.'
   },
   {
     title: 'AR/VR Experimente',
@@ -196,7 +213,8 @@ const projects: Project[] = [
     image: '/images/arvr.png',
     date: '2020-08-01',
     stack: ['Unity', 'ARKit/ARCore'],
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Designium Inc.'
   },
   {
     title: 'Raraya 3D Rucksack-Konfigurator',
@@ -206,7 +224,8 @@ const projects: Project[] = [
     stack: ['Three.js', 'Vue', 'PostProcessing'],
     website: 'https://sim.raraya.co.jp/',
     type: 'Beruf',
-    details: '/project/raraya'
+    details: '/project/raraya',
+    company: 'Designium Inc.'
   },
   {
     title: 'Stocksport Mitgliederverwaltung',
@@ -214,7 +233,8 @@ const projects: Project[] = [
     image: '/images/stocksport.png',
     date: '2019-11-01',
     stack: ['Angular', 'Spring', 'MySQL', 'Tomcat', 'Bootstrap'],
-    type: 'Freelance'
+    type: 'Freelance',
+    company: 'Freelance'
   },
   {
     title: 'Face-Tracking App',
@@ -222,7 +242,8 @@ const projects: Project[] = [
     image: '/images/face.png',
     date: '2019-05-01',
     stack: ['Unity', 'C#', 'C++', 'DLIB'],
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'NeNe Corp.'
   },
   {
     title: 'Tamping Game',
@@ -231,7 +252,8 @@ const projects: Project[] = [
     date: '2018-07-01',
     stack: ['Unity', 'C#', 'Android', 'iOS'],
     website: 'https://play.google.com/store/apps/details?id=com.plassertheurer.tampinggame&hl=de_AT',
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Enova GmbH'
   },
   {
     title: 'Simulator für Gleisstopfmaschinen',
@@ -240,7 +262,8 @@ const projects: Project[] = [
     date: '2017-08-01',
     stack: ['Unity', 'C#', 'Blender', 'Photoshop'],
     website: 'https://www.plassertheurer.com/de/fleet/support-and-training/3d-simulationstools/',
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Enova GmbH'
   },
   {
     title: 'CRM Raiffeisenbank Salzburg',
@@ -248,7 +271,8 @@ const projects: Project[] = [
     image: 'images/crm.png',
     date: '2015-06-01',
     stack: ['JSF', 'Java CDI', 'MySQL', 'Jenkins'],
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Objectbay GmbH'
   },
   {
     title: 'Zeiterfassungstool',
@@ -256,7 +280,8 @@ const projects: Project[] = [
     image: 'images/timerecording.png',
     date: '2015-06-01',
     stack: ['AngularJS', 'Java CDI', 'PostgreSQL', 'Jenkins'],
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Objectbay GmbH'
   },
   {
     title: 'CaseTIME Zeiterfassung',
@@ -265,7 +290,8 @@ const projects: Project[] = [
     date: '2014-06-01',
     stack: ['jQuery', 'Python', 'PostgreSQL', 'Linux'],
     website: 'https://www.case.at/start/',
-    type: 'Beruf'
+    type: 'Beruf',
+    company: 'Case Softwaretechnik'
   }
 ]
 

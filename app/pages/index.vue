@@ -107,15 +107,9 @@
       </div>
     </section>
 
-    <section id="capabilities" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
+    <section id="projects" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
       <div class="mx-auto max-w-6xl px-6">
-        <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Was ich in Projekte einbringe
-        </h2>
-        <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-400 sm:text-base">
-          Von der ersten Idee bis zum Deployment: Full-Stack-Umsetzung mit Fokus auf UX, robuste Architektur
-          und eine pragmatische Developer Experience.
-        </p>
+        <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Projekt-Highlights</h2>
 
         <div class="mt-12 grid gap-6 md:grid-cols-3">
           <NuxtLink
@@ -287,7 +281,7 @@ const activeSkillHeadline = computed(() => activeSkillMeta.value.headline)
 
 const featuredProjects = [
   {
-    title: 'MoneyKoi – Offline-First Budget App',
+    title: 'MoneyKoi – Haushaltsbuch-App',
     blurb: 'Flutter-App für Haushaltsbuchführung mit Supabase-Backend, Offline-First-Architektur und liebevoll gestalteter UI.',
     link: '/project/moneykoi',
     image: '/images/moneykoi.png',
