@@ -16,11 +16,16 @@
       </NuxtLink>
 
       <nav class="hidden items-center gap-6 text-sm font-medium text-slate-300 sm:flex">
-        <NuxtLink class="transition hover:text-white" to="/about">Über mich</NuxtLink>
-        <NuxtLink class="transition hover:text-white" to="/resume">Lebenslauf</NuxtLink>
-        <NuxtLink class="transition hover:text-white" to="/projects">Projekte</NuxtLink>
+        <NuxtLink active-class="text-sky-400" class="transition hover:text-white" exact-active-class="text-sky-400 font-semibold" to="/">Home</NuxtLink>
+        <NuxtLink active-class="text-sky-400" class="transition hover:text-white" exact-active-class="text-sky-400 font-semibold" to="/about">Über mich</NuxtLink>
+        <NuxtLink active-class="text-sky-400" class="transition hover:text-white" exact-active-class="text-sky-400 font-semibold" to="/resume">Lebenslauf</NuxtLink>
+        <NuxtLink active-class="text-sky-400" class="transition hover:text-white" exact-active-class="text-sky-400 font-semibold" to="/projects">Projekte</NuxtLink>
+        <NuxtLink active-class="text-sky-400" class="transition hover:text-white" exact-active-class="text-sky-400 font-semibold" to="/woodworking">Holzhandwerk</NuxtLink>
+        <NuxtLink active-class="text-sky-400" class="transition hover:text-white" exact-active-class="text-sky-400 font-semibold" to="/japan">Japan</NuxtLink>
         <NuxtLink
+            active-class="ring-sky-400 bg-white/20 text-sky-300"
             class="rounded-full bg-white/10 px-4 py-2 text-white shadow-sm ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
+            exact-active-class="ring-sky-400 bg-white/20 text-sky-300 font-semibold"
             to="/contact"
         >
           Kontakt

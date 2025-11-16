@@ -1,53 +1,41 @@
 <template>
   <main class="min-h-screen bg-[#0B1220] text-slate-200">
-    <section class="relative bg-center bg-cover" style="background-image:url('/hero-bg.svg')">
-      <div class="mx-auto max-w-6xl px-6 pt-28 pb-12">
-        <div class="flex flex-col items-center text-center">
-          <img
-              alt="Gerald Gmainer"
-              class="h-64 w-64 rounded-2xl ring-2 ring-white/15 shadow-lg shadow-blue-500/20 object-cover"
-              src="/images/profile.png"
-          />
-          <h1 class="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Über mich
-          </h1>
-          <p class="mt-3 max-w-2xl text-slate-300">
-            Full-Stack-Entwickler mit Schwerpunkt auf Flutter-Apps, moderne Web-Technologien und 3D-Anwendungen.
-            Ich entwickle robuste, nutzerzentrierte Produkte mit sauberer Architektur und Liebe zum Detail.
-          </p>
-          <div class="mt-6 inline-flex flex-wrap justify-center gap-2">
-            <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
-              Garsten, Österreich · Remote/Hybrid
-            </span>
-            <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
-              Deutsch · Englisch · Japanisch
-            </span>
-            <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
-              Web · App · 3D
-            </span>
-            <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">
-              Holzhandwerk
-            </span>
-          </div>
-          <div class="mt-8 flex gap-3">
-            <NuxtLink
-                class="inline-flex items-center gap-2 rounded-2xl bg-white text-slate-900 px-5 py-3 text-sm font-semibold ring-1 ring-white/20"
-                to="/resume"
-            >
-              <Icon name="lucide:file-text" size="18"/>
-              <span>Lebenslauf</span>
-            </NuxtLink>
-            <NuxtLink
-                class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur hover:bg-white/15"
-                to="/contact"
-            >
-              <Icon name="lucide:mail" size="18"/>
-              <span>Kontakt</span>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
+    <PageHeader
+        :badges="[
+    'Garsten, Österreich · Remote/Hybrid',
+    'Deutsch · Englisch · Japanisch',
+    'Web · App · 3D',
+    'Holzhandwerk'
+  ]"
+        :center="true"
+        subtitle="Full-Stack-Entwickler mit Schwerpunkt auf Flutter-Apps, moderne Web-Technologien und 3D-Anwendungen. Ich entwickle robuste, nutzerzentrierte Produkte mit sauberer Architektur und Liebe zum Detail."
+        title="Über mich"
+    >
+      <template #media>
+        <img
+            alt="Gerald Gmainer"
+            class="h-64 w-64 rounded-2xl ring-2 ring-white/15 shadow-lg shadow-blue-500/20 object-cover"
+            src="/images/profile.png"
+        />
+      </template>
+
+      <template #actions>
+        <NuxtLink
+            class="inline-flex items-center gap-2 rounded-2xl bg-white text-slate-900 px-5 py-3 text-sm font-semibold ring-1 ring-white/20"
+            to="/resume"
+        >
+          <Icon name="lucide:file-text" size="18"/>
+          <span>Lebenslauf</span>
+        </NuxtLink>
+        <NuxtLink
+            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur hover:bg-white/15"
+            to="/contact"
+        >
+          <Icon name="lucide:mail" size="18"/>
+          <span>Kontakt</span>
+        </NuxtLink>
+      </template>
+    </PageHeader>
 
     <section class="mx-auto max-w-4xl px-6 py-12">
       <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
@@ -96,6 +84,46 @@
         </ul>
       </div>
     </section>
+
+    <section class="mx-auto max-w-4xl px-6 pb-6">
+      <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/0 to-sky-500/10 p-7">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center">
+          <div class="flex-3 space-y-3">
+            <h2 class="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              Abseits vom Bildschirm
+            </h2>
+            <p class="text-sm leading-relaxed text-slate-300 sm:text-base">
+              Wenn ich nicht vor dem Editor sitze, arbeite ich gern mit Holz:
+              Aus einer kleinen Rassel für meinen Sohn wurden Möbel, Spielzeug und Alltagshelfer aus Massivholz.
+            </p>
+            <p class="text-sm leading-relaxed text-slate-300 sm:text-base">
+              Der Working-Holiday in Japan – quer durchs Land von Hokkaido bis Okinawa – gehört zu den prägendsten Erfahrungen, die ich gemacht habe.
+            </p>
+          </div>
+          <div class="flex-2">
+            <div class="flex flex-col items-center gap-5">
+              <NuxtLink
+                  class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-slate-900 px-5 py-3 text-sm font-semibold ring-1 ring-white/20 hover:bg-slate-100"
+                  to="/japan"
+              >
+                <Icon name="lucide:globe-2" size="18"/>
+                <span>Japan Reisen und Aufenthalt</span>
+              </NuxtLink>
+
+              <NuxtLink
+                  class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur hover:bg-white/15"
+                  to="/woodworking"
+              >
+                <Icon name="lucide:hammer" size="18"/>
+                <span>Holzarbeiten ansehen</span>
+              </NuxtLink>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <section class="mx-auto max-w-6xl px-6 py-16">
       <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -153,36 +181,7 @@
       </div>
     </section>
 
-    <section id="woodwork" class="mx-auto max-w-6xl px-6 pb-24">
-      <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        Holzarbeiten
-      </h2>
-      <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-300">
-        Angefangen hat alles mit einer kleinen Holzrassel für meinen Sohn.
-        Daraus wurde Schritt für Schritt eine Leidenschaft für Spielzeug, Möbel und Alltagshelfer aus Massivholz.
-      </p>
 
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
-        <figure
-            v-for="w in woodProjects"
-            :key="w.title"
-            class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:ring-white/20"
-        >
-          <div class="aspect-[4/3] w-full overflow-hidden">
-            <img
-                :alt="w.title"
-                :src="w.image"
-                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-            />
-          </div>
-          <figcaption class="p-5">
-            <h3 class="text-base font-semibold text-white">
-              {{ w.title }}
-            </h3>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
   </main>
 </template>
 
@@ -278,15 +277,4 @@ const tools = [
   {label: 'Blender', icon: 'simple-icons:blender'}
 ]
 
-const woodProjects = [
-  {title: 'Schaukelpferd', image: '/images/pferd.png'},
-  {title: 'Spielzeuglastwagen', image: '/images/truck.png'},
-  {title: 'Kinder-Tisch & Stuhl-Set', image: '/images/tisch.png'},
-  {title: 'Musik Box mit RFID Karten', image: '/images/leobox.png'},
-  {title: 'Sitzbank', image: '/images/bank.png'},
-  {title: 'DIY Tischkreissäge', image: '/images/saw.png'},
-  {title: 'Bierträger Deluxe', image: '/images/kiste.png'},
-  {title: 'Holzrassel', image: '/images/rassel.png'},
-  {title: 'Baby Bett', image: '/images/bett.png'}
-]
 </script>

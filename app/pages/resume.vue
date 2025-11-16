@@ -1,32 +1,30 @@
 <template>
   <main class="min-h-screen bg-[#0B1220] text-slate-200">
-    <section class="relative bg-center bg-cover" style="background-image:url('/hero-bg.svg')">
-      <div class="mx-auto max-w-6xl px-6 pt-28 pb-10">
-        <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Lebenslauf</h1>
-
-          <a class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
-             href="/downloads/Lebenslauf_Gmainer.pdf" rel="noopener"
-             target="_blank">
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <path d="M15 3h6v6"/>
-              <path d="M10 14L21 3"/>
-            </svg>
-            PDF öffnen
-          </a>
-        </div>
-
-        <p class="mt-3 text-slate-400">Gerald Gmainer · Full-Stack & 3D · Österreich</p>
-
-        <div class="mt-6 inline-flex flex-wrap justify-center gap-2 sm:justify-start">
-          <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">Garsten, Österreich · Remote/Hybrid</span>
-          <span
-              class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">Deutsch · Englisch · Japanisch</span>
-          <span class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10">Web · App · 3D</span>
-        </div>
-      </div>
-    </section>
+    <PageHeader
+        :badges="[
+    'Garsten, Österreich · Remote/Hybrid',
+    'Deutsch · Englisch · Japanisch',
+    'Web · App · 3D'
+  ]"
+        subtitle="Gerald Gmainer · Full-Stack & 3D · Österreich"
+        title="Lebenslauf"
+    >
+      <template #actions>
+        <a
+            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
+            href="/downloads/Lebenslauf_Gmainer_public.pdf"
+            rel="noopener"
+            target="_blank"
+        >
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <path d="M15 3h6v6"/>
+            <path d="M10 14L21 3"/>
+          </svg>
+          PDF öffnen
+        </a>
+      </template>
+    </PageHeader>
 
     <section class="mx-auto max-w-6xl px-6 pb-20 mt-8">
       <div class="grid gap-8 lg:grid-cols-[1fr]">
@@ -34,7 +32,7 @@
           <div class="flex items-center gap-3">
             <span
                 class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">🗂️</span>
-            <h2 class="text-xl font-semibold">Private Projekte</h2>
+            <h2 class="text-xl font-semibold">Eigene Projekte</h2>
           </div>
 
           <div class="mt-6 relative pl-6">
@@ -269,19 +267,21 @@ const experience = [
     bullets: [
       'Backend-Modernisierung für Security-Software',
       'Mobile App und Admin-Web für Sommerrodelbahnen',
-      'Regelwerks- und Schadenmanagement für Versicherungsverbund'
+      'Regelwerks- und Schadenmanagement für Versicherungsverbund',
+      'Web- und App-gestütztes Finanzmanagement-Tool mit Beraterunterstützung',
+      'Weiterentwicklung interner Tools'
     ],
-    stack: ['Spring Boot', 'Angular', 'React', 'Flutter', 'Supabase', 'Docker', 'Keycloak']
+    stack: ['Spring Boot', 'Angular', 'React', 'Flutter', 'Supabase', 'Docker', 'Keycloak', 'Scrum']
   },
   {
     role: 'Software Entwickler',
     company: 'Aescudata GmbH',
-    time: '03/2024 – 06/2024',
+    time: '03/2024 – 05/2024',
     bullets: [
       'Neuentwicklung der bestehenden AngularJS Software auf moderne Angular-17-Architektur',
       'State-Management mit ngrx/rxJS'
     ],
-    stack: ['Angular', 'Java', 'Spring Boot']
+    stack: ['Angular', 'Java', 'Spring Boot', 'Scrum']
   },
   {
     role: 'Senior Software Entwickler',
@@ -321,9 +321,11 @@ const experience = [
     time: '08/2016 – 11/2018',
     bullets: [
       'Trainings-Simulator für Stopfmaschinen',
-      'Mobile Game „Tamping Game“ (Android/iOS)'
+      'Mobile Game „Tamping Game“ (Android/iOS)',
+      'VR-Konfigurator für Stopfmaschinen'
+
     ],
-    stack: ['Unity', 'Blender', 'Photoshop'],
+    stack: ['Unity', 'C#', 'Blender', 'Photoshop'],
   },
   {
     role: 'Software Entwickler',
@@ -333,7 +335,7 @@ const experience = [
       'Neuentwicklung eines CRM',
       'CI/CD und Layout-Verantwortung'
     ],
-    stack: ['AngularJS', 'JSF', 'Java', 'MySQL', 'Jenkins']
+    stack: ['AngularJS', 'JSF', 'Java', 'MySQL', 'Jenkins', 'Scrum']
   },
   {
     role: 'Software Entwickler',
@@ -341,39 +343,18 @@ const experience = [
     time: '04/2013 – 10/2014',
     bullets: ['Zeiterfassungssysteme, Installation, Support, Wartung'],
     stack: ['jQuery', 'Python', 'PostgreSQL', 'Linux']
-  }
-]
+  },
 
-const skills = [
   {
-    title: 'Frontend',
-    items: [
-      {label: 'TypeScript', value: 92},
-      {label: 'Angular/React/Vue', value: 90},
-      {label: 'UI/UX & Design Systems', value: 84},
-      {label: 'Three.js/WebGL', value: 82},
-      {label: 'Testing/CI', value: 82},
-    ]
-  },
-  {
-    title: 'Backend & Daten',
-    items: [
-      {label: 'Java/Spring', value: 85},
-      {label: 'Node & APIs', value: 82},
-      {label: 'PostgreSQL', value: 82},
-      {label: 'Supabase/Firebase', value: 84},
-      {label: 'Docker/K8s', value: 78},
-    ]
-  },
-  {
-    title: 'Apps & 3D',
-    items: [
-      {label: 'Flutter', value: 90},
-      {label: 'Android/iOS', value: 80},
-      {label: 'Unity', value: 85},
-      {label: 'Realtime/Offline-First', value: 86},
-      {label: 'Optimization', value: 80},
-    ]
+    role: 'Zivildienst & Übergangsjobs',
+    company: 'Diverse Arbeitgeber · Oberösterreich',
+    time: '07/2011 – 03/2013',
+    bullets: [
+      'Zivildienst im Landeskrankenhaus Steyr (02/2012 – 10/2012)',
+      'Verschiedene Übergangstätigkeiten bis zum Zivildienst: Produktion, Elektroinstallation, Logistik und Maschinenbedienung',
+      'Arbeitgeber u. a.: Biodiesel Enns, VÖST Linz, Agru Bad Hall, BMW Steyr',
+    ],
+    stack: []
   }
 ]
 </script>

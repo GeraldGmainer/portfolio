@@ -105,6 +105,16 @@
           </div>
         </div>
       </div>
+
+      <div class="mt-20 flex justify-center">
+        <NuxtLink
+            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
+            to="/about"
+        >
+          Über mich
+          <Icon name="lucide:arrow-up-right" size="16"/>
+        </NuxtLink>
+      </div>
     </section>
 
     <section id="projects" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
@@ -112,44 +122,38 @@
         <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Projekt-Highlights</h2>
 
         <div class="mt-12 grid gap-6 md:grid-cols-3">
-          <NuxtLink
-              v-for="p in featuredProjects"
-              :key="p.title"
-              :to="p.link"
+          <div
+              v-for="project in featuredProjects"
+              :key="project.title"
               class="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:ring-white/20"
           >
             <div
                 class="flex items-center justify-center h-[420px] sm:h-[680px] w-full bg-gradient-to-br from-[#1F130F] via-[#050816] to-[#020617]"
             >
               <img
-                  :alt="p.title"
-                  :src="p.image"
+                  :alt="project.title"
+                  :src="project.image"
                   class="max-h-full w-auto p-4 drop-shadow-2xl transition duration-500 group-hover:-translate-y-0.5"
               />
             </div>
 
             <div class="flex flex-1 flex-col p-5 pt-3">
               <div class="flex flex-wrap gap-2 text-xs">
-  <span
-      v-for="tag in p.tags"
-      :key="tag"
-      class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-300 ring-1 ring-white/10"
-  >
-    {{ tag }}
-  </span>
+              <span
+                  v-for="tag in project.tags"
+                  :key="tag"
+                  class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-300 ring-1 ring-white/10">
+                {{ tag }}
+              </span>
               </div>
               <h3 class="mt-3 text-lg font-semibold text-white">
-                {{ p.title }}
+                {{ project.title }}
               </h3>
               <p class="mt-2 text-sm leading-relaxed text-slate-300">
-                {{ p.blurb }}
+                {{ project.blurb }}
               </p>
-              <div class="mt-auto pt-4 inline-flex items-center gap-2 text-sm font-semibold text-white">
-                <span>Mehr erfahren</span>
-                <Icon name="lucide:arrow-up-right" size="16"/>
-              </div>
             </div>
-          </NuxtLink>
+          </div>
         </div>
       </div>
 
@@ -292,7 +296,6 @@ const featuredProjects = [
   {
     title: 'MoneyKoi – Haushaltsbuch-App',
     blurb: 'Flutter-App für Haushaltsbuchführung mit Supabase-Backend, Offline-First-Architektur und liebevoll gestalteter UI.',
-    link: '/project/moneykoi',
     image: '/images/moneykoi.png',
     tags: ['Flutter', 'Next.js', 'Supabase'],
     layout: 'phone',
@@ -301,7 +304,6 @@ const featuredProjects = [
   {
     title: 'D-Drive – Fahrassistant & Admin',
     blurb: 'Telematik-App für Lkw- und Busfahrer mit Bluetooth-Alkoholmessung, GPS-Fahrtenaufzeichnung und Admin-Dashboard für Auswertungen.',
-    link: '/project/ddrive',
     image: '/images/ddrive.png',
     tags: ['Flutter', 'React Admin', 'Supabase'],
     scale: 1.1
@@ -309,7 +311,6 @@ const featuredProjects = [
   {
     title: 'RARAYA – 3D Rucksack-Konfigurator',
     blurb: 'Interaktiver 3D-Konfigurator für Schulrucksäcke mit Vue und Three.js – Anpassung von Farben und Details in Echtzeit.',
-    link: '/project/raraya',
     image: '/images/raraya.png',
     tags: ['Three.js', 'Vue', 'Node.js'],
     scale: 0.95

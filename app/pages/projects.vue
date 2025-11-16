@@ -1,15 +1,9 @@
 <template>
   <main class="min-h-screen bg-[#0B1220] text-slate-200">
-    <section class="relative bg-center bg-cover" style="background-image:url('/hero-bg.svg')">
-      <div class="mx-auto max-w-6xl px-6 pt-28 pb-10">
-        <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Alle Projekte</h1>
-        </div>
-        <p class="mt-3 text-slate-400">
-          Chronologisch sortiert, inklusive älterer Projekte, Freelance- und Hobby-Arbeiten.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+        subtitle="Chronologisch sortiert, inklusive älterer Projekte, Freelance- und Hobby-Arbeiten."
+        title="Alle Projekte"
+    />
 
     <section class="mx-auto max-w-6xl px-6 pb-20">
       <div class="mt-6 flex justify-center">
@@ -98,15 +92,6 @@
                 GitHub
                 <Icon name="simple-icons:github" size="16"/>
               </a>
-
-              <NuxtLink
-                  v-if="p.details"
-                  :to="p.details"
-                  class="inline-flex items-center gap-1 rounded-xl bg-sky-400 px-3.5 py-2 text-sm font-semibold text-slate-900 ring-1 ring-sky-300/60 shadow-sm shadow-sky-500/40 transition hover:bg-sky-300 hover:ring-sky-200"
-              >
-                Mehr erfahren
-                <Icon name="lucide:arrow-up-right" size="16"/>
-              </NuxtLink>
             </div>
           </div>
         </article>
@@ -130,13 +115,12 @@ type Project = {
   company?: string
   website?: string
   github?: string
-  details?: string
 }
 
 const projects: Project[] = [
   {
     title: 'MoneyKoi',
-    description: 'Budget-Book mit Offline-First Sync, polierter UX und Supabase-Backend.',
+    description: 'Haushaltsbuch-App mit Offline-First Sync, polierter UX und Supabase-Backend.',
     image: '/images/moneykoi2.png',
     date: '2025-11-15',
     stack: ['Flutter', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Sentry', 'Offline-First'],
@@ -144,20 +128,19 @@ const projects: Project[] = [
     github: 'https://github.com/GeraldGmainer/moneykoi',
     type: 'Privat',
     company: 'Hobby',
-    details: '/project/moneykoi'
   },
   {
     title: 'Regelwerks- & Schadenmanagement',
     description: 'Module für einen Versicherungsverbund: Regelwerke, Prozesse, Auswertungen.',
     image: '/images/ww.png',
     date: '2025-11-01',
-    stack: ['Angular', 'Spring Boot', 'PostgreSQL'],
+    stack: ['Angular', 'Spring Boot', 'PostgreSQL', 'Lombok'],
     type: 'Beruf',
     company: 'Objectbay GmbH'
   },
   {
     title: 'Rodelbahn Admin & App',
-    description: 'Buchungen, Scans und Betriebsübersicht für Sommerrodelbahnen.',
+    description: 'App und Admin-Portal für Sommerrodelbahnen: Scans und Echtzeit-Monitoring der Rodeln, Bluetooth-gestützte Fehlersuche, Firmware-Updates sowie Auswertungen und synchronisierte Log-Daten für den Betrieb.',
     image: '/images/sunkid.png',
     date: '2024-08-20',
     stack: ['React Refine', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
@@ -186,7 +169,7 @@ const projects: Project[] = [
   },
   {
     title: 'Transit Driver RT',
-    description: 'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds inkl. Routenwahl und Hintergrund-Tracking.',
+    description: 'Prototyp einer Transit-App zur Generierung von GTFS-RT Feeds inkl. Routenwahl und Hintergrund-Tracking.',
     image: '/images/gtfs.png',
     date: '2023-11-01',
     stack: ['Flutter', 'Maps', 'Background Tracking', 'GTFS-RT', 'Supabase'],
@@ -201,23 +184,21 @@ const projects: Project[] = [
     stack: ['Three.js', 'Vue', 'PostProcessing', 'Node.js', 'Blender', 'Photoshop'],
     website: 'https://sim.raraya.co.jp/',
     type: 'Beruf',
-    details: '/project/raraya',
     company: 'Designium Inc.'
   },
   {
-    title: 'D-Drive Fahrassistent',
-    description: 'App und Admin-Web für Fahrunterstützungsdienst.',
+    title: 'D-Drive Fahrassistenz',
+    description: 'Flutter-App und Web-Portal für einen Fahrassistenzdienst: Alkoholtests vor Fahrtantritt, GPS-Hintergrundtracking, Tagesreporting für Fahrer sowie Admin-Auswertungen und Monitoring über eine Weboberfläche.',
     image: '/images/ddrive2.png',
     date: '2022-06-01',
     stack: ['Flutter', 'Vue', 'Supabase', 'React Admin'],
     type: 'Beruf',
     website: 'https://www.ubiteq.co.jp/service_product/d-drive-1',
-    details: '/project/ddrive',
     company: 'Designium Inc.'
   },
   {
     title: 'Schneepflugdienst Plattform',
-    description: 'Dispo-App und Admin-Web für kommunalen Winterdienst.',
+    description: 'Flutter-App und Webplattform für den kommunalen Winterdienst: GPS-Tracking der Fahrzeuge, Hinderniswarnungen während der Fahrt sowie automatische Berichtserstellung für Einsätze.',
     image: '/images/snowplow.png',
     date: '2021-12-01',
     stack: ['Flutter', 'Vue', 'AWS Amplify'],
@@ -253,6 +234,25 @@ const projects: Project[] = [
     company: 'Freelance'
   },
   {
+    title: 'PÄM Band-Website',
+    description: 'WordPress-Webseite für die Austropop-Band PÄM mit News, Musik, Tourdaten und Medienbereich.',
+    image: '/images/paem.png',
+    date: '2019-09-01',
+    stack: ['WordPress', 'PHP', 'CSS', 'Photoshop'],
+    type: 'Freelance',
+    company: 'Freelance',
+  },
+  {
+    title: 'Inventory System (Unity)',
+    description: 'Ein kleiner Unity-Prototyp aus 2019, der ein simples Inventarsystem demonstriert.',
+    image: '/images/inventory.png',
+    date: '2019-08-01',
+    stack: ['Unity', 'C#', 'UI Toolkit', 'ScriptableObjects'],
+    type: 'Privat',
+    company: 'Hobby',
+    github: 'https://github.com/GeraldGmainer/InventorySystem'
+  },
+  {
     title: 'Face-Tracking App',
     description: 'Gesichts- und Kopftracking auf 3D-Modell in Echtzeit.',
     image: '/images/face.png',
@@ -262,10 +262,19 @@ const projects: Project[] = [
     company: 'NeNe Corp.'
   },
   {
+    title: 'Stopfmaschinen VR-Konfigurator',
+    description: 'Modellierung und Echtzeit-Visualisierung von Gleisstopfmaschinen in VR.',
+    image: '/images/tampingConfigurator.png',
+    date: '2018-11-01',
+    stack: ['Unity', 'Photoshop', 'Blender'],
+    type: 'Beruf',
+    company: 'Enova GmbH'
+  },
+  {
     title: 'Tamping Game',
-    description: 'Mobile Game rund um Stopfmaschinen, Veröffentlichung im Play Store.',
+    description: 'Mobile Game rund um Stopfmaschinen, Veröffentlichung',
     image: '/images/tampinggame.png',
-    date: '2018-07-01',
+    date: '2017-07-01',
     stack: ['Unity', 'C#', 'Photoshop', 'Blender', 'Android', 'iOS'],
     website: 'https://play.google.com/store/apps/details?id=com.plassertheurer.tampinggame&hl=de_AT',
     type: 'Beruf',
@@ -273,13 +282,33 @@ const projects: Project[] = [
   },
   {
     title: 'Simulator für Gleisstopfmaschinen',
-    description: 'Trainings-Simulator inkl. SPS-Kommunikation und 3D-Modellierung.',
+    description: 'Trainings-Simulator zur Wartung von Gleisstrecken, inklusive Echtzeit-SPS-Kommunikation mit echter Hardware in einem Container-Setup. 3D-Simulation, Maschinensteuerung und praxisnahe Übungsszenarien.',
     image: '/images/tampingsim.png',
-    date: '2017-08-01',
+    date: '2018-06-01',
     stack: ['Unity', 'C#', 'Blender', 'Photoshop'],
     website: 'https://www.plassertheurer.com/de/fleet/support-and-training/3d-simulationstools/',
     type: 'Beruf',
     company: 'Enova GmbH'
+  },
+  {
+    title: 'SentoArena (3D Arena Game)',
+    description: 'Eigenes 3D-Arena-Kampfspiel ähnlich wie Overwatch. Unterstützt Charakter-Customization, verschiedene Waffen mit wechselnden Fähigkeiten sowie Multiplayer. Enthält eigene Modelle, Animationen und ein flexibles Ability-System.',
+    image: '/images/sentoarena.png',
+    date: '2016-07-01',
+    stack: ['Unity', 'C#', 'Blend Shapes', 'Blender', 'MakeHuman', 'Photoshop', 'GIMP'],
+    type: 'Privat',
+    company: 'Hobby',
+    github: 'https://github.com/GeraldGmainer/SentoArena'
+  },
+  {
+    title: 'DBZ Prototype (3D)',
+    description: 'Prototypisches 3D-Kampfspiel mit 2 Charakteren, inklusive Flugsystem, Nahkampf und Attacken. Ursprünglich in Unreal Engine 4 gestartet und später in Unity weiterentwickelt.',
+    image: '/images/dbz.png',
+    date: '2015-12-01',
+    stack: ['Unreal Engine 4', 'Unity', 'C#', 'Blueprints', 'Photoshop', 'GIMP', 'Blender', 'Maya'],
+    type: 'Privat',
+    company: 'Hobby',
+    github: 'https://github.com/GeraldGmainer/DBZ'
   },
   {
     title: 'CRM Raiffeisenbank Salzburg',
@@ -308,6 +337,16 @@ const projects: Project[] = [
     website: 'https://www.case.at/start/',
     type: 'Beruf',
     company: 'Case Softwaretechnik GmbH'
+  },
+  {
+    title: 'Technobase.fm Android App',
+    description: 'Native Android-App für mehrere Internetradio-Stationen mit einfachem UI, Stream-Player und klickbaren Sender-Logos.',
+    image: '/images/technobase.png',
+    date: '2012-06-01',
+    stack: ['Android', 'Java', 'XML Layouts', 'MediaPlayer'],
+    type: 'Privat',
+    company: 'Hobby',
+    github: 'https://github.com/GeraldGmainer/gg-radio'
   }
 ]
 
