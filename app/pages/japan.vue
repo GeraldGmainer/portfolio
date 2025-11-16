@@ -27,7 +27,7 @@
             <img
                 alt="Japan Karte"
                 class="w-full h-full rounded-2xl object-contain"
-                src="/images/japanMap2.png"
+                src="/images/JapanMap.png"
             />
 
             <div class="absolute left-6 top-6 space-y-4 z-20">
