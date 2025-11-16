@@ -150,7 +150,7 @@
 
             <a
                 class="flex items-center justify-between rounded-2xl border border-white/10 bg-[#0B1220] p-4 ring-1 ring-white/10 hover:bg-white/5"
-                href="/files/Gerald_Gmainer_CV.pdf"
+                href="/downloads/Lebenslauf_Gmainer_public.pdf"
                 rel="noopener"
                 target="_blank"
             >
