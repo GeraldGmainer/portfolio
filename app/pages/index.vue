@@ -49,15 +49,15 @@
           Breiter Full-Stack-Background mit Schwerpunkt auf moderne Web-, App- und 3D-Stacks.
         </p>
 
-        <div class="mt-8 flex justify-center">
-          <div class="inline-flex flex-wrap justify-center gap-2 rounded-full bg-white/5 p-1 text-xs sm:text-sm">
+        <div class="mt-8 flex justify-center sm:justify-center">
+          <div class="flex gap-2 overflow-x-auto rounded-full bg-white/5 p-2 text-xs sm:inline-flex sm:flex-wrap sm:justify-center sm:text-sm scrollbar-hide">
             <button
                 v-for="tab in skillTabs"
                 :key="tab.key"
                 :class="activeSkillTab === tab.key
-                ? 'bg-white text-slate-900 shadow-sm shadow-sky-500/40'
-                : 'text-slate-300 hover:bg-white/5 hover:text-white'"
-                class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition"
+            ? 'bg-white text-slate-900 shadow-sm shadow-sky-500/40'
+            : 'text-slate-300 hover:bg-white/5 hover:text-white'"
+                class="whitespace-nowrap rounded-full px-4 py-1.5 transition inline-flex items-center gap-2"
                 type="button"
                 @click="activeSkillTab = tab.key"
             >
@@ -68,8 +68,7 @@
         </div>
 
         <div class="mt-10 mx-auto max-w-2xl">
-          <div
-              class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/0 to-sky-500/10 p-6 shadow-sm shadow-sky-500/20">
+          <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/0 to-sky-500/10 p-6 shadow-sm shadow-sky-500/20">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
@@ -116,6 +115,7 @@
         </NuxtLink>
       </div>
     </section>
+
 
     <section id="projects" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
       <div class="mx-auto max-w-6xl px-6">
@@ -381,3 +381,14 @@ const capabilities = [
 ]
 
 </script>
+
+<style>
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>

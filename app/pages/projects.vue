@@ -6,15 +6,15 @@
     />
 
     <section class="mx-auto max-w-6xl px-6 pb-20">
-      <div class="mt-6 flex justify-center">
-        <div class="inline-flex flex-wrap justify-center gap-2 rounded-full bg-white/5 p-1 text-xs sm:text-sm">
+      <div class="mt-6 flex justify-center sm:justify-center">
+        <div class="flex gap-2 overflow-x-auto rounded-full bg-white/5 p-2 text-xs sm:inline-flex sm:flex-wrap sm:justify-center sm:text-sm scrollbar-hide">
           <button
               v-for="tab in projectTabs"
               :key="tab.key"
               :class="activeProjectTab === tab.key
-              ? 'bg-white text-slate-900 shadow-sm shadow-sky-500/40'
-              : 'text-slate-300 hover:bg-white/5 hover:text-white'"
-              class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition"
+          ? 'bg-white text-slate-900 shadow-sm shadow-sky-500/40'
+          : 'text-slate-300 hover:bg-white/5 hover:text-white'"
+              class="whitespace-nowrap rounded-full px-4 py-1.5 transition inline-flex items-center gap-2"
               type="button"
               @click="activeProjectTab = tab.key"
           >
@@ -42,12 +42,12 @@
             <div class="flex items-center justify-between text-xs text-slate-400">
               <span class="tabular-nums">{{ fmt(p.date) }}</span>
               <div class="flex flex-wrap gap-2">
-                <span
-                    v-if="p.type"
-                    class="rounded-full bg-sky-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-200 ring-1 ring-sky-400/40"
-                >
-                  {{ p.company }}
-                </span>
+            <span
+                v-if="p.type"
+                class="rounded-full bg-sky-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-200 ring-1 ring-sky-400/40"
+            >
+              {{ p.company }}
+            </span>
               </div>
             </div>
 
@@ -60,13 +60,13 @@
                 {{ p.description }}
               </p>
               <div class="mt-3 flex flex-wrap gap-2">
-                <span
-                    v-for="t in p.stack"
-                    :key="t"
-                    class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10"
-                >
-                  {{ t }}
-                </span>
+            <span
+                v-for="t in p.stack"
+                :key="t"
+                class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10"
+            >
+              {{ t }}
+            </span>
               </div>
             </div>
 
@@ -387,3 +387,14 @@ function fmt(d: string) {
   return new Date(d).toLocaleDateString('de-AT', {year: 'numeric', month: 'short'})
 }
 </script>
+
+<style>
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
