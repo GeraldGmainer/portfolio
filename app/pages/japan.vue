@@ -87,152 +87,90 @@
           <article
               v-for="trip in trips"
               :key="trip.title"
-              class="flex h-full flex-col rounded-3xl border border-white/10 bg-gradient-to-b from-[#0B1220] to-[#020617] p-5 ring-1 ring-white/5"
+              class="flex h-full flex-col rounded-3xl border border-white/10 bg-gradient-to-b from-[#0B1220] to-[#020617] ring-1 ring-white/5 overflow-hidden"
           >
-            <div class="mb-3 flex items-center justify-between gap-3 text-xs text-slate-400">
-              <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1 ring-1 ring-white/10">
-                <Icon class="text-sky-300" name="lucide:map-pin" size="14"/>
-                <span>{{ trip.region }}</span>
-              </span>
-              <span>{{ trip.duration }}</span>
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img
+                  :alt="trip.title"
+                  :src="trip.image"
+                  class="h-full w-full object-cover transition duration-500 hover:scale-105"
+              />
             </div>
-            <h3 class="text-base font-semibold text-white">
-              {{ trip.title }}
-            </h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-300">
-              {{ trip.description }}
-            </p>
-            <div class="mt-4 flex flex-wrap gap-1.5 text-[11px]">
-              <span
-                  v-for="tag in trip.tags"
-                  :key="tag"
-                  class="rounded-full bg-white/5 px-2 py-1 text-slate-200 ring-1 ring-white/10"
-              >
-                {{ tag }}
-              </span>
+
+            <div class="p-5 flex flex-col flex-1">
+              <div class="mb-3 flex items-center justify-between gap-3 text-xs text-slate-400">
+      <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1 ring-1 ring-white/10">
+        <Icon class="text-sky-300" name="lucide:map-pin" size="14"/>
+        <span>{{ trip.region }}</span>
+      </span>
+              </div>
+
+              <h3 class="text-base font-semibold text-white">
+                {{ trip.title }}
+              </h3>
+
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-300">
+                {{ trip.description }}
+              </p>
+
+              <div class="mt-4 flex flex-wrap gap-1.5 text-[11px]">
+      <span
+          v-for="tag in trip.tags"
+          :key="tag"
+          class="rounded-full bg-white/5 px-2 py-1 text-slate-200 ring-1 ring-white/10"
+      >
+        {{ tag }}
+      </span>
+              </div>
             </div>
           </article>
+
         </div>
       </div>
     </section>
 
     <section class="border-t border-white/5 bg-[#050816] py-16 sm:py-20">
       <div class="mx-auto max-w-6xl px-6">
-        <div class="flex flex-col gap-6 lg:flex-row">
-          <div class="flex-1">
-            <h2 class="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-              Unterwegs wie Einheimische
-            </h2>
-            <p class="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-              Das Working-Holiday-Visum hat es mir ermöglicht, in Cafés, Hostels oder auf Kurzjobs zu arbeiten
-              und gleichzeitig längere Zeit an einem Ort zu bleiben. Statt nur Highlights abzuhaken, ging es
-              mir darum, die kleinen Dinge mitzunehmen: Supermärkte, Pendelzüge, Regenzeiten, lokale Feste.
-            </p>
-            <p class="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-              Viele Strecken bin ich mit langsamen Zügen, zu Fuß oder per Anhalter gefahren. Das hat Zeit gekostet,
-              aber dafür ergaben sich Gespräche und Begegnungen, die man auf der Schnellzugstrecke kaum erlebt.
-            </p>
-            <ul class="mt-4 space-y-3 text-sm text-slate-300">
-              <li class="flex gap-2">
-                <span class="mt-1 text-sky-400">
-                  <Icon name="lucide:dot" size="16"/>
-                </span>
-                <span>Übernachtungen in Guesthouses, Hostels, Minshuku und einmal auch im Zelt neben einem Onsen.</span>
-              </li>
-              <li class="flex gap-2">
-                <span class="mt-1 text-sky-400">
-                  <Icon name="lucide:dot" size="16"/>
-                </span>
-                <span>Sprachmix aus einfachem Japanisch, Englisch, Händen und Füßen – meistens hat es gut funktioniert.</span>
-              </li>
-              <li class="flex gap-2">
-                <span class="mt-1 text-sky-400">
-                  <Icon name="lucide:dot" size="16"/>
-                </span>
-                <span>Längere Aufenthalte in kleineren Städten statt nur Tokio, Osaka und Kyoto.</span>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-1">
-            <div class="grid gap-4 sm:grid-cols-2">
-              <figure
-                  v-for="m in moments"
-                  :key="m.title"
-                  class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 ring-1 ring-white/5"
-              >
-                <div class="aspect-[4/3] w-full overflow-hidden">
-                  <img
-                      :alt="m.title"
-                      :src="m.image"
-                      class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <figcaption class="p-3">
-                  <p class="text-xs font-semibold text-white">
-                    {{ m.title }}
-                  </p>
-                  <p class="mt-1 text-[11px] text-slate-400">
-                    {{ m.location }}
-                  </p>
-                </figcaption>
-              </figure>
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            Besondere Momente
+          </h2>
+          <p class="mt-2 max-w-2xl text-sm text-slate-300 sm:text-base">
+            Orte und Augenblicke, die mir besonders in Erinnerung geblieben sind.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <article
+              v-for="m in moments"
+              :key="m.title"
+              class="flex h-full flex-col rounded-3xl border border-white/10 bg-gradient-to-b from-[#0B1220] to-[#020617] ring-1 ring-white/5 overflow-hidden"
+          >
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img
+                  :alt="m.title"
+                  :src="m.image"
+                  class="h-full w-full object-cover transition duration-500 hover:scale-105"
+              />
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="border-t border-white/5 bg-[#050816] pb-24 pt-16 sm:pb-28 sm:pt-20">
-      <div class="mx-auto max-w-4xl px-6 text-center">
-        <h2 class="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-          Was ich aus Japan mitgenommen habe
-        </h2>
-        <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
-          Das Jahr in Japan hat mich stark geprägt – persönlich und auch beruflich. Geduld, genaue Beobachtung und
-          Respekt vor Details sind Dinge, die ich heute in Design, Code und Zusammenarbeit wiederfinde.
-        </p>
-        <div class="mt-8 grid gap-4 text-sm text-slate-200 sm:grid-cols-3">
-          <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-5">
-            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
-              Tempo
-            </p>
-            <p class="mt-2 text-sm">
-              Langsam reisen, dafür intensiver – ein Prinzip, das auch in Projekten hilft, fokussiert zu bleiben.
-            </p>
-          </div>
-          <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-5">
-            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
-              Details
-            </p>
-            <p class="mt-2 text-sm">
-              Kleine Details entscheiden oft über das Gefühl, ob etwas stimmig wirkt – in Apps wie im Alltag.
-            </p>
-          </div>
-          <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-5">
-            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
-              Begegnungen
-            </p>
-            <p class="mt-2 text-sm">
-              Gute Projekte funktionieren wie Reisen: mit klaren Zielen, aber offen für Menschen und Umwege.
-            </p>
-          </div>
-        </div>
+            <div class="p-5 flex flex-col flex-1">
+              <div class="mb-2 flex items-center justify-between text-xs text-slate-400">
+            <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1 ring-1 ring-white/10">
+              <Icon class="text-sky-300" name="lucide:map-pin" size="14"/>
+              <span>{{ m.location }}</span>
+            </span>
+              </div>
 
-        <div class="mt-10 flex flex-wrap justify-center gap-3 text-sm">
-          <NuxtLink
-              class="inline-flex items-center gap-2 rounded-2xl bg-white text-slate-900 px-5 py-3 font-semibold ring-1 ring-white/20"
-              to="/projects"
-          >
-            <Icon name="lucide:briefcase" size="18"/>
-            <span>Zu den Projekten</span>
-          </NuxtLink>
-          <NuxtLink
-              class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 font-semibold text-white ring-1 ring-white/15 backdrop-blur hover:bg-white/15"
-              to="/contact"
-          >
-            <Icon name="lucide:mail" size="18"/>
-            <span>Fragen zu Japan oder Working Holiday?</span>
-          </NuxtLink>
+              <h3 class="text-base font-semibold text-white">
+                {{ m.title }}
+              </h3>
+
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-300">
+                {{ m.description }}
+              </p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -245,73 +183,111 @@ const trips = [
   {
     title: '21-tägige Fernwanderung in Hokkaido',
     region: 'Hokkaido',
-    duration: '21 Tage',
     description:
-        'Eine mehrwöchige Wanderung durch den Norden Japans mit Zelt, Hütten und kleinen Pensionen. Viel unberührte Natur, lange Etappen und stille Abende in Onsen-Dörfern.',
-    tags: ['Fernwanderung', 'Berge', 'Onsen', 'Wildlife']
+        'Eine mehrwöchige Wanderung durch den Norden Japans, meistens im Zelt. Viel unberührte Natur, lange Etappen und zwei überraschende Begegnungen mit Bären auf abgelegenen Bergpfaden.',
+    tags: ['Fernwanderung', 'Berge', 'Wildlife'],
+    image: '/images/hike.png'
   },
   {
     title: 'Drei Wochen Okinawa und Inselhüpfen',
     region: 'Okinawa',
-    duration: '3 Wochen',
     description:
-        'Subtropisches Klima, glasklares Wasser und ein deutlich anderes Tempo als auf den Hauptinseln. Zwischen Schnorcheln, kleinen Häfen und Abenden mit Sanshin-Musik.',
-    tags: ['Meer', 'Strände', 'Inselhüpfen', 'Subtropen']
+        'Subtropisches Klima, glasklares Wasser und ein deutlich anderes Tempo als auf den Hauptinseln. Zwischen Schnorcheln, kleinen Häfen und viel Kultur.',
+    tags: ['Meer', 'Strände', 'Inselhüpfen', 'Subtropen'],
+    image: '/images/okinawa.png'
   },
   {
     title: 'Per Anhalter durch Kyushu',
     region: 'Kyushu',
-    duration: 'Mehrere Etappen',
     description:
         'Hitchhiking über Landstraßen, spontane Einladungen zum Essen und unerwartete Umwege. So sind Gespräche entstanden, die es im Schnellzug nie gegeben hätte.',
-    tags: ['Hitchhiking', 'Onsen', 'Landleben', 'Begegnungen']
+    tags: ['Hitchhiking', 'Onsen', 'Landleben', 'Begegnungen'],
+    image: '/images/hitchhike.png'
   },
   {
     title: 'Roadtrips mit Auto und Motorrad',
     region: 'Honshu · Hokkaido',
-    duration: 'Mehrere Wochen',
     description:
         'Flexible Routen, abgelegene Küstenstraßen und kleine Pässe im Landesinneren. Praktisch, um Orte zu erreichen, an denen kaum noch Busse fahren.',
-    tags: ['Roadtrip', 'Motorrad', 'Küstenstraßen', 'Flexibilität']
+    tags: ['Roadtrip', 'Motorrad', 'Küstenstraßen', 'Flexibilität'],
+    image: '/images/bike.png'
   },
   {
-    title: 'Alltag in kleineren Städten',
-    region: 'Honshu',
-    duration: 'Mehrere Monate',
+    title: 'Alltag in Tokio',
+    region: 'Tokio',
     description:
-        'Länger an einem Ort bleiben, Stammcafé finden, Nachbarschaft kennen lernen und Supermärkte vergleichen. Der Alltag war oft spannender als einzelne Sehenswürdigkeiten.',
-    tags: ['Alltag', 'Working Holiday', 'Sprache', 'Routinen']
+        'Tokio besteht aus unzähligen Vierteln, und selbst nach Monaten entdeckt man ständig neue Straßen, Orte und Routinen.',
+    tags: ['Stadtleben', 'Bars', 'Nachbarschaften', 'Kultur'],
+    image: '/images/cart.png'
   },
   {
     title: 'Städte, Festivals und Kurztrips',
-    region: 'Tokio · Osaka · Kyoto',
-    duration: 'Verteilt über das Jahr',
+    region: 'Tokio · Osaka · Aomori',
     description:
-        'Klassische Highlights, aber mit dem Blick darauf, wie Menschen dort wirklich leben: Pendeln, Nachbarschaftsfeste, kleine Izakayas in Nebenstraßen.',
-    tags: ['Stadtleben', 'Kultur', 'Festivals', 'Food']
+        'Klassische Highlights, Sommerfeste und kleine Kurztrips – mit vielen Momenten, die man nur erlebt, wenn man länger in der Region unterwegs ist.',
+    tags: ['Stadtleben', 'Kultur', 'Festivals', 'Food'],
+    image: '/images/fest.png'
+  },
+  {
+    title: 'Ramen, Izakaya-Abende und kleine versteckte Restaurants',
+    region: 'Japan',
+    description: 'Gerichte, die spätabends nach langen Tagen doppelt so gut schmecken – von winzigen Ramenläden bis zu Izakayas, in denen man schnell mit Leuten ins Gespräch kommt.',
+    image: '/images/food.png',
+    tags: ['Food', 'Izakaya', 'Ramen', 'Alltag'],
+  },
+  {
+    title: 'Snowboardtage in tiefem Pulverschnee',
+    region: 'Hokkaido · Nikko',
+    description: 'Tiefe Powder-Tage, frühe Starts und Abfahrten auf breiten, unberührten Flächen – Winter in seiner besten Form.',
+    image: '/images/snowboard.png',
+    tags: ['Winter', 'Snowboard', 'Powder', 'Outdoor'],
+  },
+  {
+    title: 'Ruhige Tempel und eindrucksvolle Buddha-Statuen',
+    region: 'Kansai · Nara · Kamakura',
+    description: 'Zwischen alten Tempeln, Räucherstäbchen und großen Buddha-Statuen fühlt sich Japan oft zeitlos an.',
+    image: '/images/buddha.png',
+    tags: ['Kultur', 'Tempel', 'Buddha', 'Tradition'],
   }
+
 ]
 
 const moments = [
   {
-    title: 'Morgenstimmung in den Bergen Hokkaidos',
-    location: 'Hokkaido',
-    image: '/images/japan/hokkaido-hike.jpg'
+    title: 'Tokio bei Nacht',
+    location: 'Tokio',
+    description: 'Neon, kleine Gassen, ruhige Nebenstraßen und volle Bahnhöfe – je später es wird, desto klarer spürt man den Mix aus Tempo und Alltag.',
+    image: '/images/tokyotower.png'
   },
   {
-    title: 'Kleine Straße auf einer Insel bei Okinawa',
-    location: 'Okinawa',
-    image: '/images/japan/okinawa-road.jpg'
-  },
-  {
-    title: 'Mitgenommen werden beim Hitchhiken',
-    location: 'Kyushu',
-    image: '/images/japan/kyushu-hitchhike.jpg'
-  },
-  {
-    title: 'Abendlicht nach einer Motorrad-Etappe',
+    title: 'Motorradfahren während der Kirschblütenzeit',
     location: 'Honshu',
-    image: '/images/japan/honshu-bike.jpg'
+    description: 'Straßen voller Blüten, milde Temperaturen und die ersten warmen Tage des Jahres – perfekt für entspannte Touren durchs Land.',
+    image: '/images/sakura.png'
+  },
+  {
+    title: 'Aussichtsplatz am Berg bei Amanohashidate',
+    location: 'Kyoto Präfektur',
+    description: 'Mein Lieblingsspot: stille Morgen, Blick über die Sandbank und ein Ort, an den ich immer wieder zurückgekehrt bin.',
+    image: '/images/amanohashidate.png'
+  },
+  {
+    title: 'Wandern in den Bergen',
+    location: 'Nikko',
+    description: 'Lange Straßen durch stille Natur und ein Hauch Österreich in der Umgebung – ein Ort, der sofort vertraut wirkt.',
+    image: '/images/nikko.png'
+  },
+  {
+    title: 'Übernachtung im Tempel',
+    location: 'Kōya-san · Osaka',
+    description: 'Eine stille Nacht im Tempel auf Kōya-san – Sutren, Nebel und ein Frühstück im Morgengrauen.',
+    image: '/images/koya.png'
+  },
+  {
+    title: 'Altes Dorf Shirakawago',
+    location: 'Gifu',
+    description: 'Traditionelle Gasshō-Häuser, ein stilles Dorfgefühl und eine Atmosphäre, die sich anfühlt wie eine andere Zeit.',
+    image: '/images/shirakawago.png'
   }
 ]
 </script>
