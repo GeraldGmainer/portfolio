@@ -31,7 +31,39 @@
           Kontakt
         </NuxtLink>
       </nav>
+
+      <button
+          class="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-slate-200 hover:bg-white/10 ring-1 ring-white/10 backdrop-blur"
+          @click="toggle"
+      >
+        <Icon v-if="!open" name="lucide:menu" size="22"/>
+        <Icon v-else name="lucide:x" size="22"/>
+      </button>
     </div>
+
+    <transition name="slide">
+      <div
+          v-if="open"
+          class="sm:hidden bg-[#050816]/95 backdrop-blur px-6 pb-6 pt-4 border-t border-white/10"
+      >
+        <div class="flex flex-col gap-4 text-base font-medium text-slate-200">
+          <NuxtLink class="transition hover:text-white" to="/" @click="close">Home</NuxtLink>
+          <NuxtLink class="transition hover:text-white" to="/about" @click="close">Über mich</NuxtLink>
+          <NuxtLink class="transition hover:text-white" to="/resume" @click="close">Lebenslauf</NuxtLink>
+          <NuxtLink class="transition hover:text-white" to="/projects" @click="close">Projekte</NuxtLink>
+          <NuxtLink class="transition hover:text-white" to="/woodworking" @click="close">Holzhandwerk</NuxtLink>
+          <NuxtLink class="transition hover:text-white" to="/japan" @click="close">Japan</NuxtLink>
+          <NuxtLink
+              class="rounded-full bg-white/10 px-4 py-2 text-white shadow-sm ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15 text-center"
+              to="/contact"
+              @click="close"
+          >
+            Kontakt
+          </NuxtLink>
+        </div>
+      </div>
+    </transition>
+
     <div class="pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
   </header>
 </template>
@@ -39,22 +71,33 @@
 <script lang="ts" setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 
-const isScrolled = ref(false)
+const open = ref(false)
+const toggle = () => (open.value = !open.value)
+const close = () => (open.value = false)
 
+const isScrolled = ref(false)
 const handleScroll = () => {
   if (typeof window === 'undefined') return
   isScrolled.value = window.scrollY > 10
 }
-
 onMounted(() => {
-  if (typeof window === 'undefined') return
   handleScroll()
   window.addEventListener('scroll', handleScroll, {passive: true})
 })
-
 onBeforeUnmount(() => {
-  if (typeof window === 'undefined') return
   window.removeEventListener('scroll', handleScroll)
 })
 </script>
 
+<style scoped>
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all .25s ease;
+}
+</style>

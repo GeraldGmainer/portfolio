@@ -154,9 +154,9 @@
             <span
                 v-for="s in stackSkills[group.key]"
                 :key="s.label"
-                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-s text-slate-100 ring-1 ring-white/10"
+                class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-xs lg:text-s text-slate-100 ring-1 ring-white/10"
             >
-              <Icon :name="s.icon" class="h-8 w-8"/>
+              <Icon :name="s.icon" class="h-4 w-4 lg:h-8 lg:w-8"/>
               <span>{{ s.label }}</span>
             </span>
           </div>
@@ -167,7 +167,7 @@
     <section class="mx-auto max-w-6xl px-6 pb-20">
       <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Tools</h2>
       <p class="mt-2 text-center text-slate-400">Werkzeuge, die meinen Alltag schneller machen</p>
-      <div class="mt-10 grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <div class="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-5">
         <div
             v-for="tool in tools"
             :key="tool.label"
