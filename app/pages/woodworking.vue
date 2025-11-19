@@ -31,6 +31,8 @@
 </template>
 
 <script lang="ts" setup>
+useHead({title: "Holzhandwerk"})
+
 const woodProjects = [
   {title: 'Schaukelpferd', image: '/images/pferd.png'},
   {title: 'Spielzeuglastwagen', image: '/images/truck.png'},

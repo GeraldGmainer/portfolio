@@ -190,35 +190,5 @@
 
 
 <script lang="ts" setup>
-const name = ref('')
-const email = ref('')
-const message = ref('')
-const hp = ref('')
-const loading = ref(false)
-const ok = ref(false)
-const err = ref(false)
-
-async function submit() {
-  ok.value = false;
-  err.value = false;
-  loading.value = true
-  try {
-    const r = await $fetch('/api/contact', {
-      method: 'POST',
-      body: {name: name.value, email: email.value, message: message.value, hp: hp.value}
-    })
-    if ((r as any)?.ok) {
-      ok.value = true;
-      name.value = '';
-      email.value = '';
-      message.value = ''
-    } else {
-      err.value = true
-    }
-  } catch {
-    err.value = true
-  } finally {
-    loading.value = false
-  }
-}
+useHead({title: "Kontakt"})
 </script>

@@ -1,27 +1,21 @@
 <template>
-  <footer class="border-t border-orange-100 bg-[#FFF7F0]">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3">
-      <div class="flex flex-col items-center gap-3 text-xs text-slate-500 sm:flex-row sm:justify-between">
-        <nav class="order-1 lg:order-2 w-full sm:w-auto">
-          <ul class="flex flex-wrap justify-center gap-x-6 gap-y-4">
-            <li class="py-4 lg:py-0">
-              <NuxtLink class="hover:text-slate-800" to="/legal/terms">Nutzungsbedingungen</NuxtLink>
-            </li>
-            <li class="py-4 lg:py-0">
-              <NuxtLink class="hover:text-slate-800" to="/legal/imprint">Impressum</NuxtLink>
-            </li>
-            <li class="py-4 lg:py-0">
-              <NuxtLink class="hover:text-slate-800" to="/legal/privacy">Datenschutz</NuxtLink>
-            </li>
-          </ul>
-        </nav>
+  <footer class="border-t border-white/10 bg-[#050816]">
+    <div class="mx-auto max-w-6xl px-6 py-10">
+      <div class="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+        <p class="text-sm text-slate-400">
+          © 2025 Gerald Gmainer
+        </p>
 
-        <span class="order-2 lg:order-1 text-center sm:text-left">
-          © 2025 Money Koi · Gerald Gmainer
-        </span>
+        <nav class="flex items-center gap-6 text-sm">
+          <NuxtLink class="text-slate-400 transition hover:text-white" to="/legal/imprint">
+            Impressum
+          </NuxtLink>
+
+          <NuxtLink class="text-slate-400 transition hover:text-white" to="/legal/privacy">
+            Datenschutzerklärung
+          </NuxtLink>
+        </nav>
       </div>
     </div>
   </footer>
 </template>
-<script lang="ts" setup>
-</script>

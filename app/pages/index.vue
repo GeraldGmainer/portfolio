@@ -7,13 +7,13 @@
     >
       <div class="relative z-10 mx-auto max-w-5xl px-6 text-center">
         <p class="mx-auto inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-s font-medium text-slate-300 ring-1 ring-white/10 backdrop-blur">
-          <span>Web · App · 3D</span>
+          <span>App · Web · 3D</span>
         </p>
         <h1 class="mt-6 text-5xl font-extrabold tracking-tight text-white sm:text-8xl">
           <span class="neon bg-gradient-to-r from-blue-400 via-cyan-300 to-sky-400 bg-clip-text text-transparent">Gerald Gmainer</span>
         </h1>
         <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-          Moderne Web-, App- & 3D-Lösungen aus einer Hand
+          Moderne App-, Web- & 3D-Lösungen aus einer Hand
         </p>
         <div class="mt-8 flex items-center justify-center gap-3">
           <a
@@ -46,7 +46,7 @@
       <div class="mx-auto max-w-6xl px-6">
         <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Technische Expertise</h2>
         <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-400 sm:text-base">
-          Breiter Full-Stack-Background mit Schwerpunkt auf moderne Web-, App- und 3D-Stacks.
+          Breiter Full-Stack-Background mit Schwerpunkt auf moderne App-, Web- und 3D-Stacks.
         </p>
 
         <div class="mt-8 flex justify-center sm:justify-center">
@@ -61,7 +61,7 @@
                 type="button"
                 @click="activeSkillTab = tab.key"
             >
-              <span class="text-base">{{ tab.icon }}</span>
+              <Icon :name="tab.icon" size="16"/>
               <span>{{ tab.label }}</span>
             </button>
           </div>
@@ -116,7 +116,6 @@
       </div>
     </section>
 
-
     <section id="projects" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
       <div class="mx-auto max-w-6xl px-6">
         <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Projekt-Highlights</h2>
@@ -152,6 +151,19 @@
               <p class="mt-2 text-sm leading-relaxed text-slate-300">
                 {{ project.blurb }}
               </p>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                <a
+                    v-if="project.website"
+                    :href="project.website"
+                    class="inline-flex items-center gap-1 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
+                    rel="noopener"
+                    target="_blank"
+                >
+                  Website
+                  <Icon name="lucide:arrow-up-right" size="16"/>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -168,24 +180,24 @@
       </div>
     </section>
 
-
     <section id="capabilities" class="border-t border-white/5 bg-[#050816] py-24 sm:py-28">
       <div class="mx-auto max-w-6xl px-6">
         <h2 class="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Was ich in Projekte einbringe</h2>
-        <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-400 sm:text-base"> Von der ersten Idee bis zum
-          Deployment: Full-Stack-Umsetzung mit Fokus auf UX, robuste Architektur und eine pragmatische Developer
-          Experience. </p>
+        <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-400 sm:text-base">Von der ersten Idee bis zum Deployment: Full-Stack-Umsetzung mit Fokus auf UX, robuste Architektur und eine pragmatische Developer
+          Experience.</p>
         <div class="mt-12 grid gap-6 md:grid-cols-3">
           <div v-for="c in capabilities" :key="c.title"
                class="rounded-3xl border border-white/10 bg-gradient-to-b from-[#0B1220] to-[#020617] p-6 shadow-sm shadow-slate-900/60 ring-1 ring-white/5 transition duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/30 hover:border-sky-400/60 hover:ring-sky-400/50">
             <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 text-lg">
-              {{ c.icon }}
+              <Icon :name="c.icon" size="20"/>
             </div>
-            <h3 class="text-lg font-semibold text-white"> {{ c.title }} </h3>
-            <p v-if="c.subtitle" class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500"> {{ c.subtitle }} </p>
+            <h3 class="text-lg font-semibold text-white">{{ c.title }}</h3>
+            <p v-if="c.subtitle" class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">{{ c.subtitle }}</p>
             <ul class="mt-4 space-y-1.5 text-sm text-slate-300">
-              <li v-for="item in c.items" :key="item" class="flex gap-2"><span
-                  class="mt-[6px] inline-block h-1.5 w-1.5 rounded-full bg-sky-400"></span> <span>{{ item }}</span></li>
+              <li v-for="item in c.items" :key="item" class="flex gap-2">
+                <span class="mt-[6px] inline-block h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                <span>{{ item }}</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -195,61 +207,63 @@
 </template>
 
 <script lang="ts" setup>
+useHead({title: null})
+
 import {computed, ref} from 'vue'
 
 const skillTabs = [
   {
+    key: 'app',
+    label: 'App-Entwicklung',
+    icon: 'lucide:smartphone',
+    headline: 'Mobile Apps für iOS und Android',
+  },
+  {
     key: 'frontend',
     label: 'Frontend',
-    icon: '🧩',
+    icon: 'lucide:layout-dashboard',
     headline: 'Moderne Frontends mit Fokus auf UX',
   },
   {
     key: 'backend',
     label: 'Backend & CI/CD',
-    icon: '🖥️',
+    icon: 'lucide:server',
     headline: 'Stabile Backends und saubere Pipelines',
-  },
-  {
-    key: 'app',
-    label: 'App-Entwicklung',
-    icon: '📱',
-    headline: 'Mobile Apps für iOS und Android',
   },
   {
     key: 'threeD',
     label: '3D & Game Dev',
-    icon: '🚀',
+    icon: 'lucide:gamepad-2',
     headline: 'Echtzeitgrafik und interaktive Experiences',
   }
 ] as const
 
 type SkillTabKey = (typeof skillTabs)[number]['key']
 
-const activeSkillTab = ref<SkillTabKey>('frontend')
+const activeSkillTab = ref<SkillTabKey>('app')
 
 const skills = {
   frontend: [
     {label: 'TypeScript / JavaScript', value: 86},
-    {label: 'Angular', value: 88},
-    {label: 'React', value: 82},
-    {label: 'Next.js', value: 70},
-    {label: 'Vue', value: 85},
-    {label: 'Nuxt', value: 64},
-    {label: 'React Admin / Refine', value: 92},
-    {label: 'Bootstrap / Material Design', value: 90},
-    {label: 'Tailwind', value: 71}
+    {label: 'Angular', value: 81},
+    {label: 'React', value: 69},
+    {label: 'Next.js', value: 50},
+    {label: 'Vue', value: 75},
+    {label: 'Nuxt', value: 44},
+    {label: 'React Admin / Refine', value: 86},
+    {label: 'Bootstrap / Material Design', value: 85},
+    {label: 'Tailwind', value: 56}
   ],
   backend: [
-    {label: 'Java / Kotlin', value: 74},
-    {label: 'Spring Boot / Hibernate / CDI', value: 72},
-    {label: 'Node.js', value: 68},
+    {label: 'Java / Kotlin', value: 69},
+    {label: 'Spring Boot / Hibernate / CDI', value: 62},
+    {label: 'Node.js', value: 58},
     {label: 'REST / GraphQL', value: 82},
     {label: 'PostgreSQL', value: 95},
     {label: 'MySQL / Oracle SQL', value: 38},
     {label: 'Supabase', value: 95},
-    {label: 'Keycloak', value: 48},
-    {label: 'Docker / Kubernetes', value: 42}
+    {label: 'Keycloak', value: 43},
+    {label: 'Docker / Kubernetes', value: 39}
   ],
   app: [
     {label: 'Flutter (inkl. BloC)', value: 96},
@@ -260,12 +274,12 @@ const skills = {
     {label: 'Publizieren (Android & iOS)', value: 84},
     {label: 'Android Studio / Tooling', value: 86},
     {label: 'Bluetooth (BLE/Classic)', value: 95},
-    {label: 'Karten & Geolocation (OSM/MapLibre/Google)', value: 84},
+    {label: 'Karten & Geolocation (OSM/MapLibre/Google)', value: 91},
     {label: 'UI Design & Typografie', value: 78}
   ],
   threeD: [
-    {label: 'Unity', value: 86},
-    {label: 'C#', value: 84},
+    {label: 'Unity', value: 76},
+    {label: 'C#', value: 74},
     {label: 'Unreal Engine 4', value: 28},
     {label: 'C++', value: 32},
     {label: 'Three.js / WebGL', value: 90},
@@ -277,7 +291,10 @@ const skills = {
   ]
 }
 
-const currentSkills = computed(() => skills[activeSkillTab.value])
+const currentSkills = computed(() => {
+  const list = skills[activeSkillTab.value] ?? []
+  return [...list].sort((a, b) => b.value - a.value)
+})
 
 const averageSkillValue = computed(() => {
   if (!currentSkills.value.length) return 0
@@ -299,6 +316,7 @@ const featuredProjects = [
     image: '/images/moneykoi.png',
     tags: ['Flutter', 'Next.js', 'Supabase'],
     layout: 'phone',
+    website: 'https://moneykoi.app',
     scale: 0.9
   },
   {
@@ -319,7 +337,7 @@ const featuredProjects = [
 
 const capabilities = [
   {
-    icon: '📱',
+    icon: 'lucide:smartphone',
     title: 'Mobile & Offline-First',
     subtitle: 'Flutter · Native · Stores',
     items: [
@@ -329,7 +347,7 @@ const capabilities = [
     ]
   },
   {
-    icon: '🖥️',
+    icon: 'lucide:monitor',
     title: 'Web & Admin-Dashboards',
     subtitle: 'Angular · React · Vue',
     items: [
@@ -339,7 +357,7 @@ const capabilities = [
     ]
   },
   {
-    icon: '🧱',
+    icon: 'lucide:database',
     title: 'APIs, Daten & Auth',
     subtitle: 'Spring Boot · Supabase · Keycloak',
     items: [
@@ -349,7 +367,7 @@ const capabilities = [
     ]
   },
   {
-    icon: '🎮',
+    icon: 'lucide:gamepad-2',
     title: '3D, Games & Simulation',
     subtitle: 'Unity · Three.js',
     items: [
@@ -359,7 +377,7 @@ const capabilities = [
     ]
   },
   {
-    icon: '📊',
+    icon: 'lucide:bar-chart-3',
     title: 'Daten, Dashboards & UX',
     subtitle: 'Analytics · Visualisierung',
     items: [
@@ -369,7 +387,7 @@ const capabilities = [
     ]
   },
   {
-    icon: '🚀',
+    icon: 'lucide:rocket',
     title: 'DevOps & Qualität',
     subtitle: 'CI/CD · Monitoring',
     items: [
@@ -379,7 +397,6 @@ const capabilities = [
     ]
   }
 ]
-
 </script>
 
 <style>

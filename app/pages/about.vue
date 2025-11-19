@@ -4,7 +4,7 @@
         :badges="[
     'Garsten, Österreich · Remote/Hybrid',
     'Deutsch · Englisch · Japanisch',
-    'Web · App · 3D',
+    'App · Web · 3D',
     'Holzhandwerk'
   ]"
         :center="true"
@@ -54,7 +54,7 @@
               <Icon name="lucide:dot" size="16"/>
             </span>
             <span>
-              Flutter-Apps mit lokalem Cache, konfliktarmem Sync und stabiler State-Architektur.
+              Flutter-Apps mit lokalem Cache, konfliktarmen Sync und stabiler State-Architektur.
             </span>
           </li>
           <li class="flex gap-2">
@@ -136,10 +136,10 @@
       <div class="mt-10 grid gap-8 md:grid-cols-1">
         <div
             v-for="group in [
+            { key: 'app', title: 'App', shadow: 'shadow-sky-500/20' },
             { key: 'frontend', title: 'Frontend', shadow: 'shadow-sky-500/20' },
             { key: 'backend', title: 'Backend & CI/CD', shadow: 'shadow-blue-500/20' },
-            { key: 'app', title: 'App', shadow: 'shadow-sky-500/20' },
-            { key: 'threeD', title: '3D & Realtime', shadow: 'shadow-indigo-500/20' }
+            { key: 'threeD', title: '3D & Realtime', shadow: 'shadow-indigo-500/20' },
           ]"
             :key="group.key"
             :class="group.shadow"
@@ -152,12 +152,12 @@
           </div>
           <div class="mt-5 flex flex-wrap gap-5">
             <span
-                v-for="s in stackSkills[group.key]"
-                :key="s.label"
+                v-for="skill in stackSkills[group.key]"
+                :key="skill.label"
                 class="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 text-xs lg:text-s text-slate-100 ring-1 ring-white/10"
             >
-              <Icon :name="s.icon" class="h-4 w-4 lg:h-8 lg:w-8"/>
-              <span>{{ s.label }}</span>
+              <Icon :name="skill.icon" class="h-4 w-4 lg:h-8 lg:w-8"/>
+              <span>{{ skill.label }}</span>
             </span>
           </div>
         </div>
@@ -186,7 +186,24 @@
 </template>
 
 <script lang="ts" setup>
+useHead({title: "Über mich"})
+
 const stackSkills = {
+  app: [
+    {label: 'Flutter', icon: 'simple-icons:flutter'},
+    {label: 'Dart', icon: 'simple-icons:dart'},
+    {label: 'Android/Kotlin', icon: 'simple-icons:android'},
+    {label: 'iOS/Swift', icon: 'simple-icons:swift'},
+    {label: 'Offline-First', icon: 'lucide:cloud-off'},
+    {label: 'Background Tracking', icon: 'lucide:locate-fixed'},
+    {label: 'Maps/Geolocation', icon: 'lucide:map'},
+    {label: 'Push Notifications', icon: 'lucide:bell'},
+    {label: 'Fehlertracking', icon: 'lucide:alert-triangle'},
+    {label: 'Fastlane', icon: 'simple-icons:fastlane'},
+    {label: 'FVM', icon: 'lucide:layers'},
+    {label: 'i18n/Localization', icon: 'lucide:languages'},
+    {label: 'Store Releases', icon: 'lucide:app-window'}
+  ],
   frontend: [
     {label: 'TypeScript', icon: 'simple-icons:typescript'},
     {label: 'Angular', icon: 'simple-icons:angular'},
@@ -222,21 +239,6 @@ const stackSkills = {
     {label: 'Vercel', icon: 'simple-icons:vercel'},
     {label: 'CI/CD', icon: 'lucide:workflow'},
     {label: 'Observability', icon: 'lucide:activity'}
-  ],
-  app: [
-    {label: 'Flutter', icon: 'simple-icons:flutter'},
-    {label: 'Dart', icon: 'simple-icons:dart'},
-    {label: 'Android/Kotlin', icon: 'simple-icons:android'},
-    {label: 'iOS/Swift', icon: 'simple-icons:swift'},
-    {label: 'Offline-First', icon: 'lucide:cloud-off'},
-    {label: 'Background Tracking', icon: 'lucide:locate-fixed'},
-    {label: 'Maps/Geolocation', icon: 'lucide:map'},
-    {label: 'Push Notifications', icon: 'lucide:bell'},
-    {label: 'Fehlertracking', icon: 'lucide:alert-triangle'},
-    {label: 'Fastlane', icon: 'simple-icons:fastlane'},
-    {label: 'FVM', icon: 'lucide:layers'},
-    {label: 'i18n/Localization', icon: 'lucide:languages'},
-    {label: 'Store Releases', icon: 'lucide:app-window'}
   ],
   threeD: [
     {label: 'Unity', icon: 'simple-icons:unity'},

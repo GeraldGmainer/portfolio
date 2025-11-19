@@ -179,6 +179,8 @@
 </template>
 
 <script lang="ts" setup>
+useHead({title: "Japan"})
+
 const trips = [
   {
     title: '21-tägige Fernwanderung in Hokkaido',

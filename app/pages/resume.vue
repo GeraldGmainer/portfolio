@@ -4,9 +4,9 @@
         :badges="[
     'Garsten, Österreich · Remote/Hybrid',
     'Deutsch · Englisch · Japanisch',
-    'Web · App · 3D'
+    'App · Web · 3D'
   ]"
-        subtitle="Gerald Gmainer · Full-Stack & 3D · Österreich"
+        subtitle="Mobile, Web & 3D Engineering · Österreich"
         title="Lebenslauf"
     >
       <template #actions>
@@ -30,8 +30,9 @@
       <div class="grid gap-8 lg:grid-cols-[1fr]">
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center gap-3">
-            <span
-                class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">🗂️</span>
+            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">
+              <Icon name="lucide:folder" size="18"/>
+            </span>
             <h2 class="text-xl font-semibold">Eigene Projekte</h2>
           </div>
 
@@ -44,19 +45,16 @@
             <p class="text-sm text-slate-300">Haushaltsbuch-App mit Offline-First, sauberer UI und Supabase-Backend.</p>
 
             <ul class="mt-3 space-y-2 text-sm text-slate-300">
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Flutter App (Android/iOS), lokaler Datenspeicher, konfliktarmer Sync</span>
-              </li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Supabase mit RLS, Triggern, Migrations und Edge Functions</span>
-              </li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Inklusive moderner Next.js-Weboberfläche für Haushaltsbuch-Führung und Verwaltung</span>
-              </li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Flutter App (Android/iOS), lokaler Datenspeicher, konfliktarmer Sync</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Supabase mit RLS, Triggern, Migrations und Edge Functions</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Inklusive moderner Next.js-Weboberfläche für Haushaltsbuch-Führung und Verwaltung</span></li>
             </ul>
 
             <div class="mt-3 flex flex-wrap gap-2">
-              <span v-for="t in ['Flutter','Supabase','Next.js','PostgreSQL','Sentry','Offline-First']" :key="t"
-                    class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">{{
-                  t
-                }}</span>
+              <span v-for="tech in ['Flutter','Supabase','Next.js','PostgreSQL','Sentry','Offline-First']" :key="tech"
+                    class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">
+                {{ tech }}
+              </span>
             </div>
 
             <div class="mt-4 flex flex-wrap gap-2">
@@ -84,10 +82,9 @@
 
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center gap-3">
-          <span
-              class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30"
-          >🧩</span>
-
+            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30">
+              <Icon name="lucide:briefcase" size="18"/>
+            </span>
             <div class="flex w-full items-center">
               <h2 class="text-xl font-semibold">Berufserfahrung</h2>
               <span class="ml-auto text-sm font-normal text-slate-400">11 Jahre</span>
@@ -101,28 +98,19 @@
                 <h3 class="font-semibold text-white">{{ job.role }}</h3>
                 <div class="flex flex-col items-end text-xs">
                   <span class="text-slate-400">{{ job.time }}</span>
-                  <span
-                      v-if="formatExperienceDuration(job.time)"
-                      class="text-[11px] text-slate-500"
-                  >
-        {{ formatExperienceDuration(job.time) }}
-      </span>
+                  <span v-if="formatExperienceDuration(job.time)" class="text-[11px] text-slate-500">
+                    {{ formatExperienceDuration(job.time) }}
+                  </span>
                 </div>
               </div>
               <p class="text-sm text-slate-300">{{ job.company }}</p>
               <ul class="mt-3 list-outside space-y-2 text-sm text-slate-300">
-                <li
-                    v-for="b in job.bullets"
-                    :key="b"
-                    class="flex gap-2"
-                >
+                <li v-for="b in job.bullets" :key="b" class="flex gap-2">
                   <span class="text-cyan-400">•</span><span>{{ b }}</span>
                 </li>
               </ul>
-              <div class="mt-3 flex flex-wrap gap-2  max-w-2xl">
-                <span v-for="stack in job.stack"
-                      :key="stack"
-                      class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">
+              <div class="mt-3 flex flex-wrap gap-2 max-w-2xl">
+                <span v-for="stack in job.stack" :key="stack" class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">
                   {{ stack }}
                 </span>
               </div>
@@ -139,16 +127,17 @@
                 </a>
               </div>
             </li>
-
           </ol>
         </div>
 
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center gap-3">
-            <span
-                class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-blue-500/15 text-blue-300 ring-1 ring-blue-400/30">🎓</span>
+            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-blue-500/15 text-blue-300 ring-1 ring-blue-400/30">
+              <Icon name="lucide:graduation-cap" size="18"/>
+            </span>
             <h2 class="text-xl font-semibold">Ausbildung</h2>
           </div>
+
           <ol class="mt-6 space-y-6">
             <li v-for="e in education" :key="e.title" class="relative pl-6">
               <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-blue-400"></span>
@@ -164,38 +153,38 @@
 
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center gap-3">
-            <span
-                class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">🏷️</span>
+            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">
+              <Icon name="lucide:award" size="18"/>
+            </span>
             <h2 class="text-xl font-semibold">Zertifikate & Sonstiges</h2>
           </div>
+
           <ul class="mt-6 grid gap-3 sm:grid-cols-2">
             <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">Certified Scrum Master · 2024</li>
             <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">
               <a class="underline decoration-white/30 underline-offset-2 hover:decoration-white"
-                 href="https://zuhoerakademie.at/" rel="noopener"
+                 href="https://zuhoerakademie.at/"
+                 rel="noopener"
                  target="_blank">
                 Kommunikationstraining · 2024 – Zuhörakademie (Jürgen Melmuka) ↗
               </a>
             </li>
             <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">A &amp; B Führerschein</li>
-            <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">Working Holiday &amp; Berufserfahrung
-              in Japan
-            </li>
+            <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">Working Holiday &amp; Berufserfahrung in Japan</li>
           </ul>
         </div>
       </div>
     </section>
   </main>
 </template>
+
 <script lang="ts" setup>
+useHead({title: "Lebenslauf"})
+
 const formatYearsMonthsDe = (years: number, months: number): string => {
   const parts: string[] = []
-  if (years > 0) {
-    parts.push(years === 1 ? '1 Jahr' : `${years} Jahre`)
-  }
-  if (months > 0) {
-    parts.push(months === 1 ? '1 Monat' : `${months} Monate`)
-  }
+  if (years > 0) parts.push(years === 1 ? '1 Jahr' : `${years} Jahre`)
+  if (months > 0) parts.push(months === 1 ? '1 Monat' : `${months} Monate`)
   return parts.join(' ')
 }
 
@@ -204,31 +193,24 @@ const formatExperienceDuration = (time: string): string | null => {
   if (parts.length !== 2) return null
 
   const [startStr, rawEndStr] = parts
-  const endStr = rawEndStr.toLowerCase()
-
   const monthYearRegex = /^(\d{2})\/(\d{4})$/
   const yearRegex = /^(\d{4})$/
 
   const startMonthYearMatch = startStr.match(monthYearRegex)
-
   if (startMonthYearMatch) {
     const [, sm, sy] = startMonthYearMatch
     const startMonth = Number(sm)
     const startYear = Number(sy)
 
-    let endYear: number
-    let endMonth: number
-
     const endMonthYearMatch = rawEndStr.match(monthYearRegex)
     if (!endMonthYearMatch) return null
     const [, em, ey] = endMonthYearMatch
-    endMonth = Number(em)
-    endYear = Number(ey)
+    const endMonth = Number(em)
+    const endYear = Number(ey)
 
     const startTotal = startYear * 12 + (startMonth - 1)
     const endTotal = endYear * 12 + (endMonth - 1)
     const diffMonths = endTotal - startTotal
-
     if (diffMonths <= 0) return null
 
     const years = Math.floor(diffMonths / 12)
@@ -238,7 +220,6 @@ const formatExperienceDuration = (time: string): string | null => {
 
   const startYearMatch = startStr.match(yearRegex)
   const endYearMatch = rawEndStr.match(yearRegex)
-
   if (startYearMatch && endYearMatch) {
     const startYear = Number(startYearMatch[1])
     const endYear = Number(endYearMatch[1])
@@ -305,7 +286,8 @@ const experience = [
     bullets: [
       'Mitgliedsverwaltung für Stocksportverein OÖ',
       'Für 15.000 Mitglieder und Scheckkarten System',
-      'Projekt wurde aufgrund der Corona-Pandemie in der Entwicklungsphase beendet'],
+      'Projekt wurde aufgrund der Corona-Pandemie in der Entwicklungsphase beendet'
+    ],
     stack: ['Angular', 'Spring Boot', 'Bootstrap', 'MySQL']
   },
   {
@@ -323,17 +305,17 @@ const experience = [
       'Trainings-Simulator für Stopfmaschinen',
       'Mobile Game „Tamping Game“ (Android/iOS)',
       'VR-Konfigurator für Stopfmaschinen'
-
     ],
-    stack: ['Unity', 'C#', 'Blender', 'Photoshop'],
+    stack: ['Unity', 'C#', 'Blender', 'Photoshop']
   },
   {
     role: 'Software Entwickler',
-    company: 'Objectbay GmbH · Raiffeisenbank Salzburg',
+    company: 'Objectbay GmbH',
     time: '11/2014 – 11/2015',
     bullets: [
-      'Neuentwicklung eines CRM',
-      'CI/CD und Layout-Verantwortung'
+      'Neuentwicklung eines CRM für die Raiffeisenbank Salzburg',
+      'CI/CD und Layout-Verantwortung',
+      'Internes Zeitmanagementsystem'
     ],
     stack: ['AngularJS', 'JSF', 'Java', 'MySQL', 'Jenkins', 'Scrum']
   },
@@ -344,15 +326,14 @@ const experience = [
     bullets: ['Zeiterfassungssysteme, Installation, Support, Wartung'],
     stack: ['jQuery', 'Python', 'PostgreSQL', 'Linux']
   },
-
   {
     role: 'Zivildienst & Übergangsjobs',
     company: 'Diverse Arbeitgeber · Oberösterreich',
     time: '07/2011 – 03/2013',
     bullets: [
       'Zivildienst im Landeskrankenhaus Steyr (02/2012 – 10/2012)',
-      'Verschiedene Übergangstätigkeiten bis zum Zivildienst: Produktion, Elektroinstallation, Logistik und Maschinenbedienung',
-      'Arbeitgeber u. a.: Biodiesel Enns, VÖST Linz, Agru Bad Hall, BMW Steyr',
+      'Verschiedene Übergangstätigkeiten: Produktion, Elektroinstallation, Logistik, Maschinenbedienung',
+      'Arbeitgeber u. a.: Biodiesel Enns, VÖST Linz, Agru Bad Hall, BMW Steyr'
     ],
     stack: []
   }
