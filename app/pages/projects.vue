@@ -134,7 +134,6 @@ const projects: Project[] = [
     type: 'Privat',
     company: 'Hobby'
   },
-
   {
     title: 'Regelwerks- & Schadenmanagement',
     description:
@@ -145,31 +144,34 @@ const projects: Project[] = [
     type: 'Beruf',
     company: 'Objectbay GmbH'
   },
-
+  {
+    title: 'Finanzmanagement-Tool',
+    description: 'Web- und App-gestütztes Finanzmanagement-Tool mit Beraterunterstützung. Meine Hauptverantwortung lag in der Entwicklung der Web- (Angular) und App- (Flutter) Komponenten.',
+    image: '/images/digifinance.png',
+    date: '2025-02-01',
+    stack: ['Angular', 'Flutter', 'Spring Boot'],
+    type: 'Beruf',
+    company: 'Objectbay GmbH'
+  },
   {
     title: 'Rodelbahn Admin & App',
     description:
         'Web-Portal und Flutter-App für ca. 10 Rodelbahnen weltweit. Kommunikation mit bis zu 40 Fahrzeugen gleichzeitig über Bluetooth, inkl. Log-Sync, Fehlererkennung und Diagnose.',
     image: '/images/sunkid.png',
-    date: '2024-08-20',
+    date: '2024-12-01',
     stack: ['React Refine', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
-    website: 'https://www.bruckschloegl.at/produkte/rodelbahn/',
     type: 'Beruf',
     company: 'Objectbay GmbH'
   },
-
   {
     title: 'Security-Software Backend Modernisierung',
-    description:
-        'Modernisierung eines bestehenden Security-Systems inkl. Refactoring und Architektur-Updates.',
+    description: 'Modernisierung eines bestehenden Security-Systems inkl. Refactoring und Architektur-Updates.',
     image: '/images/seqify.png',
     date: '2024-07-01',
     stack: ['Spring Boot', 'Java', 'Kotlin', 'Docker', 'Kubernetes'],
-    website: 'https://www.seqify.net/en/',
     type: 'Beruf',
     company: 'Objectbay GmbH'
   },
-
   {
     title: 'Materialwirtschaft & Logistik',
     description:
