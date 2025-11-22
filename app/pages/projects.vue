@@ -125,7 +125,10 @@ const projects: Project[] = [
   {
     title: 'MoneyKoi',
     description:
-        'Eigenes Haushaltsbuch nach 10 Jahren persönlicher Erfahrung: schnelle Flutter-App mit klarer UX, solide Offline-First-Basis und geplanter Ausbau um mehrere „Killer-Features“. Fokus auf Performance, Supabase-Sync und eine moderne, intuitive UI.',
+        'MoneyKoi ist eine Eigenentwicklung, die aus über 10 Jahren persönlicher Erfahrung im Finanzmanagement entstanden ist. ' +
+        'Im Fokus steht eine solide, performante Basis mit einer modernen, intuitiven UI, die keine Ladebalken kennt. Die gesamte App ist Offline-First konzipiert, wobei alle Funktionen auch ohne Internetverbindung verfügbar sind. ' +
+        'Geplante Killer-Features, wie das Einscannen von Rechnungen zur automatisierten Kategorisierung, werden die App weiter ausbauen. ' +
+        'Derzeit liegt der Schwerpunkt auf Performance und dem sicheren Supabase-Sync.',
     image: '/images/moneykoi2.png',
     date: '2025-11-15',
     stack: ['Flutter', 'Supabase', 'PostgreSQL', 'Sentry', 'Offline-First'],
@@ -156,7 +159,8 @@ const projects: Project[] = [
   {
     title: 'Rodelbahn Admin & App',
     description:
-        'Web-Portal und Flutter-App für ca. 10 Rodelbahnen weltweit. Kommunikation mit bis zu 40 Fahrzeugen gleichzeitig über Bluetooth, inkl. Log-Sync, Fehlererkennung und Diagnose.',
+        'Die Plattform besteht aus einem Web-Portal und einer Flutter-App zur Steuerung und Diagnose von ca. 10 Rodelbahnen weltweit. Meine Hauptverantwortung lag in der Entwicklung der Flutter-App und der komplexen Bluetooth-Kommunikation, die bis zu 40 Fahrzeuge gleichzeitig mit Priorisierung, Fehler-Handling und Offline-Fähigkeit synchronisiert. ' +
+        'Über das Web-Portal (mit Keycloak zur rollenbasierten Rechteverwaltung) können Installateure den Status der Rodeln aus der Ferne beurteilen und manuelle Diagnosen durchführen, wodurch Vor-Ort-Einsätze reduziert werden.',
     image: '/images/sunkid.png',
     date: '2024-12-01',
     stack: ['React Refine', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
@@ -165,7 +169,8 @@ const projects: Project[] = [
   },
   {
     title: 'Security-Software Backend Modernisierung',
-    description: 'Modernisierung eines bestehenden Security-Systems inkl. Refactoring und Architektur-Updates.',
+    description: 'Dieses Projekt umfasste die umfassende Modernisierung des Backend-Systems einer bestehenden Security-Software. Durch Refactoring und die Umstellung auf eine Microservices-Architektur (unter Verwendung von Spring Boot, Java und Kotlin) wurde die Basis für höhere Skalierbarkeit und Zukunftssicherheit geschaffen. ' +
+        'Die Einführung von Docker und Kubernetes optimierte zudem die Deployment-Prozesse und die Ressourcennutzung.',
     image: '/images/seqify.png',
     date: '2024-07-01',
     stack: ['Spring Boot', 'Java', 'Kotlin', 'Docker', 'Kubernetes'],
@@ -193,11 +198,11 @@ const projects: Project[] = [
     type: 'Beruf',
     company: 'Designium Inc.'
   },
-
   {
     title: 'Raraya 3D Rucksack-Konfigurator',
     description:
-        'Interaktiver 3D-Konfigurator für Schulrucksäcke, speziell für Schulanfänger entwickelt.',
+        'Der interaktive 3D-Konfigurator für Schulrucksäcke wurde speziell für Schulanfänger entwickelt. Meine Verantwortlichkeiten umfassten die Modellierung und Animation der 3D-Inhalte sowie das Rendering. ' +
+        'Auf der technischen Seite war ich für die Modellkonfiguration, die Implementierung des Webformulars und die Gestaltung der gesamten User Experience (UX) zuständig, um eine intuitive und spielerische Bedienung zu gewährleisten.',
     image: '/images/raraya_desktop.png',
     date: '2023-05-01',
     stack: ['Three.js', 'Vue', 'PostProcessing', 'Node.js', 'Blender', 'Photoshop'],
@@ -205,11 +210,11 @@ const projects: Project[] = [
     type: 'Beruf',
     company: 'Designium Inc.'
   },
-
   {
     title: 'D-Drive Fahrassistenz',
     description:
-        'Fleet-Management-System für ca. 80 Mandanten und rund 2.000 Nutzer pro Tag.',
+        'Das Fleet-Management-System wird von ca. 80 Mandanten und rund 2.000 Nutzern pro Tag verwendet. Ich war vollumfänglich für die Entwicklung der gesamten Flutter-App verantwortlich, einschließlich kritischer Funktionen wie GPS-Tracking und der Bluetooth-Kommunikation mit externen Geräten. ' +
+        'Des Weiteren gehörten die React Admin Webseite sowie die Sicherstellung eines performanten Backends (mit Supabase) zu meinen Hauptaufgaben.',
     image: '/images/ddrive2.png',
     date: '2022-06-01',
     stack: ['Flutter', 'Vue', 'Supabase', 'React Admin'],
@@ -221,7 +226,8 @@ const projects: Project[] = [
   {
     title: 'Schneepflugdienst Plattform',
     description:
-        'GPS-gestützte Flutter-App für kommunale Winterdienste.',
+        'Diese GPS-gestützte Plattform dient als Lösung für kommunale Winterdienste. ' +
+        'Ich war für die gesamte Entwicklung verantwortlich, sowohl für die Flutter-App (welche die GPS-Daten erfasst und verarbeitet) als auch für das Vue-Frontend (das Web-Portal zur Verwaltung und Visualisierung der Daten).',
     image: '/images/snowplow.png',
     date: '2021-12-01',
     stack: ['Flutter', 'Vue', 'AWS Amplify'],
@@ -243,7 +249,8 @@ const projects: Project[] = [
   {
     title: 'Stocksport Mitgliederverwaltung',
     description:
-        'Webbasierte Verwaltungssoftware für über 15.000 Mitglieder in Oberösterreich.',
+        'Hierbei handelt es sich um eine webbasierte Verwaltungssoftware, die für über 15.000 Mitglieder in Oberösterreich konzipiert wurde. ' +
+        'Die Software diente primär der Mitgliederverwaltung und sollte zukünftig auch bei Wettbewerben den Einsatz von Checkkarten (Chipkarten) zur Identifikation und Erfassung ermöglichen. Das Projekt musste jedoch während der Entwicklungsphase aufgrund der Corona-Pandemie beendet werden.',
     image: '/images/stocksport.png',
     date: '2019-11-01',
     stack: ['Angular', 'Spring', 'MySQL', 'Tomcat', 'Bootstrap'],
@@ -266,29 +273,30 @@ const projects: Project[] = [
   {
     title: 'Face-Tracking App',
     description:
-        'Echtzeit-Gesichts- und Kopftracking auf 3D-Modellen.',
+        'Prototype für ein geplantes Spiel, das Echtzeit-Gesichts- und Kopftracking auf 3D-Charaktermodellen nutzt. ' +
+        'Die Anwendung basiert auf DLIB und kombiniert Unity, C# und nativen C++-Code, um Bewegungen präzise zu erfassen und direkt auf ein 3D-Rig zu übertragen.',
     image: '/images/face.png',
     date: '2019-05-01',
     stack: ['Unity', 'C#', 'C++', 'DLIB'],
     type: 'Beruf',
     company: 'NeNe Corp.'
   },
-
   {
     title: 'Stopfmaschinen VR-Konfigurator',
     description:
-        'VR-Konfigurator für Gleisstopfmaschinen zur Präsentation auf Messen.',
+        'Für die Messepräsentation wurde ein interaktiver VR-Konfigurator entwickelt, mit dem sich verschiedene Varianten einer Gleisstopfmaschine in Echtzeit zusammenstellen und betrachten lassen.\n' +
+        'Die Maschinenmodelle wurden von mir in Blender anhand von CAD-Daten und Fotovorlagen detailliert nachgebaut.',
     image: '/images/tampingConfigurator.png',
     date: '2018-11-01',
     stack: ['Unity', 'Blender', 'Photoshop'],
     type: 'Beruf',
     company: 'Enova GmbH'
   },
-
   {
     title: 'Simulator für Gleisstopfmaschinen',
     description:
-        'Realistischer Trainings-Simulator für Bediener von Gleisstopfmaschinen.',
+        'Dieser realistische Trainings-Simulator wurde für Bediener von Gleisstopfmaschinen entwickelt. Für das visuelle Erlebnis wurden viele Maschinenteile in Blender modelliert. Der Simulator zeichnete sich durch ein naturgetreues Fahr- und Arbeitsverhalten aus, das dem in der Realität entsprach. ' +
+        'Die physische Steuerung erfolgte über echte Maschinenteile als Hardware, wobei die Kommunikation zwischen Hardware und Simulationssoftware über UDP abgewickelt wurde.',
     image: '/images/tampingsim.png',
     date: '2018-06-01',
     stack: ['Unity', 'C#', 'Blender', 'Photoshop'],
@@ -296,11 +304,12 @@ const projects: Project[] = [
     type: 'Beruf',
     company: 'Enova GmbH'
   },
-
   {
     title: 'Tamping Game',
     description:
-        'Mobile Marketing-App als Game mit eigenen 3D-Modellen und Gameplay.',
+        'Das Tamping Game wurde als mobile Marketing-App entwickelt und basiert auf eigenen 3D-Modellen und Gameplay-Mechaniken. ' +
+        'Zu meinen Aufgaben gehörten das gesamte Game Design, die Modellierung der 3D-Assets in Blender sowie die Erstellung der Texturen in Photoshop. Technisch war ich für die Implementierung der Spiellogik verantwortlich, einschließlich der Funktion, die Highscore-Ergebnisse an das Backend zu senden. ' +
+        'Die App wurde für Android und iOS veröffentlicht.',
     image: '/images/tampinggame.png',
     date: '2017-07-01',
     stack: ['Unity', 'C#', 'Blender', 'Photoshop', 'Android', 'iOS'],
