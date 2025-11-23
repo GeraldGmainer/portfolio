@@ -202,6 +202,16 @@
           </div>
         </div>
       </div>
+
+      <div class="mt-20 flex justify-center">
+        <NuxtLink
+            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
+            to="/resume"
+        >
+          Mein Lebenslauf
+          <Icon name="lucide:arrow-up-right" size="16"/>
+        </NuxtLink>
+      </div>
     </section>
   </div>
 </template>

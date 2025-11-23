@@ -29,6 +29,13 @@
         </NuxtLink>
         <NuxtLink
             class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur hover:bg-white/15"
+            to="/projects"
+        >
+          <Icon name="lucide:layout-list" size="18"/>
+          <span>Projekte</span>
+        </NuxtLink>
+        <NuxtLink
+            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur hover:bg-white/15"
             to="/contact"
         >
           <Icon name="lucide:mail" size="18"/>
