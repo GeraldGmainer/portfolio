@@ -341,7 +341,8 @@ const featuredProjects = [
     blurb: 'Interaktiver 3D-Konfigurator für Schulrucksäcke mit Vue und Three.js – Anpassung von Farben und Details in Echtzeit.',
     image: '/images/raraya.png',
     tags: ['Three.js', 'Vue', 'Node.js'],
-    scale: 0.95
+    scale: 0.95,
+    website: 'https://sim.raraya.co.jp/',
   }
 ]
 
