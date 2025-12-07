@@ -210,7 +210,7 @@ const formatExperienceDuration = (time: string): string | null => {
 
     const startTotal = startYear * 12 + (startMonth - 1)
     const endTotal = endYear * 12 + (endMonth - 1)
-    const diffMonths = endTotal - startTotal
+    const diffMonths = (endTotal - startTotal) + 1
     if (diffMonths <= 0) return null
 
     const years = Math.floor(diffMonths / 12)
