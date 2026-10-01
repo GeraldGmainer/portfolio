@@ -42,12 +42,14 @@
               <h3 class="font-semibold text-white">MoneyKoi</h3>
               <span class="text-xs text-slate-400">seit 2024</span>
             </div>
-            <p class="text-sm text-slate-300">Eigenentwickelte Haushaltsbuch-App – Offline-First, schnelle und intuitive UI, Supabase-Backend. Konzept, Design und Umsetzung aus einer Hand.</p>
+            <p class="text-sm text-slate-300">Eigenentwickelte Haushaltsbuch-App für Android und iOS – Offline-First mit Supabase-Sync, ergänzt durch eine Next.js-Weboberfläche. Konzept, Design und Umsetzung aus einer Hand.</p>
 
             <ul class="mt-3 space-y-2 text-sm text-slate-300">
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Flutter-App für Android und iOS: alle Funktionen offline nutzbar, lokale Datenbank mit zuverlässiger, konfliktarmer Synchronisation</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Sicheres Supabase-Backend mit Row Level Security, Triggern, versionierten Migrations und Edge Functions</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Ergänzende Next.js-Weboberfläche zur komfortablen Verwaltung und Auswertung am Desktop</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Beleg-Scanner direkt am Handy: Texterkennung mit eigenen Parsern für SPAR, BILLA, LIDL, HOFER u. a., österreichischer Beleg-QR-Code und optionaler On-Device-KI-Scan</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Schnelles Buchen per Freitext („12 Mittagessen gestern“), Rechner-Tastatur und acht Android-Homescreen-Widgets</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Budgets, Sparziele, Kredite mit Tilgungsplan und wiederkehrende Buchungen – inkl. Auswertungen mit Trends, Heatmap und Vermögensverlauf</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Investment-Tracking mit echter Rendite (XIRR), Zielmix sowie Edelmetallen und Krypto zu Tagespreisen</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Gemeinsame Haushaltsbücher mit Rollen und Einladung per Link; App-Sperre per PIN/Biometrie und Export als CSV, PDF oder ZIP</span></li>
             </ul>
 
             <div class="mt-3 flex flex-wrap gap-2">
