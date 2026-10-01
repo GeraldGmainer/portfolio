@@ -42,12 +42,12 @@
               <h3 class="font-semibold text-white">MoneyKoi</h3>
               <span class="text-xs text-slate-400">seit 2024</span>
             </div>
-            <p class="text-sm text-slate-300">Haushaltsbuch-App mit Offline-First, sauberer UI und Supabase-Backend.</p>
+            <p class="text-sm text-slate-300">Eigenentwickelte Haushaltsbuch-App – Offline-First, schnelle und intuitive UI, Supabase-Backend. Konzept, Design und Umsetzung aus einer Hand.</p>
 
             <ul class="mt-3 space-y-2 text-sm text-slate-300">
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Flutter App (Android/iOS), lokaler Datenspeicher, konfliktarmer Sync</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Supabase mit RLS, Triggern, Migrations und Edge Functions</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Inklusive moderner Next.js-Weboberfläche für Haushaltsbuch-Führung und Verwaltung</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Flutter-App für Android und iOS: alle Funktionen offline nutzbar, lokale Datenbank mit zuverlässiger, konfliktarmer Synchronisation</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Sicheres Supabase-Backend mit Row Level Security, Triggern, versionierten Migrations und Edge Functions</span></li>
+              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Ergänzende Next.js-Weboberfläche zur komfortablen Verwaltung und Auswertung am Desktop</span></li>
             </ul>
 
             <div class="mt-3 flex flex-wrap gap-2">
