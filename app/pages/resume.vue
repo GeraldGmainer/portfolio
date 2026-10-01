@@ -67,6 +67,15 @@
                 <span>Website</span>
                 <Icon name="lucide:arrow-up-right" size="16"/>
               </a>
+              <a
+                  class="inline-flex items-center gap-1.5 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
+                  href="https://play.google.com/store/apps/details?id=com.psyren.moneykoi"
+                  rel="noopener"
+                  target="_blank"
+              >
+                <span>Android</span>
+                <Icon name="simple-icons:googleplay" size="16"/>
+              </a>
             </div>
           </div>
         </div>

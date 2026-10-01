@@ -84,6 +84,17 @@
                 </a>
 
                 <a
+                    v-if="project.playstore"
+                    :href="project.playstore"
+                    class="inline-flex items-center gap-1.5 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
+                    rel="noopener"
+                    target="_blank"
+                >
+                  Android
+                  <Icon name="simple-icons:googleplay" size="16"/>
+                </a>
+
+                <a
                     v-if="project.github"
                     :href="project.github"
                     class="inline-flex items-center gap-1 rounded-xl bg-white/5 px-3.5 py-2 text-sm font-semibold text-slate-200 ring-1 ring-white/10 hover:bg-white/10"
@@ -118,6 +129,7 @@ type Project = {
   type: ProjectType
   company?: string
   website?: string
+  playstore?: string
   github?: string
 }
 
@@ -145,6 +157,7 @@ const projects: Project[] = [
     date: '2025-11-15',
     stack: ['Flutter', 'Supabase', 'PostgreSQL', 'Sentry', 'Offline-First'],
     website: 'https://moneykoi.app',
+    playstore: 'https://play.google.com/store/apps/details?id=com.psyren.moneykoi',
     type: 'Privat',
     company: 'Hobby'
   },
