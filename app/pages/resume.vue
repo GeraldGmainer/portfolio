@@ -67,15 +67,6 @@
                 <span>Website</span>
                 <Icon name="lucide:arrow-up-right" size="16"/>
               </a>
-              <a
-                  class="inline-flex items-center gap-1 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
-                  href="https://github.com/GeraldGmainer/moneykoi"
-                  rel="noopener"
-                  target="_blank"
-              >
-                <span>GitHub</span>
-                <Icon name="simple-icons:github" size="16"/>
-              </a>
             </div>
           </div>
         </div>
@@ -202,11 +193,19 @@ const formatExperienceDuration = (time: string): string | null => {
     const startMonth = Number(sm)
     const startYear = Number(sy)
 
-    const endMonthYearMatch = rawEndStr.match(monthYearRegex)
-    if (!endMonthYearMatch) return null
-    const [, em, ey] = endMonthYearMatch
-    const endMonth = Number(em)
-    const endYear = Number(ey)
+    let endMonth: number
+    let endYear: number
+    if (rawEndStr.toLowerCase() === 'heute') {
+      const now = new Date()
+      endMonth = now.getMonth() + 1
+      endYear = now.getFullYear()
+    } else {
+      const endMonthYearMatch = rawEndStr.match(monthYearRegex)
+      if (!endMonthYearMatch) return null
+      const [, em, ey] = endMonthYearMatch
+      endMonth = Number(em)
+      endYear = Number(ey)
+    }
 
     const startTotal = startYear * 12 + (startMonth - 1)
     const endTotal = endYear * 12 + (endMonth - 1)
@@ -241,6 +240,20 @@ const education = [
 ]
 
 const experience = [
+  {
+    role: 'Product Owner & Software Entwickler',
+    company: 'Hakara GmbH · NeuraCharge – herstellerunabhängige Plattform zur Verwaltung & Abrechnung von Ladestationen',
+    time: '04/2026 – heute',
+    bullets: [
+      'Product Owner: Roadmap, Backlog und Anforderungen gemeinsam mit Kunden und Team',
+      'Entwicklung der NeuraCharge Flutter-App (iOS/Android) für E-Autofahrer, inkl. Live-Ladevorgängen und Kostenübersicht',
+      'Weiterentwicklung des Angular-Webportals für Betreiber: Ladestationen, Nutzer, Tarife und automatische Abrechnung',
+      'UX/UI-Design für App, Portal und Website',
+      'Konzeption und Umsetzung der Marketing-Website neuracharge.com'
+    ],
+    stack: ['Flutter', 'Angular', 'Storyblok', 'UX Design', 'Product Ownership', 'Scrum'],
+    links: [{label: 'neuracharge.com', href: 'https://www.neuracharge.com/'}]
+  },
   {
     role: 'Teamlead & Software Entwickler',
     company: 'Objectbay GmbH',

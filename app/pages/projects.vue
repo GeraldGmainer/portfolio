@@ -123,6 +123,18 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: 'NeuraCharge',
+    description:
+        'NeuraCharge ist eine herstellerunabhängige Plattform (CPMS) zur Verwaltung und gesetzeskonformen Abrechnung von Ladestationen – für Firmen- und Heimladen, Standortbetreiber, Wohnbau und Hotellerie. ' +
+        'Als Product Owner verantworte ich Roadmap und Backlog, entwickle die Flutter-App für E-Autofahrer sowie das Angular-Webportal für Betreiber und gestalte UX/UI von App, Portal und der Marketing-Website.',
+    image: '/images/neuracharge.png',
+    date: '2026-04-01',
+    stack: ['Flutter', 'Angular', 'Storyblok', 'UX Design', 'Product Ownership'],
+    website: 'https://www.neuracharge.com/',
+    type: 'Beruf',
+    company: 'Hakara GmbH'
+  },
+  {
     title: 'MoneyKoi',
     description:
         'MoneyKoi ist eine Eigenentwicklung, die aus über 10 Jahren persönlicher Erfahrung im Finanzmanagement entstanden ist. ' +
@@ -133,7 +145,6 @@ const projects: Project[] = [
     date: '2025-11-15',
     stack: ['Flutter', 'Supabase', 'PostgreSQL', 'Sentry', 'Offline-First'],
     website: 'https://moneykoi.app',
-    github: 'https://github.com/GeraldGmainer/moneykoi',
     type: 'Privat',
     company: 'Hobby'
   },
