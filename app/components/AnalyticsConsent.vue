@@ -1,37 +1,42 @@
 <template>
+  <Analytics v-if="consent" />
   <div
-      aria-live="polite"
-      class="fixed inset-x-0 bottom-0 z-40 mx-auto mb-5 w-[min(100%,44rem)] rounded-2xl border border-white/10 bg-[#0B1220]/90 p-5 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
-      role="dialog"
+    v-if="ready && !decided"
+    :aria-label="$t('consent.label')"
+    aria-live="polite"
+    class="fixed bottom-5 left-5 right-5 z-40 max-w-sm rounded-lg border border-line bg-navy-800 p-5 sm:left-auto"
+    role="dialog"
   >
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-sm leading-relaxed text-slate-200">
-        Ich möchte anonyme Nutzungsdaten erfassen, um die Website zu verbessern. Einverstanden?
-      </p>
-
-      <div class="flex shrink-0 gap-2">
-        <button
-            class="inline-flex items-center justify-center rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-slate-200 ring-1 ring-white/10 transition hover:bg-white/15 active:translate-y-px"
-            @click="$emit('decline')"
-        >
-          Ablehnen
-        </button>
-
-        <button
-            class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-2 text-sm font-semibold text-white shadow-[0_0_14px_rgba(56,189,248,0.4)] transition hover:-translate-y-0.5 hover:shadow-[0_0_22px_rgba(56,189,248,0.6)] active:translate-y-px"
-            @click="$emit('accept')"
-        >
-          Akzeptieren
-        </button>
-      </div>
-    </div>
-
-    <p class="mt-2 text-xs text-slate-400">
-      Es werden keine personenbezogenen Daten gespeichert. Die Entscheidung kann jederzeit zurückgesetzt werden.
+    <UiEyebrow>{{ $t('consent.eyebrow') }}</UiEyebrow>
+    <p class="mt-3 text-sm leading-relaxed text-ink">
+      {{ $t('consent.text') }}
     </p>
+    <p class="mt-2 text-xs leading-relaxed text-ink-muted">
+      {{ $t('consent.note') }}
+    </p>
+    <div class="mt-5 flex items-center gap-5">
+      <button
+        class="rounded-md bg-ink px-4 py-2 text-sm font-semibold text-navy-950 transition-colors duration-150 hover:bg-accent"
+        type="button"
+        @click="accept"
+      >
+        {{ $t('consent.accept') }}
+      </button>
+      <button
+        class="link-underline text-sm text-ink-muted transition-colors duration-150 hover:text-ink"
+        type="button"
+        @click="decline"
+      >
+        {{ $t('consent.decline') }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-defineEmits<{ (e: 'accept'): void; (e: 'decline'): void }>()
+import { Analytics } from '@vercel/analytics/nuxt'
+
+const { consent, decided, ready, load, accept, decline } = useAnalyticsConsent()
+
+onMounted(load)
 </script>

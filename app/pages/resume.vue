@@ -1,200 +1,348 @@
 <template>
-  <main class="min-h-screen bg-[#0B1220] text-slate-200">
-    <PageHeader
-        :badges="[
-    'Garsten, Österreich · Remote/Hybrid',
-    'Deutsch · Englisch · Japanisch',
-    'App · Web · 3D'
-  ]"
-        subtitle="Mobile, Web & 3D Engineering · Österreich"
-        title="Lebenslauf"
-    >
-      <template #actions>
-        <a
-            class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-white/15"
-            href="/downloads/Lebenslauf_Gmainer_public.pdf"
-            rel="noopener"
-            target="_blank"
-        >
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <path d="M15 3h6v6"/>
-            <path d="M10 14L21 3"/>
-          </svg>
-          PDF öffnen
-        </a>
-      </template>
-    </PageHeader>
-
-    <section class="mx-auto max-w-6xl px-6 pb-20 mt-8">
-      <div class="grid gap-8 lg:grid-cols-[1fr]">
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="flex items-center gap-3">
-            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">
-              <Icon name="lucide:folder" size="18"/>
+  <div class="min-h-screen">
+    <header class="mx-auto max-w-6xl px-6 pt-32 md:pt-40">
+      <div class="grid gap-10 md:grid-cols-12 md:items-end">
+        <div class="md:col-span-8">
+          <div class="rise">
+            <UiEyebrow>{{ $t('nav.resume') }}</UiEyebrow>
+          </div>
+          <h1 class="rise rise-delay-1 mt-5 max-w-4xl font-display text-5xl leading-[1] tracking-tight text-ink md:text-7xl">
+            <template v-if="locale === 'de'">
+              {{ careerYears }} Jahre Software – von Zeiterfassung <em>bis</em> Ladestation.
+            </template>
+            <template v-else>
+              {{ careerYears }} years of software – from time tracking <em>to</em> EV charging.
+            </template>
+          </h1>
+          <p class="rise rise-delay-2 mt-6 text-lg text-ink-muted">
+            {{ l(copy.tagline) }}
+          </p>
+          <p class="rise rise-delay-3 mt-6 flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs leading-6 text-ink-faint">
+            <span
+              v-for="(m, i) in l(meta)"
+              :key="m"
+            >
+              <span
+                v-if="i"
+                aria-hidden="true"
+                class="mr-3 text-line-strong"
+              >—</span>{{ m }}
             </span>
-            <h2 class="text-xl font-semibold">Eigene Projekte</h2>
-          </div>
-
-          <div class="mt-6 relative pl-6">
-            <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-emerald-400"></span>
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-semibold text-white">MoneyKoi</h3>
-              <span class="text-xs text-slate-400">seit 2024</span>
-            </div>
-            <p class="text-sm text-slate-300">Eigenentwickelte Haushaltsbuch-App für Android und iOS – Offline-First mit Supabase-Sync, ergänzt durch eine Next.js-Weboberfläche. Konzept, Design und Umsetzung aus einer Hand.</p>
-
-            <ul class="mt-3 space-y-2 text-sm text-slate-300">
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Beleg-Scanner direkt am Handy: Texterkennung mit eigenen Parsern für SPAR, BILLA, LIDL, HOFER u. a., österreichischer Beleg-QR-Code und optionaler On-Device-KI-Scan</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Schnelles Buchen per Freitext („12 Mittagessen gestern“), Rechner-Tastatur und acht Android-Homescreen-Widgets</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Budgets, Sparziele, Kredite mit Tilgungsplan und wiederkehrende Buchungen – inkl. Auswertungen mit Trends, Heatmap und Vermögensverlauf</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Investment-Tracking mit echter Rendite (XIRR), Zielmix sowie Edelmetallen und Krypto zu Tagespreisen</span></li>
-              <li class="flex gap-2"><span class="text-emerald-400">•</span><span>Gemeinsame Haushaltsbücher mit Rollen und Einladung per Link; App-Sperre per PIN/Biometrie und Export als CSV, PDF oder ZIP</span></li>
-            </ul>
-
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span v-for="tech in ['Flutter','Supabase','Next.js','PostgreSQL','Sentry','Offline-First']" :key="tech"
-                    class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">
-                {{ tech }}
-              </span>
-            </div>
-
-            <div class="mt-4 flex flex-wrap gap-2">
-              <a
-                  class="inline-flex items-center gap-1 rounded-xl bg-white text-slate-900 px-3.5 py-2 text-sm font-semibold ring-1 ring-white/20"
-                  href="https://moneykoi.app"
-                  rel="noopener"
-                  target="_blank"
-              >
-                <span>Website</span>
-                <Icon name="lucide:arrow-up-right" size="16"/>
-              </a>
-              <a
-                  class="inline-flex items-center gap-1.5 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
-                  href="https://play.google.com/store/apps/details?id=com.psyren.moneykoi"
-                  rel="noopener"
-                  target="_blank"
-              >
-                <span>Android</span>
-                <Icon name="simple-icons:googleplay" size="16"/>
-              </a>
-            </div>
-          </div>
+          </p>
         </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="flex items-center gap-3">
-            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30">
-              <Icon name="lucide:briefcase" size="18"/>
-            </span>
-            <div class="flex w-full items-center">
-              <h2 class="text-xl font-semibold">Berufserfahrung</h2>
-              <span class="ml-auto text-sm font-normal text-slate-400">11 Jahre</span>
-            </div>
-          </div>
-
-          <ol class="mt-6 space-y-8">
-            <li v-for="job in experience" :key="job.role" class="relative pl-6">
-              <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-cyan-400"></span>
-              <div class="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 class="font-semibold text-white">{{ job.role }}</h3>
-                <div class="flex flex-col items-end text-xs">
-                  <span class="text-slate-400">{{ job.time }}</span>
-                  <span v-if="formatExperienceDuration(job.time)" class="text-[11px] text-slate-500">
-                    {{ formatExperienceDuration(job.time) }}
-                  </span>
-                </div>
-              </div>
-              <p class="text-sm text-slate-300">{{ job.company }}</p>
-              <ul class="mt-3 list-outside space-y-2 text-sm text-slate-300">
-                <li v-for="b in job.bullets" :key="b" class="flex gap-2">
-                  <span class="text-cyan-400">•</span><span>{{ b }}</span>
-                </li>
-              </ul>
-              <div class="mt-3 flex flex-wrap gap-2 max-w-2xl">
-                <span v-for="stack in job.stack" :key="stack" class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">
-                  {{ stack }}
-                </span>
-              </div>
-              <div v-if="job.links?.length" class="mt-3 flex flex-wrap gap-2">
-                <a
-                    v-for="l in job.links"
-                    :key="l.href"
-                    :href="l.href"
-                    class="inline-flex items-center rounded-xl bg-white/10 px-3.5 py-1 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15"
-                    rel="noopener"
-                    target="_blank"
-                >
-                  {{ l.label }} ↗
-                </a>
-              </div>
-            </li>
-          </ol>
-        </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="flex items-center gap-3">
-            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-blue-500/15 text-blue-300 ring-1 ring-blue-400/30">
-              <Icon name="lucide:graduation-cap" size="18"/>
-            </span>
-            <h2 class="text-xl font-semibold">Ausbildung</h2>
-          </div>
-
-          <ol class="mt-6 space-y-6">
-            <li v-for="e in education" :key="e.title" class="relative pl-6">
-              <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-blue-400"></span>
-              <div class="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 class="font-semibold text-white">{{ e.title }}</h3>
-                <span class="text-xs text-slate-400">{{ e.time }}</span>
-              </div>
-              <p class="text-sm text-slate-300">{{ e.school }}</p>
-              <p v-if="e.details" class="mt-1 text-sm text-slate-400">{{ e.details }}</p>
-            </li>
-          </ol>
-        </div>
-
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="flex items-center gap-3">
-            <span class="inline-grid h-9 w-9 place-items-center rounded-2xl bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30">
-              <Icon name="lucide:award" size="18"/>
-            </span>
-            <h2 class="text-xl font-semibold">Zertifikate & Sonstiges</h2>
-          </div>
-
-          <ul class="mt-6 grid gap-3 sm:grid-cols-2">
-            <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">Certified Scrum Master · 2024</li>
-            <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">
-              <a class="underline decoration-white/30 underline-offset-2 hover:decoration-white"
-                 href="https://zuhoerakademie.at/"
-                 rel="noopener"
-                 target="_blank">
-                Kommunikationstraining · 2024 – Zuhörakademie (Jürgen Melmuka) ↗
-              </a>
-            </li>
-            <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">A &amp; B Führerschein</li>
-            <li class="rounded-xl bg-[#0B1220] p-4 text-sm ring-1 ring-white/10">Working Holiday &amp; Berufserfahrung in Japan</li>
-          </ul>
+        <div class="rise rise-delay-3 md:col-span-4 md:justify-self-end">
+          <UiButtonLink
+            external
+            to="/downloads/Lebenslauf_Gmainer_public.pdf"
+            variant="primary"
+          >
+            {{ l(copy.pdf) }}
+          </UiButtonLink>
         </div>
       </div>
-    </section>
-  </main>
+    </header>
+
+    <div class="mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+      <!-- 01 Berufserfahrung -->
+      <section
+        v-reveal
+        class="grid gap-10 pt-20 md:grid-cols-12 md:gap-12 md:pt-28"
+      >
+        <UiSectionHead
+          :eyebrow="expEyebrow"
+          :title="l(copy.expTitle)"
+          number="01"
+          sticky
+        >
+          {{ expIntro }}
+        </UiSectionHead>
+
+        <div class="md:col-span-8">
+          <ol>
+            <li
+              v-for="job in experience"
+              :key="job.time"
+              class="grid gap-x-8 gap-y-3 border-t border-line py-8 last:border-b sm:grid-cols-12"
+            >
+              <div class="font-mono text-xs leading-6 sm:col-span-3">
+                <p class="tabular-nums text-ink">
+                  {{ timeLabel(job.time) }}
+                </p>
+                <p
+                  v-if="formatExperienceDuration(job.time)"
+                  class="text-ink-faint"
+                >
+                  {{ formatExperienceDuration(job.time) }}
+                </p>
+              </div>
+
+              <div class="sm:col-span-9">
+                <h3 class="text-lg font-semibold leading-snug text-ink">
+                  {{ l(job.role) }}
+                </h3>
+                <p class="mt-1 text-sm font-medium text-ink-muted">
+                  {{ typeof job.company === 'string' ? job.company : l(job.company) }}
+                </p>
+                <p
+                  v-if="job.about"
+                  class="measure mt-1 text-sm leading-relaxed text-pretty text-ink-muted/75"
+                >
+                  {{ l(job.about) }}
+                </p>
+
+                <UiBulletList
+                  :items="l(job.bullets)"
+                  class="mt-5"
+                />
+
+                <div
+                  v-if="job.stack.length"
+                  class="mt-5 flex flex-wrap gap-1.5"
+                >
+                  <UiTag
+                    v-for="s in job.stack"
+                    :key="s"
+                  >
+                    {{ s }}
+                  </UiTag>
+                </div>
+
+                <div
+                  v-if="job.links?.length"
+                  class="mt-5 flex flex-wrap gap-x-6 gap-y-2"
+                >
+                  <UiButtonLink
+                    v-for="link in job.links"
+                    :key="link.href"
+                    :icon="link.icon"
+                    :to="link.href"
+                  >
+                    {{ l(link.label) }}
+                  </UiButtonLink>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 02 Eigene Projekte -->
+      <section
+        v-reveal
+        class="grid gap-10 pt-20 md:grid-cols-12 md:gap-12 md:pt-28"
+      >
+        <UiSectionHead
+          :eyebrow="l(copy.ownEyebrow)"
+          :title="l(copy.ownTitle)"
+          number="02"
+          sticky
+        />
+
+        <div class="md:col-span-8">
+          <article class="grid gap-x-8 gap-y-3 border-y border-line py-8 sm:grid-cols-12">
+            <div class="font-mono text-xs leading-6 sm:col-span-3">
+              <p class="text-ink">
+                {{ l(moneykoi.time) }}
+              </p>
+              <p class="text-ink-faint">
+                {{ l(moneykoi.platforms) }}
+              </p>
+            </div>
+
+            <div class="sm:col-span-9">
+              <h3 class="text-lg font-semibold leading-snug text-ink">
+                {{ moneykoi.title }}
+              </h3>
+              <p class="mt-1 text-sm text-ink-muted">
+                {{ l(moneykoi.subtitle) }}
+              </p>
+              <p class="mt-4 max-w-prose text-sm leading-relaxed text-ink-muted">
+                {{ l(moneykoi.description) }}
+              </p>
+
+              <UiBulletList
+                :items="l(moneykoi.bullets)"
+                class="mt-5"
+              />
+
+              <div class="mt-5 flex flex-wrap gap-1.5">
+                <UiTag
+                  v-for="s in moneykoi.stack"
+                  :key="s"
+                >
+                  {{ s }}
+                </UiTag>
+              </div>
+
+              <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                <UiButtonLink
+                  v-for="link in moneykoi.links"
+                  :key="link.href"
+                  :icon="link.icon"
+                  :to="link.href"
+                >
+                  {{ l(link.label) }}
+                </UiButtonLink>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 03 Ausbildung -->
+      <section
+        v-reveal
+        class="grid gap-10 pt-20 md:grid-cols-12 md:gap-12 md:pt-28"
+      >
+        <UiSectionHead
+          :title="l(copy.eduTitle)"
+          eyebrow="Steyr"
+          number="03"
+          sticky
+        />
+
+        <div class="md:col-span-8">
+          <ol>
+            <li
+              v-for="e in education"
+              :key="e.time"
+              class="grid gap-x-8 gap-y-3 border-t border-line py-8 last:border-b sm:grid-cols-12"
+            >
+              <div class="font-mono text-xs leading-6 sm:col-span-3">
+                <p class="tabular-nums text-ink">
+                  {{ e.time }}
+                </p>
+                <p
+                  v-if="formatExperienceDuration(e.time)"
+                  class="text-ink-faint"
+                >
+                  {{ formatExperienceDuration(e.time) }}
+                </p>
+              </div>
+              <div class="sm:col-span-9">
+                <h3 class="text-lg font-semibold leading-snug text-ink">
+                  {{ l(e.title) }}
+                </h3>
+                <p class="mt-1 text-sm text-ink-muted">
+                  {{ l(e.school) }}
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 04 Zertifikate & Sonstiges -->
+      <section
+        v-reveal
+        class="grid gap-10 pt-20 md:grid-cols-12 md:gap-12 md:pt-28"
+      >
+        <UiSectionHead
+          :eyebrow="l(copy.miscEyebrow)"
+          :title="l(copy.miscTitle)"
+          number="04"
+          sticky
+        />
+
+        <div class="md:col-span-8">
+          <ul>
+            <li
+              v-for="m in misc"
+              :key="m.label.de"
+              class="grid gap-x-8 gap-y-1 border-t border-line py-4 last:border-b sm:grid-cols-12"
+            >
+              <p class="font-mono text-xs leading-6 tabular-nums text-ink-faint sm:col-span-3">
+                {{ m.year ?? '—' }}
+              </p>
+              <p class="text-sm leading-6 sm:col-span-9">
+                <span class="text-ink">{{ l(m.label) }}</span>
+                <template v-if="m.detail">
+                  <span class="text-ink-faint"> · </span>
+                  <UiButtonLink
+                    v-if="m.href"
+                    :to="m.href"
+                    class="align-baseline"
+                  >
+                    {{ m.detail }}
+                  </UiButtonLink>
+                  <span
+                    v-else
+                    class="text-ink-muted"
+                  >{{ m.detail }}</span>
+                </template>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-useHead({title: "Lebenslauf"})
+import { computed } from 'vue'
+import { education, experience, misc, moneykoi } from '~/data/resume'
 
-const formatYearsMonthsDe = (years: number, months: number): string => {
+const l = useLocalized()
+const { locale } = useI18n()
+
+usePageSeo({
+  title: { de: 'Lebenslauf – Product Owner & Entwickler', en: 'Résumé – product owner & developer' },
+  description: {
+    de: 'Lebenslauf von Gerald Gmainer: über zehn Jahre Softwareentwicklung in Österreich und Japan – Product Owner, Teamlead, Flutter- und Angular-Entwickler.',
+    en: 'Résumé of Gerald Gmainer: more than ten years of software development in Austria and Japan – product owner, team lead, Flutter and Angular developer.'
+  },
+  markdown: true,
+  crumbs: [{ name: { de: 'Lebenslauf', en: 'Résumé' } }]
+})
+
+const copy = {
+  tagline: { de: 'Produkt, Mobile, Web & 3D · Österreich', en: 'Product, mobile, web & 3D · Austria' },
+  pdf: { de: 'PDF öffnen', en: 'Open PDF (German)' },
+  expTitle: { de: 'Berufserfahrung', en: 'Experience' },
+  ownEyebrow: { de: 'Seit 2024', en: 'Since 2024' },
+  ownTitle: { de: 'Eigene Projekte', en: 'Own projects' },
+  eduTitle: { de: 'Ausbildung', en: 'Education' },
+  miscEyebrow: { de: 'Außerdem', en: 'Also' },
+  miscTitle: { de: 'Zertifikate & Sonstiges', en: 'Certificates & more' }
+}
+
+const meta = {
+  de: [
+    'Garsten bei Steyr, Österreich · Remote/Hybrid',
+    'Deutsch · Englisch · Japanisch',
+    'Produkt · App · Web',
+    'Offen für Freelance-Projekte'
+  ],
+  en: [
+    'Garsten near Steyr, Austria · remote/hybrid',
+    'German · English · Japanese',
+    'Product · app · web',
+    'Open to freelance projects'
+  ]
+}
+
+const expEyebrow = computed(() => (locale.value === 'de' ? `Seit 2013 · ${careerYears.value} Jahre` : `Since 2013 · ${careerYears.value} years`))
+const expIntro = computed(() => (locale.value === 'de'
+  ? `${experience.length} Stationen in Österreich und Japan – angestellt, freiberuflich und seit 2024 mit eigenem Produkt.`
+  : `${experience.length} positions in Austria and Japan – employed, freelance and, since 2024, with my own product.`))
+
+// Periods are written as "MM/YYYY – MM/YYYY" or "MM/YYYY – heute".
+const timeLabel = (time: string) => (locale.value === 'de' ? time : time.replace('heute', 'today'))
+
+const formatYearsMonths = (years: number, months: number): string => {
+  const de = locale.value === 'de'
   const parts: string[] = []
-  if (years > 0) parts.push(years === 1 ? '1 Jahr' : `${years} Jahre`)
-  if (months > 0) parts.push(months === 1 ? '1 Monat' : `${months} Monate`)
+  if (years > 0) parts.push(de ? (years === 1 ? '1 Jahr' : `${years} Jahre`) : (years === 1 ? '1 year' : `${years} years`))
+  if (months > 0) parts.push(de ? (months === 1 ? '1 Monat' : `${months} Monate`) : (months === 1 ? '1 month' : `${months} months`))
   return parts.join(' ')
 }
 
 const formatExperienceDuration = (time: string): string | null => {
   const parts = time.split('–').map(p => p.trim())
-  if (parts.length !== 2) return null
-
   const [startStr, rawEndStr] = parts
+  if (parts.length !== 2 || !startStr || !rawEndStr) return null
+
   const monthYearRegex = /^(\d{2})\/(\d{4})$/
   const yearRegex = /^(\d{4})$/
 
@@ -225,7 +373,7 @@ const formatExperienceDuration = (time: string): string | null => {
 
     const years = Math.floor(diffMonths / 12)
     const months = diffMonths % 12
-    return formatYearsMonthsDe(years, months)
+    return formatYearsMonths(years, months)
   }
 
   const startYearMatch = startStr.match(yearRegex)
@@ -235,131 +383,24 @@ const formatExperienceDuration = (time: string): string | null => {
     const endYear = Number(endYearMatch[1])
     const diffYears = endYear - startYear
     if (diffYears <= 0) return null
-    return formatYearsMonthsDe(diffYears, 0)
+    return formatYearsMonths(diffYears, 0)
   }
 
   return null
 }
 
-const education = [
-  {
-    title: 'HTL Steyr · Elektronik mit Computer- und Leittechnik',
-    school: 'Höhere Abteilung',
-    time: '2004–2011',
-    details: ''
-  },
-]
+const monthIndex = (monthYear: string): number | null => {
+  const m = monthYear.trim().match(/^(\d{2})\/(\d{4})$/)
+  return m ? Number(m[2]) * 12 + (Number(m[1]) - 1) : null
+}
 
-const experience = [
-  {
-    role: 'Product Owner & Software Entwickler',
-    company: 'Hakara GmbH · NeuraCharge – herstellerunabhängige Plattform zur Verwaltung & Abrechnung von Ladestationen',
-    time: '04/2026 – heute',
-    bullets: [
-      'Product Owner: Roadmap, Backlog und Anforderungen gemeinsam mit Kunden und Team',
-      'Entwicklung der NeuraCharge Flutter-App (iOS/Android) für E-Autofahrer, inkl. Live-Ladevorgängen und Kostenübersicht',
-      'Weiterentwicklung des Angular-Webportals für Betreiber: Ladestationen, Nutzer, Tarife und automatische Abrechnung',
-      'UX/UI-Design für App, Portal und Website',
-      'Konzeption und Umsetzung der Marketing-Website neuracharge.com'
-    ],
-    stack: ['Flutter', 'Angular', 'Storyblok', 'UX Design', 'Product Ownership', 'Scrum'],
-    links: [{label: 'neuracharge.com', href: 'https://www.neuracharge.com/'}]
-  },
-  {
-    role: 'Teamlead & Software Entwickler',
-    company: 'Objectbay GmbH',
-    time: '06/2024 – 01/2026',
-    bullets: [
-      'Backend-Modernisierung für Security-Software',
-      'Mobile App und Admin-Web für Sommerrodelbahnen',
-      'Regelwerks- und Schadenmanagement für Versicherungsverbund',
-      'Web- und App-gestütztes Finanzmanagement-Tool mit Beraterunterstützung',
-      'Weiterentwicklung interner Tools'
-    ],
-    stack: ['Spring Boot', 'Angular', 'React', 'Flutter', 'Supabase', 'Docker', 'Keycloak', 'Scrum']
-  },
-  {
-    role: 'Software Entwickler',
-    company: 'Aescudata GmbH',
-    time: '03/2024 – 05/2024',
-    bullets: [
-      'Neuentwicklung der bestehenden AngularJS Software auf moderne Angular-17-Architektur',
-      'State-Management mit ngrx/rxJS'
-    ],
-    stack: ['Angular', 'Java', 'Spring Boot', 'Scrum']
-  },
-  {
-    role: 'Senior Software Entwickler',
-    company: 'Designium Inc. (Japan)',
-    time: '02/2020 – 12/2023',
-    bullets: [
-      'Programming-Dojos vorbereitet und durchgeführt',
-      '3D-Konfigurator für Schulrucksäcke',
-      'AR- & VR Experimente',
-      'Apps & Admin-Web für D-Drive und Schneepflugdienst',
-      'Reiseführer-App für Aizuwakamatsu',
-      'D-Drive Fahrassistent',
-      'Prototyp einer Fahrer-App zur Generierung von GTFS-RT Feeds'
-    ],
-    stack: ['Vue', 'Nuxt', 'React', 'Flutter', 'React Native', 'Supabase', 'AWS Amplify', 'Node.js', 'Three.js', 'PostgreSQL', 'Unity', 'ARKit/ARCore', 'Photoshop']
-  },
-  {
-    role: 'Full-Stack Entwickler',
-    company: 'Freelance',
-    time: '11/2019 – 02/2020',
-    bullets: [
-      'Mitgliedsverwaltung für Stocksportverein OÖ',
-      'Für 15.000 Mitglieder und Scheckkarten System',
-      'Projekt wurde aufgrund der Corona-Pandemie in der Entwicklungsphase beendet'
-    ],
-    stack: ['Angular', 'Spring Boot', 'Bootstrap', 'MySQL']
-  },
-  {
-    role: 'Unity Entwickler',
-    company: 'NeNe Corp. (Japan)',
-    time: '04/2019 – 07/2019',
-    bullets: ['Face-Tracking auf 3D-Modell in Echtzeit'],
-    stack: ['Unity', 'C#', 'C++']
-  },
-  {
-    role: 'Unity Entwickler & 3D Artist',
-    company: 'Enova GmbH · Plasser & Theurer',
-    time: '08/2016 – 11/2018',
-    bullets: [
-      'Trainings-Simulator für Stopfmaschinen',
-      'Mobile Game „Tamping Game“ (Android/iOS)',
-      'VR-Konfigurator für Stopfmaschinen'
-    ],
-    stack: ['Unity', 'C#', 'Blender', 'Photoshop']
-  },
-  {
-    role: 'Software Entwickler',
-    company: 'Objectbay GmbH',
-    time: '11/2014 – 11/2015',
-    bullets: [
-      'Neuentwicklung eines CRM für die Raiffeisenbank Salzburg',
-      'CI/CD und Layout-Verantwortung',
-      'Internes Zeitmanagementsystem'
-    ],
-    stack: ['AngularJS', 'JSF', 'Java', 'MySQL', 'Jenkins', 'Scrum']
-  },
-  {
-    role: 'Software Entwickler',
-    company: 'Case Softwaretechnik GmbH',
-    time: '04/2013 – 10/2014',
-    bullets: ['Zeiterfassungssysteme, Installation, Support, Wartung'],
-    stack: ['jQuery', 'Python', 'PostgreSQL', 'Linux']
-  },
-  {
-    role: 'Zivildienst & Übergangsjobs',
-    company: 'Diverse Arbeitgeber · Oberösterreich',
-    time: '07/2011 – 03/2013',
-    bullets: [
-      'Zivildienst im Landeskrankenhaus Steyr (02/2012 – 10/2012)',
-      'Verschiedene Übergangstätigkeiten: Produktion, Elektroinstallation, Logistik, Maschinenbedienung',
-      'Arbeitgeber u. a.: Biodiesel Enns, VÖST Linz, Agru Bad Hall, BMW Steyr'
-    ],
-    stack: []
-  }
-]
+const careerYears = computed(() => {
+  const starts = experience
+    .filter(job => job.stack.length > 0)
+    .map(job => monthIndex(job.time.split('–')[0] ?? ''))
+    .filter((n): n is number => n !== null)
+  const now = new Date()
+  const end = now.getFullYear() * 12 + now.getMonth()
+  return Math.floor((end - Math.min(...starts) + 1) / 12)
+})
 </script>

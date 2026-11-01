@@ -1,0 +1,8 @@
+# Agent notes
+
+- **Blog posts** (`content/blog/`, served at `/blog`): follow `.claude/skills/write-blog-post/SKILL.md` (local only, not in the repo) – sources, voice, structure, SEO, file format, covers and the checklist. Every post needs a cover per language, made with `scripts/blog-covers.mjs`.
+- **Copy** lives next to the code as `{ de, en }` pairs (`useLocalized()`); shared UI strings are in `i18n/locales/{de,en}.json`. Every visible text needs both languages.
+- **Projects and case studies** are data in `app/data/projects.ts`; the stack list is `app/data/skills.ts`. Don't invent results or numbers.
+- **Dev server** needs Node 24: `export PATH=~/.nvm/versions/node/v24.15.0/bin:$PATH && npx nuxt dev`. Run `nuxt build` from a copy of the repo, not next to a running dev server: they share `.nuxt` and `.data`.
+- **SEO:** `usePageSeo` sets title, description, share image and JSON-LD for a page; every page calls it. Add a new page to `PAGES` in `server/routes/sitemap.xml.ts` and link it from somewhere, because the prerender crawl only finds linked pages. `llms.txt`, `llms-full*.txt`, the `.md` versions and the feeds are generated from the same data (`server/utils/llms.ts`, `server/utils/feed.ts`), so they need no editing for new posts or case studies. A new `.md` page type also needs its route in `markdownRoutes` in `nuxt.config.ts`.
+- **Domain:** `NUXT_PUBLIC_SITE_URL` is the one switch. Set it on Vercel only after the domain is attached and serves the site: that build rewrites every URL and redirects `www.` and the `vercel.app` host to the new domain.

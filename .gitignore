@@ -24,3 +24,9 @@ logs
 !.env.example
 /screenshots.psd
 /woodworking.psd
+
+# Raw Japan photos, imported into public/images/japan
+/photos-inbox
+
+# Local agent skills, kept out of the public repo
+/.claude/

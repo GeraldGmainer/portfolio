@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "Über mich",
+    "resume": "Lebenslauf",
+    "projects": "Projekte",
+    "blog": "Blog",
+    "freelance": "Freelance",
+    "woodworking": "Holzhandwerk",
+    "japan": "Japan",
+    "contact": "Kontakt"
+  },
+  "header": {
+    "mainNav": "Hauptnavigation",
+    "mobileNav": "Mobile Navigation",
+    "menu": "Menü",
+    "close": "Schließen",
+    "language": "Sprache",
+    "switchTo": "Auf Englisch lesen",
+    "location": "Garsten bei Steyr, Österreich"
+  },
+  "footer": {
+    "tagline": "Product Owner, UX-Designer und Full-Stack-Entwickler aus Garsten bei Steyr, Oberösterreich. Flutter-Apps und Web-Plattformen von der Idee bis zum Release. Offen für Freelance-Projekte.",
+    "nav": "Footer-Navigation",
+    "navigation": "Navigation",
+    "legal": "Rechtliches",
+    "imprint": "Impressum",
+    "privacy": "Datenschutzerklärung",
+    "usageData": "Nutzungsdaten-Einstellungen"
+  },
+  "consent": {
+    "label": "Hinweis zu Nutzungsdaten",
+    "eyebrow": "Nutzungsdaten",
+    "text": "Ich möchte anonyme Nutzungsdaten erfassen, um die Website zu verbessern. Einverstanden?",
+    "note": "Es werden keine personenbezogenen Daten gespeichert. Die Entscheidung kann jederzeit zurückgesetzt werden.",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen"
+  },
+  "common": {
+    "website": "Website",
+    "android": "Android",
+    "github": "GitHub",
+    "caseStudy": "Zum Projekt",
+    "allProjects": "Alle Projekte",
+    "contact": "Kontakt",
+    "requestProject": "Projekt anfragen",
+    "close": "Schließen",
+    "prevPhoto": "Vorheriges Foto",
+    "nextPhoto": "Nächstes Foto",
+    "viewPhotos": "Fotos ansehen: {name}",
+    "viewPhoto": "Foto ansehen: {name}",
+    "viewPhotoN": "Foto {n} ansehen",
+    "photoMissing": "{name}: Foto fehlt",
+    "prevApp": "Vorherige App",
+    "nextApp": "Nächste App",
+    "onMap": "Auf der Karte"
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Notizen aus der Praxis",
+    "intro": "Was ich beim Bauen von Apps und Plattformen lerne – Architektur, Produktentscheidungen und die Fehler, die ich nicht zweimal mache.",
+    "empty": "Die ersten Beiträge sind in Arbeit.",
+    "minutes": "{n} Min. Lesezeit",
+    "back": "Alle Beiträge",
+    "byline": "Gerald Gmainer",
+    "related": "Weitere Beiträge",
+    "project": "Zum Projekt",
+    "fallback": "Noch nicht übersetzt – hier die deutschen Beiträge.",
+    "cta": {
+      "title": "Ähnliches Projekt?",
+      "text": "Ich helfe bei Apps und Plattformen von der Idee bis zum Release – als Product Owner, Designer und Entwickler.",
+      "button": "Schreib mir"
+    }
+  },
+  "caseStudy": {
+    "eyebrow": "Projekt im Detail",
+    "context": "Ausgangslage",
+    "role": "Meine Rolle",
+    "decisions": "Entscheidungen",
+    "results": "Ergebnis",
+    "stack": "Stack",
+    "back": "Alle Projekte",
+    "next": "Nächstes Projekt",
+    "posts": "Blogbeiträge zum Projekt"
+  },
+  "legal": {
+    "germanOnly": ""
+  }
+}

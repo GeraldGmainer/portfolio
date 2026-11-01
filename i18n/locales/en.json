@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "resume": "Résumé",
+    "projects": "Projects",
+    "blog": "Blog",
+    "freelance": "Freelance",
+    "woodworking": "Woodworking",
+    "japan": "Japan",
+    "contact": "Contact"
+  },
+  "header": {
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Language",
+    "switchTo": "Auf Deutsch lesen",
+    "location": "Garsten near Steyr, Austria"
+  },
+  "footer": {
+    "tagline": "Product owner, UX designer and full-stack developer from Garsten near Steyr, Upper Austria. Flutter apps and web platforms from idea to release. Open to freelance projects.",
+    "nav": "Footer navigation",
+    "navigation": "Navigation",
+    "legal": "Legal",
+    "imprint": "Legal notice",
+    "privacy": "Privacy policy",
+    "usageData": "Usage data settings"
+  },
+  "consent": {
+    "label": "Notice about usage data",
+    "eyebrow": "Usage data",
+    "text": "I'd like to collect anonymous usage data to improve this website. Is that okay?",
+    "note": "No personal data is stored. The decision can be reset at any time.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "common": {
+    "website": "Website",
+    "android": "Android",
+    "github": "GitHub",
+    "caseStudy": "See the project",
+    "allProjects": "All projects",
+    "contact": "Contact",
+    "requestProject": "Start a project",
+    "close": "Close",
+    "prevPhoto": "Previous photo",
+    "nextPhoto": "Next photo",
+    "viewPhotos": "View photos: {name}",
+    "viewPhoto": "View photo: {name}",
+    "viewPhotoN": "View photo {n}",
+    "photoMissing": "{name}: photo missing",
+    "prevApp": "Previous app",
+    "nextApp": "Next app",
+    "onMap": "On the map"
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Notes from the field",
+    "intro": "What I learn building apps and platforms – architecture, product decisions and the mistakes I don't make twice.",
+    "empty": "The first posts are in the works.",
+    "minutes": "{n} min read",
+    "back": "All posts",
+    "byline": "Gerald Gmainer",
+    "related": "More posts",
+    "project": "See the project",
+    "fallback": "Not translated yet – here are the German posts.",
+    "cta": {
+      "title": "Similar project?",
+      "text": "I help take apps and platforms from idea to release – as product owner, designer and developer.",
+      "button": "Get in touch"
+    }
+  },
+  "caseStudy": {
+    "eyebrow": "Project in detail",
+    "context": "Context",
+    "role": "My role",
+    "decisions": "Decisions",
+    "results": "Outcome",
+    "stack": "Stack",
+    "back": "All projects",
+    "next": "Next project",
+    "posts": "Blog posts about this project"
+  },
+  "legal": {
+    "germanOnly": "This page is provided in German, which is the legally binding version."
+  }
+}

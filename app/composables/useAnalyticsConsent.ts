@@ -1,31 +1,37 @@
 export function useAnalyticsConsent() {
-    const consent = useState<boolean>('va-consent', () => false)
-    const decided = useState<boolean>('va-decided', () => false)
-    const ready = useState<boolean>('va-ready', () => false)
+  const consent = useState<boolean>('va-consent', () => false)
+  const decided = useState<boolean>('va-decided', () => false)
+  const ready = useState<boolean>('va-ready', () => false)
 
-    onMounted(() => {
-        const v = localStorage.getItem('va-consent')
-        if (v === '1') {
-            consent.value = true
-            decided.value = true
-        } else if (v === '0') {
-            consent.value = false
-            decided.value = true
-        }
-        ready.value = true
-    })
-
-    const accept = () => {
-        consent.value = true
-        decided.value = true
-        localStorage.setItem('va-consent', '1')
+  // Browser only, so AnalyticsConsent calls it once mounted.
+  const load = () => {
+    const v = localStorage.getItem('va-consent')
+    if (v === '1') {
+      consent.value = true
+      decided.value = true
+    } else if (v === '0') {
+      consent.value = false
+      decided.value = true
     }
+    ready.value = true
+  }
 
-    const decline = () => {
-        consent.value = false
-        decided.value = true
-        localStorage.setItem('va-consent', '0')
-    }
+  const accept = () => {
+    consent.value = true
+    decided.value = true
+    localStorage.setItem('va-consent', '1')
+  }
 
-    return {consent, decided, ready, accept, decline}
+  const decline = () => {
+    consent.value = false
+    decided.value = true
+    localStorage.setItem('va-consent', '0')
+  }
+
+  // Shows the dialog again. The current choice holds until a new one is made.
+  const reopen = () => {
+    decided.value = false
+  }
+
+  return { consent, decided, ready, load, accept, decline, reopen }
 }
