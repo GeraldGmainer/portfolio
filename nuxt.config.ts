@@ -4,12 +4,10 @@ import { join } from 'node:path'
 import { caseStudies } from './app/data/projects'
 
 // Canonical origin for canonical links, hreflang, the sitemap, llms.txt and JSON-LD.
-// Switch to the own domain by setting NUXT_PUBLIC_SITE_URL on Vercel, once that
-// domain is attached to the project and serves the site: from that build on, the
-// old hostnames below redirect to it.
+// www is the primary host: Vercel's domain settings redirect the apex to it, so a
+// rule here sending www to the apex would loop.
 const VERCEL_HOST = 'geraldgmainer.vercel.app'
-const siteUrl = (process.env.NUXT_PUBLIC_SITE_URL || `https://${VERCEL_HOST}`).replace(/\/$/, '')
-const siteHost = new URL(siteUrl).host
+const siteUrl = (process.env.NUXT_PUBLIC_SITE_URL || 'https://www.geraldgmainer.com').replace(/\/$/, '')
 
 const posts = ['de', 'en'].flatMap((locale) => {
   try {
@@ -46,15 +44,13 @@ const markdownRoutes = [
 // Routing on Vercel, ahead of the static files. Header rules use `continue` so the
 // file is still served; nitro's own routeRules leave that out.
 const vercelRoutes = [
-  // One hostname per page, once the own domain is live. Preview URLs stay untouched.
-  ...(siteHost === VERCEL_HOST
-    ? []
-    : [`www.${siteHost}`, VERCEL_HOST].map(value => ({
-        src: '^/(.*)$',
-        has: [{ type: 'host', value }],
-        status: 308,
-        headers: { Location: `${siteUrl}/$1` }
-      }))),
+  // One hostname per page. Preview URLs stay untouched.
+  {
+    src: '^/(.*)$',
+    has: [{ type: 'host', value: VERCEL_HOST }],
+    status: 308,
+    headers: { Location: `${siteUrl}/$1` }
+  },
   // One URL per page: /about/ is /about.
   { src: '^/(.+)/$', status: 308, headers: { Location: '/$1' } },
   // Images keep their names when replaced, so a week rather than immutable.
