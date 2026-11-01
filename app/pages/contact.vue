@@ -33,6 +33,10 @@
     <section class="mx-auto mt-16 max-w-6xl px-6 md:mt-24">
       <div class="grid md:grid-cols-12 md:gap-8">
         <ul class="border-t border-line md:col-span-8">
+          <li class="grid grid-cols-[6.5rem_1fr] items-baseline gap-4 border-b border-line py-5 sm:grid-cols-[10rem_1fr]">
+            <span class="eyebrow">{{ l(copy.name) }}</span>
+            <span class="text-ink">{{ profile.honorificPrefix }} {{ profile.name }}</span>
+          </li>
           <li
             v-for="row in links"
             :key="row.href"
@@ -86,6 +90,7 @@ const copy = {
     de: 'Ich melde mich fix. Offen für Freelance-Projekte: Produkt, App, Web und UX/UI – remote oder vor Ort in Oberösterreich.',
     en: 'I reply quickly. Open to freelance projects: product, app, web and UX/UI – remote or on site in Upper Austria.'
   },
+  name: { de: 'Name', en: 'Name' },
   location: { de: 'Standort', en: 'Location' },
   locationValue: { de: 'Garsten bei Steyr · Remote/Hybrid', en: 'Garsten near Steyr, Austria · remote/hybrid' }
 }

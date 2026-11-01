@@ -68,6 +68,7 @@ useHead(() => ({
           '@type': 'Person',
           '@id': `${siteUrl}/#person`,
           'name': profile.name,
+          'honorificPrefix': profile.honorificPrefix,
           'givenName': profile.givenName,
           'familyName': profile.familyName,
           'url': siteUrl,

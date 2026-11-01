@@ -32,7 +32,7 @@
             Diensteanbieter und Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
           </p>
           <p class="mt-4">
-            Gerald Gmainer<br>
+            Ing. Gerald Gmainer<br>
             Money Koi<br>
             Am Platzl 3<br>
             4451 Garsten<br>

@@ -29,7 +29,7 @@
             Diensteanbieter
           </h2>
           <p class="mt-5">
-            Gerald Gmainer<br>
+            Ing. Gerald Gmainer<br>
             Money Koi<br>
             Am Platzl 3<br>
             4451 Garsten<br>
@@ -47,7 +47,7 @@
           </p>
 
           <p class="mt-4">
-            Verantwortlich für den Inhalt dieser Website: Gerald Gmainer.
+            Verantwortlich für den Inhalt dieser Website: Ing. Gerald Gmainer.
           </p>
 
           <p class="mt-8 text-sm text-ink-faint">

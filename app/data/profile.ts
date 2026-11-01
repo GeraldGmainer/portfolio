@@ -3,6 +3,8 @@ import type { Localized } from '#shared/types/localized'
 // Who the site is about: the JSON-LD person, llms.txt and the markdown pages read this.
 export const profile = {
   name: 'Gerald Gmainer',
+  // Austrian title (Ing.): shown on the legal pages and the contact page, not everywhere.
+  honorificPrefix: 'Ing.',
   givenName: 'Gerald',
   familyName: 'Gmainer',
   email: 'gerald.gmainer@gmail.com',
