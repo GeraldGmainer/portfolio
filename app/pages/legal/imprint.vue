@@ -30,7 +30,6 @@
           </h2>
           <p class="mt-5">
             Ing. Gerald Gmainer<br>
-            Money Koi<br>
             Am Platzl 3<br>
             4451 Garsten<br>
             Österreich

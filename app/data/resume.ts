@@ -161,12 +161,12 @@ export const experience: { role: Localized, company: string | Localized, about?:
     time: '11/2014 – 11/2015',
     bullets: {
       de: [
-        '**CRM-Neuentwicklung** für die Raiffeisenbank Salzburg',
+        '**CRM-Neuentwicklung** für eine Bank',
         '**CI/CD und Layout** verantwortet',
         '**Zeitmanagementsystem** für den internen Einsatz'
       ],
       en: [
-        '**New CRM** for Raiffeisenbank Salzburg',
+        '**New CRM** for a bank',
         '**CI/CD and layout** owned',
         '**Time management system** for internal use'
       ]

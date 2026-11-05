@@ -17,7 +17,8 @@
  *   it at a fixed spot on the right of the hero via a camera view offset, so
  *   the headline column stays dark. The warm lamp and the bench's dissolve
  *   follow the focus a little more slowly. Focus cycles on a wall clock and
- *   only a click or the prev/next arrows below the focus spot change it
+ *   only a click, a sideways touch swipe (left: next) or the prev/next arrows
+ *   below the focus spot change it
  *   (hovering the arrows holds the cycle); hover never moves the camera
  *   (phones slide under a still pointer mid-glide, which made hover-focus
  *   flicker), it pauses the cycle, lifts that phone's screen and shows a
@@ -99,6 +100,9 @@ const INTERVAL = 6000
 /** Prev/next: button height, and their offset below the focused phone's body (clears its stand). */
 const NAV_SIZE = 44
 const NAV_BELOW = HOLDER === 'fine' ? 52 : 36
+/** A touch swipe steps one phone: this far sideways (px), and clearly more sideways than up or down. */
+const SWIPE_MIN = 40
+const SWIPE_RATIO = 1.5
 /** Height of the page header on phones; the bench stays below it. */
 const MOBILE_HEADER = 72
 /** Load progress reported to DeskLoader: three's chunks, the built scene, screens, shaders. */
@@ -1828,7 +1832,7 @@ function createScene(
 
   const pointer = { nx: 0, ny: 0, active: false }
 
-  function toLocal(e: PointerEvent): [number, number, boolean] {
+  function toLocal(e: { clientX: number, clientY: number }): [number, number, boolean] {
     const r = hostEl.getBoundingClientRect()
     const x = e.clientX - r.left
     const y = e.clientY - r.top
@@ -1921,6 +1925,37 @@ function createScene(
     setFocus(focus.pos + dir, true)
     showCard(-1)
     if (reduced) renderOnce()
+  }
+
+  // A sideways swipe that starts on the scene steps one phone, like the
+  // arrows (finger to the left: next). Touch events, not pointer events: the
+  // browser cancels the pointer as soon as it takes the gesture for a pan, but
+  // still reports where the touch ended. A tap moves under 10 px, a swipe at
+  // least SWIPE_MIN, so the two never both fire.
+  const swipe = { id: -1, x: 0, y: 0 }
+  const onTouchStart = (e: TouchEvent) => {
+    const t = e.touches[0]
+    // A second finger (pinch-zoom) drops the swipe.
+    if (e.touches.length !== 1 || !t || !toLocal(t)[2]) {
+      swipe.id = -1
+      return
+    }
+    swipe.id = t.identifier
+    swipe.x = t.clientX
+    swipe.y = t.clientY
+  }
+  const onTouchEnd = (e: TouchEvent) => {
+    if (swipe.id < 0) return
+    const t = Array.from(e.changedTouches).find(c => c.identifier === swipe.id)
+    if (!t) return
+    swipe.id = -1
+    const dx = t.clientX - swipe.x
+    const dy = t.clientY - swipe.y
+    if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy) * SWIPE_RATIO) return
+    step(dx < 0 ? 1 : -1)
+  }
+  const onTouchCancel = () => {
+    swipe.id = -1
   }
 
   /* ---- loop & lifecycle ---------------------------------------------- */
@@ -2095,6 +2130,9 @@ function createScene(
   window.addEventListener('pointerdown', onDown, { passive: true })
   window.addEventListener('pointerup', onUp, { passive: true })
   window.addEventListener('pointercancel', onCancel, { passive: true })
+  window.addEventListener('touchstart', onTouchStart, { passive: true })
+  window.addEventListener('touchend', onTouchEnd, { passive: true })
+  window.addEventListener('touchcancel', onTouchCancel, { passive: true })
 
   ensure()
 
@@ -2111,6 +2149,9 @@ function createScene(
     window.removeEventListener('pointerdown', onDown)
     window.removeEventListener('pointerup', onUp)
     window.removeEventListener('pointercancel', onCancel)
+    window.removeEventListener('touchstart', onTouchStart)
+    window.removeEventListener('touchend', onTouchEnd)
+    window.removeEventListener('touchcancel', onTouchCancel)
     document.documentElement.style.cursor = ''
     for (const d of disposables) d.dispose()
     key.shadow.dispose()

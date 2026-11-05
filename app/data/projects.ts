@@ -8,6 +8,10 @@ import type { Localized } from '../../shared/types/localized'
 // Client projects only state what is public or already approved for this
 // site; numbers come from the project itself (MoneyKoi: its README, as of
 // October 2026). Never round up and never invent results.
+//
+// Objectbay projects: naming the clients or their products is not approved,
+// so keep titles, text and alt texts generic. Their images are designed
+// screens with demo data, not captures (scripts/client-screens.mjs).
 
 export type ProjectType = 'own' | 'work' | 'freelance'
 
@@ -245,7 +249,7 @@ export const projects: Project[] = [
       de: 'Modul zur automatischen Bearbeitung von Versicherungsschäden. Mitentwicklung des Regelwerks sowie UI-Komponenten zur effizienten Bewertung von Fällen. Unterstützt Sachbearbeiter dabei, Zeit zu sparen und jeden Schadenfall deutlich kosteneffizienter abzuwickeln.',
       en: 'Module for processing insurance claims automatically. I co-developed the rules engine and UI components for assessing cases efficiently, helping claims handlers save time and settle each claim at much lower cost.'
     },
-    image: '/images/ww.webp',
+    image: '/images/claims.webp',
     date: '2025-11-01',
     stack: ['Angular', 'Spring Boot', 'PostgreSQL', 'Lombok'],
     type: 'work',
@@ -258,7 +262,7 @@ export const projects: Project[] = [
       de: 'Web- und App-gestütztes Finanzmanagement-Tool mit Beraterunterstützung. Meine Hauptverantwortung lag in der Entwicklung der Web- (Angular) und App- (Flutter) Komponenten.',
       en: 'Web and app-based financial management tool with adviser support. I was mainly responsible for the web (Angular) and app (Flutter) parts.'
     },
-    image: '/images/digifinance.webp',
+    image: '/images/finance.webp',
     date: '2025-02-01',
     stack: ['Angular', 'Flutter', 'Spring Boot'],
     type: 'work',
@@ -278,7 +282,10 @@ export const projects: Project[] = [
       de: 'Flutter-App und Web-Portal zur Steuerung und Diagnose von rund 10 Rodelbahnen weltweit – Bluetooth-Sync mit bis zu 40 Fahrzeugen gleichzeitig.',
       en: 'Flutter app and web portal for controlling and diagnosing around 10 alpine coasters worldwide – Bluetooth sync with up to 40 vehicles at once.'
     },
-    image: '/images/sunkid.webp',
+    image: '/images/coaster.webp',
+    mockup: '/images/coaster-mockup.webp',
+    mockupKind: 'wide',
+    glow: '#FAAD14',
     gallery: ['/images/screens/rodelbahn.jpg'],
     date: '2024-12-01',
     stack: ['Flutter', 'Bluetooth (BLE)', 'React Refine', 'Spring Boot', 'PostgreSQL', 'Keycloak'],
@@ -337,7 +344,15 @@ export const projects: Project[] = [
         { value: 'Offline', label: { de: 'Diagnose ohne Netz, Abgleich danach', en: 'diagnostics without network, sync after' } }
       ],
       images: [
-        { src: '/images/sunkid.webp', alt: { de: 'Diagnose-App neben einer Rodel', en: 'Diagnostics app next to a sled' }, width: 800, height: 602 }
+        {
+          src: '/images/coaster.webp',
+          alt: {
+            de: 'Admin-Web mit der Fahrzeugliste einer Bahn – Status, Akku und letzte Diagnose je Rodel –, daneben die Diagnose-App für eine einzelne Rodel',
+            en: 'Admin web with the sled list of one coaster – status, battery and last diagnostics per sled – next to the diagnostics app for a single sled'
+          },
+          width: 1600,
+          height: 1200
+        }
       ]
     }
   },
@@ -350,7 +365,7 @@ export const projects: Project[] = [
       en: 'A thorough modernisation of the backend of an existing security product. Refactoring and a move to microservices (Spring Boot, Java and Kotlin) laid the groundwork for better scalability and a longer life. '
         + 'Introducing Docker and Kubernetes also improved deployments and resource usage.'
     },
-    image: '/images/seqify.webp',
+    image: '/images/security.webp',
     date: '2024-07-01',
     stack: ['Spring Boot', 'Java', 'Kotlin', 'Docker', 'Kubernetes'],
     type: 'work',
@@ -658,10 +673,10 @@ export const projects: Project[] = [
   },
   {
     id: 'crm',
-    title: { de: 'CRM Raiffeisenbank Salzburg', en: 'CRM for Raiffeisenbank Salzburg' },
+    title: { de: 'CRM für eine Bank', en: 'CRM for a bank' },
     description: {
-      de: 'Mitarbeit an einem CRM-System im Scrum-Team.',
-      en: 'Worked on a CRM system in a Scrum team.'
+      de: 'Mitarbeit an der Neuentwicklung eines CRM-Systems für eine Bank im Scrum-Team.',
+      en: 'Worked on a new CRM system for a bank in a Scrum team.'
     },
     image: '/images/crm.webp',
     date: '2015-06-01',
@@ -676,7 +691,7 @@ export const projects: Project[] = [
       de: 'Interne Zeiterfassung mit Reporting-Funktionen.',
       en: 'Internal time tracking with reporting.'
     },
-    image: '/images/timerecording.webp',
+    image: '/images/time-tracking.webp',
     date: '2015-06-01',
     stack: ['AngularJS', 'Java CDI', 'PostgreSQL', 'Jenkins'],
     type: 'work',
