@@ -25,7 +25,9 @@ const i18nHead = useLocaleHead({ seo: true })
 useHead(() => ({
   htmlAttrs: { lang: i18nHead.value.htmlAttrs?.lang },
   link: [
-    { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+    // The .ico holds 16 and 32 px. Google wants a multiple of 48 px for results, hence the 192 PNG.
+    { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
+    { rel: 'icon', type: 'image/png', href: '/icon-192.png', sizes: '192x192' },
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
     { rel: 'manifest', href: '/site.webmanifest' },

@@ -8,6 +8,7 @@
       <!-- On phones the bench owns the first screen; the intro and CTAs follow below the fold. -->
       <div class="absolute inset-x-0 top-0 h-[100svh] md:bottom-0 md:h-auto">
         <DeskScene
+          :hold="!deskDrawn"
           @progress="deskProgress = $event"
           @settled="deskLoading = false"
         />
@@ -31,6 +32,7 @@
           <DeskLoader
             v-if="deskLoading"
             :progress="deskProgress"
+            @drawn="deskDrawn = true"
           />
         </Transition>
       </div>
@@ -451,16 +453,19 @@ const { locale } = useI18n()
 
 const deskLoading = ref(true)
 const deskProgress = ref(0)
+// The scene's first frame waits for DeskLoader to close its trace.
+const deskDrawn = ref(false)
 
 usePageSeo({
   title: null,
   ogTitle: {
-    de: 'Gerald Gmainer – Flutter-Entwickler & Product Owner aus Österreich',
-    en: 'Gerald Gmainer – Flutter developer & product owner from Austria'
+    // Short enough that Google doesn't cut it; the place lives in the description.
+    de: 'Gerald Gmainer – Flutter-Entwickler & Product Owner',
+    en: 'Gerald Gmainer – Flutter developer & product owner'
   },
   description: {
-    de: 'Gerald Gmainer: Product Owner, UX-Designer und Full-Stack-Entwickler bei Steyr, Oberösterreich. Flutter-Apps und Web-Portale – offen für Freelance-Projekte.',
-    en: 'Gerald Gmainer: product owner, UX designer and full-stack developer near Steyr, Austria. Flutter apps and web platforms – open to freelance projects.'
+    de: 'Product Owner, UX-Designer und Entwickler aus dem Raum Steyr, OÖ. Flutter-Apps und Web-Portale von der Idee bis zum Release – offen für Freelance-Projekte.',
+    en: 'Product owner, UX designer and developer near Steyr, Austria. Flutter apps and web platforms from first idea to release – open to freelance projects.'
   }
 })
 

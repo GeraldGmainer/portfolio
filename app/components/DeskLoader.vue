@@ -8,10 +8,14 @@
  *   any JS has run. Only `progress` needs the client.
  * - The glass sheen animates transform only, so it stays alive on the compositor
  *   while the scene blocks the main thread.
- * - Fades in after a short delay (fast and cached loads never see it) and gives
- *   itself up after 30 s, which also covers no JS and stalled networks.
+ * - The trace is the intro: on the first visit of a session it takes at least
+ *   DRAW to go round, even when everything is cached, and DeskScene holds its
+ *   first frame until `drawn`. Later visits and reduced motion skip the pacing.
+ * - Fades in after a short delay and gives itself up after 30 s, which also
+ *   covers no JS and stalled networks.
  */
 const props = defineProps<{ progress: number }>()
+const emit = defineEmits<{ drawn: [] }>()
 
 const l = useLocalized()
 const { locale } = useI18n()
@@ -31,8 +35,17 @@ const WAIT_STEP = 0.05
 const WAIT_MAX = 0.6
 const waited = ref(0)
 const waiting = computed(() => props.progress === 0)
-const target = computed(() => waited.value + (1 - waited.value) * props.progress)
+const target = computed(() => (props.progress >= 1 ? 1 : waited.value + (1 - waited.value) * props.progress))
 let waitTimer: ReturnType<typeof setInterval> | undefined
+
+// Intro pacing: the line may not run ahead of DRAW for a full round, and the
+// closed phone holds for CLOSED_HOLD before the scene takes over.
+const DRAW = 2400
+const CLOSED_HOLD = 300
+const introSeen = useState('desk-intro-seen', () => false)
+const pace = ref(false)
+let start = 0
+let drawnTimer: ReturnType<typeof setTimeout> | undefined
 
 // Progress arrives in steps; the line eases toward it. Runs only while moving.
 const shown = ref(0)
@@ -42,7 +55,8 @@ let last = 0
 function tick(now: number) {
   const dt = Math.min(now - last, 100)
   last = now
-  shown.value += (target.value - shown.value) * (1 - Math.exp(-dt / 180))
+  const goal = pace.value ? Math.min(target.value, (now - start) / DRAW) : target.value
+  shown.value += (goal - shown.value) * (1 - Math.exp(-dt / 180))
   if (Math.abs(target.value - shown.value) < 0.001) {
     shown.value = target.value
     raf = 0
@@ -57,6 +71,12 @@ function follow() {
   raf = requestAnimationFrame(tick)
 }
 
+// Paced, the scene waits for the line to close; otherwise only for the load.
+watch(() => (pace.value ? shown.value : target.value) >= 1, (done) => {
+  if (!done || drawnTimer) return
+  introSeen.value = true
+  drawnTimer = setTimeout(() => emit('drawn'), pace.value ? CLOSED_HOLD : 0)
+})
 watch(target, follow)
 watch(waiting, (now) => {
   if (now) return
@@ -65,6 +85,8 @@ watch(waiting, (now) => {
   shown.value = Math.max(shown.value, waited.value)
 })
 onMounted(() => {
+  pace.value = !introSeen.value && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  start = performance.now()
   follow()
   if (waiting.value) {
     waitTimer = setInterval(() => {
@@ -75,6 +97,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   cancelAnimationFrame(raf)
   clearInterval(waitTimer)
+  clearTimeout(drawnTimer)
 })
 </script>
 

@@ -72,6 +72,8 @@ interface Ui {
   setProgress: (p: number) => void
   /** Loading is over: the first frame is up, or the scene will never show. */
   settled: () => void
+  /** Resolves once the scene may draw its first frame (see the `hold` prop). */
+  released: Promise<void>
 }
 
 interface Scene {
@@ -105,10 +107,24 @@ const SWIPE_MIN = 40
 const SWIPE_RATIO = 1.5
 /** Height of the page header on phones; the bench stays below it. */
 const MOBILE_HEADER = 72
-/** Load progress reported to DeskLoader: three's chunks, the built scene, screens, shaders. */
-const LOAD = { chunk: 0.09, built: 0.3, screens: 0.55, compiled: 0.95 }
+/** Load progress reported to DeskLoader: three's chunks, the built scene, screens; 1 once the shaders are compiled. */
+const LOAD = { chunk: 0.09, built: 0.3, screens: 0.55 }
 
+/** hold: everything may load, but the first frame waits until it turns false (DeskLoader finishing its trace). */
+const props = defineProps<{ hold?: boolean }>()
 const emit = defineEmits<{ progress: [value: number], settled: [] }>()
+
+const released = new Promise<void>((resolve) => {
+  if (!props.hold) {
+    resolve()
+    return
+  }
+  const stop = watch(() => props.hold, (held) => {
+    if (held) return
+    stop()
+    resolve()
+  })
+})
 
 /**
  * Bench-local placements [x, z, yaw°] per screen: a counter-clockwise arc in
@@ -233,7 +249,8 @@ onMounted(async () => {
     },
     placeCard,
     setProgress: p => emit('progress', p),
-    settled: () => emit('settled')
+    settled: () => emit('settled'),
+    released
   }
   try {
     desk = createScene(THREE, RoundedBox, merge, creased, host.value, canvas.value, ui)
@@ -2107,7 +2124,9 @@ function createScene(
       ])
       if (!alive) return
     }
-    ui.setProgress(LOAD.compiled)
+    ui.setProgress(1)
+    await ui.released
+    if (!alive) return
     ready = true
     ensure()
   })
