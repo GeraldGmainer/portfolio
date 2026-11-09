@@ -40,7 +40,7 @@ let waitTimer: ReturnType<typeof setInterval> | undefined
 
 // Intro pacing: the line may not run ahead of DRAW for a full round, and the
 // closed phone holds for CLOSED_HOLD before the scene takes over.
-const DRAW = 1900
+const DRAW = 1400
 const CLOSED_HOLD = 300
 const introSeen = useState('desk-intro-seen', () => false)
 const pace = ref(false)
