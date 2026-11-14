@@ -25,6 +25,10 @@
  *   pointer cursor. Reduced motion cuts instantly.
  * - The camera tips further over the bench for the landscape phone, which lies
  *   nearly flat.
+ * - Intro: the scene opens head-on to the first phone, exactly where DeskLoader
+ *   drew its outline, holds there for INTRO_HOLD and then swings up to the
+ *   usual pose over INTRO_GLIDE. The cycle starts once it has arrived. Reduced
+ *   motion opens in the usual pose.
  * - Each phone has a project card (title, one-liner, links) that rides along
  *   beside it. Mouse and touch work alike: a press on the phone in view toggles
  *   it, a press on another phone only moves the view there, a press anywhere
@@ -107,6 +111,9 @@ const SWIPE_MIN = 40
 const SWIPE_RATIO = 1.5
 /** Height of the page header on phones; the bench stays below it. */
 const MOBILE_HEADER = 72
+/** Intro (ms): how long the first phone is shown head-on, and the swing up to the usual pose. */
+const INTRO_HOLD = 1000
+const INTRO_GLIDE = 1900
 /** Load progress reported to DeskLoader: three's chunks, the built scene, screens; 1 once the shaders are compiled. */
 const LOAD = { chunk: 0.09, built: 0.3, screens: 0.55 }
 
@@ -1595,6 +1602,8 @@ function createScene(
         const dist = tmpB.distanceTo(tmpA)
         tb = 0.72 * (1 - 0.5 * clamp((dist - 0.8) / 2.2, 0, 1)) * (u.depth < f.depth - 0.3 ? 0.4 : 1)
         if (i === hovered || i === card.unit) tb = Math.max(tb, 0.9)
+        // Head-on, the other screens stay low so the first phone carries the intro; they come up with the swing.
+        tb *= mix(0.15, 1, introEase())
         tg = 0.9
       }
       u.bright += (tb - u.bright) * k
@@ -1619,7 +1628,7 @@ function createScene(
   }
 
   function stepFocus(ms: number) {
-    if (order.length < 2) return
+    if (order.length < 2 || intro.k < 1) return
     if (focus.hover >= 0 || focus.hold || card.unit >= 0) return
     focus.cycle += ms
     if (focus.cycle >= INTERVAL) setFocus(focus.pos + 1, true)
@@ -1645,6 +1654,12 @@ function createScene(
     elev: ELEV,
     vElev: { v: 0 }
   }
+  // The intro's opening pose (head-on to the first phone, same size on screen)
+  // and how far it has blended into the usual one: k 0 is head-on, 1 is arrived.
+  const front = { yaw: 0, elev: 0, dist: 7 }
+  const intro = { t: 0, k: reduced ? 1 : 0 }
+  const introEase = () => intro.k * intro.k * intro.k * (intro.k * (intro.k * 6 - 15) + 10)
+  const mix = (a: number, b: number, t: number) => a + (b - a) * t
   const lamp = { look: new THREE.Vector3(), v: new THREE.Vector3() }
   const orbit = { yaw: 0, pitch: 0 }
   const camDir = new THREE.Vector3()
@@ -1677,6 +1692,12 @@ function createScene(
     camera.lookAt(look)
     camera.updateMatrixWorld(true)
     camera.setViewOffset(view.w, view.h, view.w / 2 - view.tx - shift, view.h / 2 - view.ty, view.w, view.h)
+  }
+
+  /** The usual pose around cam.look, blended from the head-on one while the intro runs. */
+  function placeView(yaw: number, elev: number, dist: number, shift: number) {
+    const e = introEase()
+    placeCamera(cam.look, mix(front.yaw, yaw, e), mix(front.elev, elev, e), mix(front.dist, dist, e), shift)
   }
 
   function followLamp(instant: boolean, dt: number) {
@@ -1749,7 +1770,17 @@ function createScene(
     if (first === undefined) return
     const u = units[first]!
     const yaw = poseOf(first)
+    // Head-on: along the screen's normal. DeskLoader's outline has this shape and size.
+    tmpA.set(0, 0, 1).transformDirection(u.body.matrixWorld)
+    front.yaw = Math.atan2(tmpA.x, tmpA.z)
+    front.elev = Math.asin(clamp(tmpA.y, -1, 1))
     let dist = 7
+    for (let i = 0; i < 4; i++) {
+      placeCamera(poseLook, front.yaw, front.elev, dist, 0)
+      projectUnit(u)
+      dist *= (u.box.bottom - u.box.top) / th
+    }
+    front.dist = dist
     for (let i = 0; i < 4; i++) {
       placeCamera(poseLook, yaw, ELEV, dist, 0)
       projectUnit(u)
@@ -1775,7 +1806,7 @@ function createScene(
     cam.vElev.v = 0
     cam.bump = 0
     followLamp(true, 0)
-    placeCamera(cam.look, cam.yaw, cam.elev, cam.dist * cam.zoom, cam.shift)
+    placeView(cam.yaw, cam.elev, cam.dist * cam.zoom, cam.shift)
   }
 
   function layout(): boolean {
@@ -2040,13 +2071,20 @@ function createScene(
     const bt = clamp(cam.vLook.length() / 2.2, 0, 1)
     cam.bump += (bt - cam.bump) * (1 - Math.exp(-dt * 8))
 
-    // Pointer parallax: a small offset on top of the current pose.
+    // Intro: hold head-on from the first frame, then blend into the usual pose.
+    if (intro.k < 1 && revealAt >= 0) {
+      intro.t += dt * 1000
+      intro.k = clamp((intro.t - INTRO_HOLD) / INTRO_GLIDE, 0, 1)
+    }
+
+    // Pointer parallax: a small offset on top of the current pose (none while head-on).
     const k = 1 - Math.exp(-dt * 4)
-    const ty = pointer.active ? pointer.nx * 2.5 * DEG : 0
-    const tp = pointer.active ? -pointer.ny * 1.2 * DEG : 0
+    const reach = introEase()
+    const ty = pointer.active ? pointer.nx * 2.5 * DEG * reach : 0
+    const tp = pointer.active ? -pointer.ny * 1.2 * DEG * reach : 0
     orbit.yaw += (ty - orbit.yaw) * k
     orbit.pitch += (tp - orbit.pitch) * k
-    placeCamera(cam.look, cam.yaw + orbit.yaw, cam.elev + 6 * DEG * cam.bump + orbit.pitch, cam.dist * cam.zoom * (1 + 0.08 * cam.bump), cam.shift)
+    placeView(cam.yaw + orbit.yaw, cam.elev + 6 * DEG * cam.bump + orbit.pitch, cam.dist * cam.zoom * (1 + 0.08 * cam.bump), cam.shift)
     for (const u of units) {
       if (u.active) u.screenMat.uniforms.uShift!.value = orbit.yaw * 0.8 - orbit.pitch * 1.2
     }

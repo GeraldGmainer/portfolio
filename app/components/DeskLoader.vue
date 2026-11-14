@@ -2,7 +2,8 @@
 /**
  * DeskLoader: stands in for DeskScene while three and the app screens load.
  * The lamp warms up over the bench and a line of light draws a phone at the
- * exact spot the first real phone appears, so one crossfades into the other.
+ * exact spot, size and shape of the first real phone as DeskScene opens on it
+ * (head-on), so one crossfades into the other.
  *
  * - Server-rendered and CSS-positioned, so it is there from first paint, before
  *   any JS has run. Only `progress` needs the client.
@@ -24,8 +25,8 @@ const percent = computed(() => new Intl.NumberFormat(locale.value, { style: 'per
 
 // Each half runs from the bottom centre up one side; they meet at the top.
 const SIDES = [
-  'M50 195H84A15 15 0 0 0 99 180V16A15 15 0 0 0 84 1H50',
-  'M50 195H16A15 15 0 0 1 1 180V16A15 15 0 0 1 16 1H50'
+  'M50 215H83A16 16 0 0 0 99 199V17A16 16 0 0 0 83 1H50',
+  'M50 215H17A16 16 0 0 1 1 199V17A16 16 0 0 1 17 1H50'
 ]
 const TIP = 0.018
 
@@ -40,7 +41,7 @@ let waitTimer: ReturnType<typeof setInterval> | undefined
 
 // Intro pacing: the line may not run ahead of DRAW for a full round, and the
 // closed phone holds for CLOSED_HOLD before the scene takes over.
-const DRAW = 1400
+const DRAW = 1000
 const CLOSED_HOLD = 300
 const introSeen = useState('desk-intro-seen', () => false)
 const pace = ref(false)
@@ -115,12 +116,12 @@ onBeforeUnmount(() => {
       <svg
         class="absolute inset-0 h-full w-full overflow-visible"
         fill="none"
-        viewBox="0 0 100 196"
+        viewBox="0 0 100 216"
       >
         <rect
           class="stroke-line-strong"
-          height="194"
-          rx="15"
+          height="214"
+          rx="16"
           stroke-width="0.5"
           width="98"
           x="1"
@@ -150,8 +151,8 @@ onBeforeUnmount(() => {
         <circle
           class="desk-loader-hole"
           cx="50"
-          cy="8"
-          r="2.4"
+          cy="11.3"
+          r="3.4"
         />
       </svg>
       <p class="eyebrow desk-loader-caption">
@@ -163,8 +164,10 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-/* Same spot and size as the focused phone in DeskScene's layout(): keep in sync.
-   Only very short phones differ, where the scene also yields to the headline. */
+/* Same spot and size as the focused phone in DeskScene's layout(), and the
+   proportions of its body seen head-on (PHONE_W / PHONE_H, corner radius, camera
+   hole): keep in sync. Only very short phones differ, where the scene also
+   yields to the headline. */
 .desk-loader-spot {
   --x: 74%;
   --y: 54%;
@@ -173,7 +176,7 @@ onBeforeUnmount(() => {
   left: var(--x);
   top: var(--y);
   height: var(--h);
-  aspect-ratio: 100 / 196;
+  aspect-ratio: 100 / 216;
   transform: translate(-50%, -50%);
   animation:
     desk-loader-in 0.7s var(--ease-out-soft) 0.25s both,
@@ -210,7 +213,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0.5%;
   overflow: hidden;
-  border-radius: 15% / 7.6%;
+  border-radius: 16% / 7.4%;
   background: linear-gradient(160deg, color-mix(in oklab, var(--color-navy-700) 70%, transparent), color-mix(in oklab, var(--color-navy-950) 80%, transparent));
 }
 /* The same diagonal reflection the real screens carry, passing over the glass. */
