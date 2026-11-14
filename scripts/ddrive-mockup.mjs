@@ -62,46 +62,40 @@ async function phoneOnTesterTab() {
 const tripPhone = dataUrl(await sharp(PHONE).png().toBuffer())
 const testerTabPhone = await phoneOnTesterTab()
 
-// The steps of the driver's day, as the live app names them.
-const steps = [['運転前', 'ALC'], ['運転前', '車両点検'], ['運転', ''], ['運転後', '車両点検'], ['運転後', 'ALC']]
-const stepper = steps.map(([a, b], i) => `
-  <li class="${i === 0 ? 'on' : ''}"><i>${i === 0 ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>' : ''}</i><span>${a}<br>${b}</span></li>`).join('')
-
 // Painted over the frame's app area. The status bar stays, with the clock moved
-// to the time of the test.
+// to the time of the test. The content is what the original screen showed and
+// nothing more: tests used and days left on the sensor, the reading, the photo
+// taken during the test, timing and vehicle, back and upload.
 const readingScreen = `
   <div class="status" style="background-image:url(${testerTabPhone})"></div>
   <div class="clock">16:45</div>
   <div class="screen">
     <div class="bar">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
-      <span>運転前 アルコールチェック</span>
+      <svg viewBox="0 0 28 24" width="30" height="26" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="2" y="6" width="21" height="12" rx="3"/><path d="M26 10v4" stroke-linecap="round"/><rect x="5.5" y="9.5" width="10" height="5" rx="1" fill="#fff" stroke="none"/></svg>
+      <span>1/500回</span>
+      <span>残: 315日</span>
     </div>
-    <ol class="steps">${stepper}</ol>
-    <div class="device">
-      <img src="${testerUrl}" alt="">
-      <div class="device-name">
-        <b>ALCOFIND</b>
-        <span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"/></svg>接続済み</span>
+    <div class="main">
+      <div class="reading">
+        <svg class="gauge" viewBox="0 0 300 300" width="300" height="300">
+          <defs>
+            <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5BE3A0"/><stop offset="1" stop-color="#2EA9BF"/></linearGradient>
+            <radialGradient id="wash"><stop offset=".55" stop-color="#3DD68C" stop-opacity="0"/><stop offset="1" stop-color="#3DD68C" stop-opacity=".13"/></radialGradient>
+          </defs>
+          <circle cx="150" cy="150" r="141" fill="url(#wash)"/>
+          <circle cx="150" cy="150" r="124" fill="none" stroke="#565656" stroke-width="7" stroke-dasharray="1.6 ${(2 * Math.PI * 124 / 72 - 1.6).toFixed(3)}" transform="rotate(-90.4 150 150)"/>
+          <circle class="arc" cx="150" cy="150" r="144" fill="none" stroke="url(#arc)" stroke-width="7"/>
+          <circle cx="150" cy="294" r="21" fill="#3DD68C" stroke="#303030" stroke-width="7"/>
+          <path d="m141.5 294.5 6 6 11.5-12" fill="none" stroke="#14321F" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="value"><b>0.00</b><span>mg/L</span></div>
       </div>
-      <dl><div><dt>測定回数</dt><dd>1/500回</dd></div><div><dt>残り</dt><dd>315日</dd></div></dl>
-    </div>
-    <div class="reading">
-      <svg class="ring" viewBox="0 0 260 260" width="288" height="288"><circle cx="130" cy="130" r="116" fill="none" stroke="#3DD68C" stroke-width="11"/></svg>
-      <div class="value"><b>0.00</b><span>mg/L</span></div>
-    </div>
-    <p class="verdict"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>アルコール検知なし</p>
-    <p class="date">2022年9月7日 16:45</p>
-    <div class="info">
-      <div class="photo"><svg viewBox="0 0 100 100" width="50" height="50"><circle cx="50" cy="31" r="20"/><path d="M13 92c0-23 16-37 37-37s37 14 37 37z"/></svg></div>
-      <dl>
+      <p class="date">2022年9月7日 16:45</p>
+      <div class="photo"><svg viewBox="0 0 100 100" width="92" height="92"><circle cx="50" cy="31" r="20"/><path d="M13 92c0-23 16-37 37-37s37 14 37 37z"/></svg></div>
+      <dl class="info">
         <div><dt>計測タイミング</dt><dd>運転開始</dd></div>
         <div><dt>車両ナンバー</dt><dd>品川500ゆ0002</dd></div>
       </dl>
-    </div>
-    <div class="unlock">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/></svg>
-      アップロード後にエンジンロックを解除できます
     </div>
     <div class="buttons"><span class="btn back">戻る</span><span class="btn upload">アップロード</span></div>
   </div>`
@@ -111,42 +105,29 @@ const phoneStyles = `
   .phone > img { position: absolute; inset: 0; width: 100%; height: 100%; }
   .status { position: absolute; left: 107px; top: 40px; width: 100px; height: 32px; background-position: -96px -40px; background-size: ${PHONE_W}px ${PHONE_H}px; box-shadow: -60px 0 0 #424242; }
   .clock { position: absolute; left: 58px; top: 44px; font: 400 17.5px/24px Roboto, sans-serif; color: #e4e4e4; letter-spacing: .1px; }
-  .screen { position: absolute; left: 26px; top: 90px; width: 517px; height: 988px; background: #303030; color: #fff; font-family: 'Noto Sans JP', Roboto, sans-serif; }
-  .screen p, .screen dl, .screen dd, .screen ol { margin: 0; padding: 0; }
-  .bar { position: relative; height: 70px; display: flex; align-items: center; gap: 12px; padding: 0 20px 0 18px; background: #424242; box-shadow: 0 2px 6px rgb(0 0 0 / .35); font-size: 21px; font-weight: 500; }
-  .steps { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); padding: 20px 12px 0 !important; list-style: none; }
-  .steps::before { content: ''; position: absolute; left: 62px; right: 62px; top: 33px; height: 2px; background: #5a5a5a; }
-  .steps li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 13.5px; line-height: 17px; text-align: center; color: #9a9a9a; }
-  .steps i { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: #5a5a5a; box-shadow: 0 0 0 5px #303030; }
-  .steps .on { color: #fff; font-weight: 500; }
-  .steps .on i { background: #2EA9BF; }
-  .device { margin: 18px 20px 0; height: 74px; display: flex; align-items: center; gap: 12px; padding: 0 16px 0 12px; border-radius: 12px; background: #3b3b3b; }
-  .device img { height: 54px; width: auto; }
-  .device-name { display: flex; flex-direction: column; gap: 3px; }
-  .device-name b { font: 500 18px/1.1 Roboto, sans-serif; letter-spacing: .4px; }
-  .device-name span { display: flex; align-items: center; gap: 3px; font-size: 14px; line-height: 1.1; color: #5FC9DB; }
-  .device dl { margin-left: auto !important; display: flex; gap: 18px; text-align: right; }
-  .device dt { font-size: 12.5px; line-height: 18px; color: #a8a8a8; }
-  .device dd { font-size: 16px; line-height: 22px; font-weight: 500; }
-  .reading { position: relative; width: 288px; height: 288px; margin: 32px auto 0; }
-  .ring { display: block; filter: drop-shadow(0 0 16px rgb(61 214 140 / .35)); }
-  .value { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Roboto, sans-serif; }
-  .value b { font-size: 94px; line-height: 1; font-weight: 500; letter-spacing: -1px; }
-  .value span { margin-top: 4px; font-size: 24px; line-height: 1.2; color: #c4c4c4; }
-  .verdict { margin-top: 20px !important; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 21px; line-height: 28px; font-weight: 500; color: #3DD68C; }
-  .date { margin-top: 2px !important; font-size: 15px; line-height: 22px; text-align: center; color: #a8a8a8; }
-  .info { margin: 26px 20px 0; display: flex; align-items: center; gap: 16px; padding: 12px; border-radius: 12px; background: #3b3b3b; }
-  .photo { flex: none; width: 66px; height: 78px; display: grid; place-items: end center; overflow: hidden; border-radius: 8px; background: #6E9FC9; }
-  .photo svg { fill: #24384C; }
-  .info dl { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-  .info dl > div { display: flex; justify-content: space-between; align-items: baseline; }
-  .info dt { font-size: 15px; line-height: 22px; color: #b4b4b4; }
-  .info dd { font-size: 17px; line-height: 22px; font-weight: 500; }
-  .unlock { margin: 14px 20px 0; height: 50px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; background: rgb(61 214 140 / .14); color: #6BE3A9; font-size: 17px; font-weight: 500; }
-  .buttons { margin: 18px 20px 0; display: flex; gap: 12px; }
-  .btn { height: 56px; display: grid; place-items: center; border-radius: 12px; font-size: 19px; font-weight: 500; }
-  .back { width: 104px; background: #4c4c4c; color: #fff; }
-  .upload { flex: 1; background: #2EA9BF; color: #fff; box-shadow: 0 4px 14px rgb(46 169 191 / .35); }`
+  .screen { position: absolute; left: 26px; top: 90px; width: 517px; height: 988px; display: flex; flex-direction: column; background: #303030; color: #fff; font-family: 'Noto Sans JP', Roboto, sans-serif; }
+  .screen p, .screen dl, .screen dd { margin: 0; padding: 0; }
+  .bar { flex: none; height: 70px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 24px; background: #424242; font-size: 19px; font-weight: 500; }
+  .bar span:last-child { justify-self: end; }
+  .main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 8px; }
+  .reading { position: relative; flex: none; width: 300px; height: 300px; }
+  .gauge { display: block; overflow: visible; }
+  .gauge .arc { filter: drop-shadow(0 0 9px rgb(61 214 140 / .45)); }
+  .value { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 6px; font-family: Roboto, sans-serif; }
+  .value b { font-size: 100px; line-height: 1; font-weight: 300; letter-spacing: -2px; }
+  .value span { margin-top: 8px; font-size: 21px; line-height: 1.2; letter-spacing: .5px; color: #a8a8a8; }
+  .date { margin-top: 38px !important; font-size: 16px; line-height: 22px; text-align: center; color: #a8a8a8; }
+  .photo { flex: none; margin-top: 44px; width: 116px; height: 140px; display: grid; place-items: end center; overflow: hidden; border-radius: 10px; background: #7FB2DC; }
+  .photo svg { fill: #1F2B36; }
+  .info { margin-top: 26px !important; display: flex; text-align: center; }
+  .info > div { padding: 0 28px; }
+  .info > div + div { border-left: 1px solid #505050; }
+  .info dt { font-size: 14px; line-height: 20px; color: #a8a8a8; }
+  .info dd { margin-top: 2px !important; font-size: 19px; line-height: 26px; font-weight: 500; }
+  .buttons { flex: none; margin: 0 32px 36px; display: flex; gap: 14px; }
+  .btn { height: 58px; display: grid; place-items: center; border-radius: 10px; font-size: 19px; font-weight: 500; }
+  .back { width: 112px; border: 1.5px solid #5e5e5e; color: #e4e4e4; }
+  .upload { flex: 1; background: #2EA9BF; color: #fff; }`
 
 const bluetooth = `<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"/></svg>`
 
@@ -159,7 +140,7 @@ const place = (x, y, scale, content) => `<div class="phone" style="transform:tra
 
 const shell = (width, height, background, body) => `<!doctype html><meta charset="utf-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Roboto:wght@400;500&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Roboto:wght@300;400;500&display=block" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; width: ${width}px; height: ${height}px; overflow: hidden; background: ${background}; }

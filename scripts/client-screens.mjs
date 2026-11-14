@@ -105,15 +105,15 @@ const phone = (x, y, scale, bg, content, bar = 'rgba(0,0,0,.85)') =>
   `<div class="phone" style="left:${x}px;top:${y}px;transform:scale(${scale})"><div class="screen" style="background:${bg}"><div class="island"></div>${content}<div class="homebar" style="background:${bar}"></div></div></div>`
 
 // ---------------------------------------------------------------------------
-// Alpine coaster: the admin web as it was built – React Refine with its
-// default Ant Design layout in the yellow theme – next to the diagnostics app.
+// Alpine coaster: the admin web – a current dashboard layout in the amber
+// theme, with the sled list of one track – next to the diagnostics app.
 
 const YELLOW = '#FAAD14'
 
 // The sled in the app is a 3D product shot: a small three.js scene rendered
 // in headless Chrome to a transparent PNG. The labels point at parts of the
 // model, projected with the same camera (see SLED_PARTS).
-const SLED = { w: 1074, h: 750, cam: { fov: 24, pos: [3.09, 2.51, 4.69], target: [-0.1, 0.48, 0] } }
+const SLED = { w: 1074, h: 750, lift: 0.06, cam: { fov: 22.5, pos: [3.09, 2.51, 4.69], target: [-0.03, 0.55, 0] } }
 
 const SLED_SCENE = `
 import * as THREE from 'three'
@@ -150,8 +150,8 @@ key.shadow.bias = -0.0004
 scene.add(key)
 
 const M = {
-  yellow: new THREE.MeshPhysicalMaterial({ color: 0xffc000, roughness: 0.34, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 0.7 }),
-  inside: new THREE.MeshStandardMaterial({ color: 0xe59a00, roughness: 0.6 }),
+  paint: new THREE.MeshPhysicalMaterial({ color: 0x1765e6, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 0.75 }),
+  inside: new THREE.MeshStandardMaterial({ color: 0x1250bd, roughness: 0.6 }),
   black: new THREE.MeshPhysicalMaterial({ color: 0x1b1d21, roughness: 0.42, clearcoat: 0.5, clearcoatRoughness: 0.3 }),
   pad: new THREE.MeshStandardMaterial({ color: 0x24262b, roughness: 0.92 }),
   chrome: new THREE.MeshStandardMaterial({ color: 0xf4f6f9, metalness: 1, roughness: 0.1 }),
@@ -174,94 +174,121 @@ function mesh(geo, mat, p = [0, 0, 0], r = [0, 0, 0], parent = scene) {
 }
 const box = (w, h, d, r = 0.03) => new RoundedBoxGeometry(w, h, d, 5, r)
 
-// Top view of the tub, tapering towards the nose; i insets it for the cockpit.
-function outline(i) {
-  const s = new THREE.Shape()
-  const x0 = -1 + i, x1 = 1.08 - i, wr = 0.31 - i, wf = 0.2 - i, r = 0.12
-  s.moveTo(x0 + r, -wr)
-  s.lineTo(0.35, -wr)
-  s.bezierCurveTo(0.75, -wr, x1 - 0.12, -wf, x1 - 0.06, -wf)
-  s.quadraticCurveTo(x1, -wf, x1, -wf + 0.06)
-  s.lineTo(x1, wf - 0.06)
-  s.quadraticCurveTo(x1, wf, x1 - 0.06, wf)
-  s.bezierCurveTo(x1 - 0.12, wf, 0.75, wr, 0.35, wr)
-  s.lineTo(x0 + r, wr)
-  s.quadraticCurveTo(x0, wr, x0, wr - r)
-  s.lineTo(x0, -wr + r)
-  s.quadraticCurveTo(x0, -wr, x0 + r, -wr)
-  return s
+// The body sits on the chassis, C.lift above the rail.
+const body = new THREE.Group()
+body.position.y = C.lift
+scene.add(body)
+
+// Narrows a part towards the nose, like the bow of a boat.
+function taper(geo) {
+  const p = geo.attributes.position
+  for (let i = 0; i < p.count; i++) {
+    const t = Math.min(1, Math.max(0, (p.getX(i) - 0.3) / 0.9))
+    p.setZ(i, p.getZ(i) * (1 - 0.3 * t * t * (3 - 2 * t)))
+  }
+  return geo
 }
 
-// Tub: walls with a rounded rim, and a floor inside.
-const shell = outline(0)
-shell.holes.push(outline(0.05))
-const tub = new THREE.ExtrudeGeometry(shell, { depth: 0.2, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.028, bevelSegments: 8, curveSegments: 40 })
-tub.rotateX(-Math.PI / 2)
-mesh(tub, M.yellow, [0, 0.17, 0])
-const floor = new THREE.ExtrudeGeometry(outline(0.05), { depth: 0.03, bevelEnabled: false, curveSegments: 40 })
-floor.rotateX(-Math.PI / 2)
-mesh(floor, M.inside, [0, 0.16, 0])
+// Side view of the shell: high at the rear seat, a dip for the legs,
+// a shoulder at the footwell and a bow that sweeps up to the nose.
+function side() {
+  const s = new THREE.Shape()
+  s.moveTo(-1, 0.2)
+  s.quadraticCurveTo(-1, 0.13, -0.92, 0.13)
+  s.lineTo(0.55, 0.13)
+  s.bezierCurveTo(0.85, 0.13, 1.05, 0.2, 1.16, 0.3)
+  s.quadraticCurveTo(1.2, 0.34, 1.15, 0.36)
+  s.bezierCurveTo(1, 0.42, 0.85, 0.47, 0.68, 0.47)
+  s.bezierCurveTo(0.45, 0.47, 0.3, 0.38, 0.05, 0.38)
+  s.bezierCurveTo(-0.25, 0.38, -0.4, 0.5, -0.7, 0.5)
+  s.lineTo(-0.94, 0.5)
+  s.quadraticCurveTo(-1, 0.5, -1, 0.44)
+  s.lineTo(-1, 0.2)
+  return s
+}
+const wall = new THREE.ExtrudeGeometry(side(), { depth: 0.03, bevelEnabled: true, bevelThickness: 0.012, bevelSize: 0.012, bevelSegments: 5, curveSegments: 32 })
+for (const z of [0.265, -0.295]) mesh(taper(wall.clone().translate(0, 0, z)), M.paint, [0, 0, 0], [0, 0, 0], body)
 
-// Seats, backrest with its number panel, seat belt and buckle.
-mesh(box(0.46, 0.09, 0.48, 0.04), M.pad, [-0.6, 0.235, 0])
-mesh(box(0.38, 0.08, 0.4, 0.035), M.pad, [0.08, 0.23, 0])
-const back = mesh(box(0.08, 0.95, 0.42, 0.04), M.black, [-0.9, 0.62, 0], [0, 0, 0.2])
+// The closed bow in front of the footwell, the floor and the rear wall.
+const bow = new THREE.Shape()
+bow.moveTo(0.52, 0.13)
+bow.lineTo(0.55, 0.13)
+bow.bezierCurveTo(0.85, 0.13, 1.05, 0.2, 1.16, 0.3)
+bow.quadraticCurveTo(1.2, 0.34, 1.15, 0.36)
+bow.bezierCurveTo(1, 0.42, 0.85, 0.47, 0.68, 0.47)
+bow.quadraticCurveTo(0.6, 0.47, 0.58, 0.4)
+bow.lineTo(0.52, 0.13)
+mesh(taper(new THREE.ExtrudeGeometry(bow, { depth: 0.54, bevelEnabled: false, curveSegments: 32 }).translate(0, 0, -0.27)), M.paint, [0, 0, 0], [0, 0, 0], body)
+mesh(box(1.56, 0.04, 0.54, 0.012), M.inside, [-0.22, 0.15, 0], [0, 0, 0], body)
+mesh(box(0.06, 0.37, 0.56, 0.02), M.paint, [-0.97, 0.315, 0], [0, 0, 0], body)
+
+// Start number on the side.
 const cv = document.createElement('canvas')
-cv.width = 256
-cv.height = 512
+cv.width = 512
+cv.height = 256
 const g = cv.getContext('2d')
-g.fillStyle = '#2b2e34'
-g.beginPath()
-g.roundRect(0, 0, 256, 512, 40)
-g.fill()
 g.fillStyle = '#ffffff'
-g.font = '800 150px -apple-system, Helvetica, Arial, sans-serif'
+g.font = 'italic 800 210px -apple-system, Helvetica, Arial, sans-serif'
 g.textAlign = 'center'
-g.fillText('07', 128, 190)
+g.fillText('07', 256, 205)
 const tex = new THREE.CanvasTexture(cv)
 tex.colorSpace = THREE.SRGBColorSpace
 tex.anisotropy = 8
-mesh(new THREE.PlaneGeometry(0.28, 0.56), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.8 }), [0.0415, 0.13, 0], [0, Math.PI / 2, 0], back)
-mesh(box(0.4, 0.008, 0.045, 0.003), M.rubber, [-0.65, 0.42, 0.135], [0, 0, -0.71])
-mesh(box(0.07, 0.022, 0.055, 0.008), M.chrome, [-0.48, 0.292, 0.13])
+mesh(new THREE.PlaneGeometry(0.3, 0.15), new THREE.MeshStandardMaterial({ map: tex, transparent: true, roughness: 0.5 }), [0.12, 0.255, 0.321], [0, 0, 0], body).castShadow = false
 
-// Bumpers with the front light and the tail light.
-const nose = mesh(box(0.2, 0.22, 0.42, 0.06), M.black, [1.14, 0.27, 0], [0, 0, -0.3])
-mesh(box(0.02, 0.05, 0.26, 0.01), M.led, [0.1, 0.025, 0], [0, 0, 0], nose)
-const tail = mesh(box(0.16, 0.25, 0.64, 0.06), M.black, [-1.06, 0.27, 0])
-mesh(box(0.02, 0.04, 0.34, 0.01), M.red, [-0.075, 0.05, 0], [0, 0, 0], tail)
+// Rear seat with its tall backrest and headrest, the lower front seat,
+// seat belt and buckle.
+mesh(box(0.44, 0.08, 0.46, 0.035), M.pad, [-0.62, 0.2, 0], [0, 0, 0], body)
+const back = mesh(box(0.1, 0.66, 0.44, 0.045), M.black, [-0.93, 0.62, 0], [0, 0, 0.2], body)
+mesh(box(0.03, 0.5, 0.34, 0.012), M.pad, [0.055, -0.03, 0], [0, 0, 0], back)
+mesh(box(0.11, 0.2, 0.28, 0.05), M.pad, [0.02, 0.4, 0], [0, 0, 0], back)
+mesh(box(0.36, 0.07, 0.42, 0.03), M.pad, [0.14, 0.195, 0], [0, 0, 0], body)
+mesh(box(0.07, 0.34, 0.4, 0.03), M.black, [-0.12, 0.4, 0], [0, 0, 0.18], body)
+mesh(box(0.4, 0.008, 0.045, 0.003), M.rubber, [-0.67, 0.4, 0.135], [0, 0, -0.71], body)
+mesh(box(0.07, 0.022, 0.055, 0.008), M.chrome, [-0.5, 0.262, 0.13], [0, 0, 0], body)
 
-// Brake levers on both sides, and the grab handles.
-for (const z of [-0.24, 0.24]) {
+// Bumpers: buffer and lights at the nose, tail light at the rear.
+const nose = mesh(box(0.12, 0.17, 0.3, 0.04), M.black, [1.2, 0.31, 0], [0, 0, -0.35], body)
+mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.07, 32), M.rubber, [0.08, -0.01, 0], [0, 0, Math.PI / 2], nose)
+for (const z of [-0.1, 0.1]) mesh(box(0.012, 0.035, 0.06, 0.005), M.led, [0.062, 0.03, z], [0, 0, 0], nose)
+const tail = mesh(box(0.1, 0.26, 0.5, 0.04), M.black, [-1.04, 0.3, 0], [0, 0, 0], body)
+mesh(box(0.012, 0.035, 0.3, 0.005), M.red, [-0.052, 0.04, 0], [0, 0, 0], tail)
+
+// Brake levers on both sides, and the grab handle on the bow.
+for (const z of [-0.235, 0.235]) {
   const lever = new THREE.Group()
-  lever.position.set(-0.4, 0.36, z)
+  lever.position.set(-0.35, 0.3, z)
   lever.rotation.z = -0.4
-  scene.add(lever)
+  body.add(lever)
   mesh(new THREE.CylinderGeometry(0.014, 0.017, 0.3, 20), M.dark, [0, 0.15, 0], [0, 0, 0], lever)
   mesh(new THREE.SphereGeometry(0.042, 40, 20), M.black, [0, 0.31, 0], [0, 0, 0], lever)
   mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.035, 24), M.dark, [0, 0, 0], [Math.PI / 2, 0, 0], lever)
 }
-mesh(new THREE.TorusGeometry(0.1, 0.014, 14, 48, Math.PI), M.rubber, [0.42, 0.34, 0], [0, Math.PI / 2, 0])
-for (const z of [-0.3, 0.3]) mesh(new THREE.TorusGeometry(0.075, 0.012, 14, 40, Math.PI), M.rubber, [-0.62, 0.39, z])
+mesh(new THREE.TorusGeometry(0.085, 0.013, 14, 48, Math.PI), M.rubber, [0.66, 0.465, 0], [0, Math.PI / 2, 0], body)
 
-// Chassis: frame, battery pack, bogies with wheels on the tubes, a sensor.
-mesh(box(1.7, 0.07, 0.44, 0.02), M.dark, [0, 0.115, 0])
-mesh(box(0.5, 0.075, 0.3, 0.02), M.black, [0, 0.11, 0.08])
-for (const x of [-0.52, 0.52]) for (const z of [-0.315, 0.315]) mesh(box(0.34, 0.14, 0.018, 0.01), M.dark, [x, 0.03, z])
-for (const x of [-0.64, -0.4, 0.4, 0.64]) {
-  for (const z of [-0.26, 0.26]) {
-    mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.04, 32), M.rubber, [x, 0.095, z], [Math.PI / 2, 0, 0])
-    mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.046, 24), M.steel, [x, 0.095, z], [Math.PI / 2, 0, 0])
+// Chassis: frame, bogies with running and guide wheels around the rail,
+// battery pack and a sensor.
+mesh(box(1.6, 0.05, 0.42, 0.015), M.dark, [0, 0.165, 0])
+for (const x of [-0.66, -0.44, 0.44, 0.66]) {
+  for (const z of [-0.17, 0.17]) {
+    mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.05, 32), M.rubber, [x, 0.093, z], [Math.PI / 2, 0, 0])
+    mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.056, 24), M.steel, [x, 0.093, z], [Math.PI / 2, 0, 0])
   }
 }
-for (const x of [-0.52, 0.52]) for (const z of [-0.26, 0.26]) mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.035, 24), M.rubber, [x, -0.08, z], [Math.PI / 2, 0, 0])
-mesh(box(0.07, 0.045, 0.02, 0.006), M.dark, [0.74, 0.075, 0.33])
-mesh(new THREE.SphereGeometry(0.009, 16, 8), M.green, [0.755, 0.08, 0.341])
+for (const x of [-0.55, 0.55]) {
+  for (const z of [-0.245, 0.245]) mesh(box(0.2, 0.23, 0.016, 0.006), M.dark, [x, 0.03, z])
+  for (const z of [-0.17, 0.17]) mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 24), M.rubber, [x, -0.075, z], [Math.PI / 2, 0, 0])
+  mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.49, 12), M.steel, [x, -0.075, 0], [Math.PI / 2, 0, 0])
+}
+mesh(box(0.46, 0.1, 0.07, 0.02), M.black, [0, 0.11, 0.265])
+mesh(box(0.07, 0.045, 0.02, 0.006), M.dark, [0.76, 0.1, 0.258])
+mesh(new THREE.SphereGeometry(0.009, 16, 8), M.green, [0.775, 0.105, 0.27])
 
-// Track: two chrome tubes, cross ties and posts, and a ground that only takes shadows.
-for (const z of [-0.26, 0.26]) mesh(new THREE.CylinderGeometry(0.045, 0.045, 10, 48), M.chrome, [0, 0, z], [0, 0, Math.PI / 2])
+// Track: the stainless rail on its cross ties and posts, and a ground that
+// only takes shadows.
+for (const z of [-0.17, 0.17]) mesh(new THREE.CylinderGeometry(0.045, 0.045, 10, 48), M.chrome, [0, 0, z], [0, 0, Math.PI / 2])
 for (const x of [-1.7, 1.75, 3.8]) {
-  mesh(box(0.06, 0.05, 0.66, 0.012), M.steel, [x, -0.075, 0])
+  mesh(box(0.06, 0.05, 0.5, 0.012), M.steel, [x, -0.075, 0])
   mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.52, 20), M.steel, [x, -0.36, 0])
 }
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.ShadowMaterial({ opacity: 0.13 }))
@@ -275,13 +302,13 @@ document.title = 'done'
 `
 
 // Parts the labels point at, in model coordinates (see SLED_SCENE).
-const KNOB = [-0.4 + 0.31 * Math.sin(0.4), 0.36 + 0.31 * Math.cos(0.4), 0.24]
+const KNOB = [-0.35 + 0.31 * Math.sin(0.4), SLED.lift + 0.3 + 0.31 * Math.cos(0.4), 0.235]
 const SLED_PARTS = [
-  { label: 'Gurtschloss', value: 'zu', icon: 'lock', chip: 'left:12px;top:12px', anchor: [132, 42], at: [-0.48, 0.3, 0.13] },
+  { label: 'Gurtschloss', value: 'zu', icon: 'lock', chip: 'left:12px;top:12px', anchor: [132, 42], at: [-0.5, SLED.lift + 0.262, 0.13] },
   { label: 'Bremse', value: 'OK', icon: 'disc', chip: 'left:158px;top:12px', anchor: [176, 42], at: KNOB },
-  { label: 'LED', value: 'an', icon: 'lightbulb', chip: 'right:12px;top:96px', anchor: [300, 126], at: [1.25, 0.265, 0.1] },
-  { label: 'Akku', value: '14,0 V', icon: 'battery-full', chip: 'left:12px;top:208px', anchor: [92, 208], at: [0, 0.11, 0.23] },
-  { label: 'Sensoren', value: '6/6', icon: 'radio', chip: 'right:12px;top:208px', anchor: [270, 208], at: [0.755, 0.08, 0.341] }
+  { label: 'LED', value: 'an', icon: 'lightbulb', chip: 'right:12px;top:96px', anchor: [300, 126], at: [1.268, SLED.lift + 0.317, 0.1] },
+  { label: 'Akku', value: '14,0 V', icon: 'battery-full', chip: 'left:12px;top:208px', anchor: [92, 208], at: [0, 0.11, 0.3] },
+  { label: 'Sensoren', value: '6/6', icon: 'radio', chip: 'right:12px;top:208px', anchor: [270, 208], at: [0.775, 0.105, 0.27] }
 ]
 
 // Model point → position in the 358×250 illustration card.
@@ -407,123 +434,161 @@ const RF_ROWS = [
   ['05', 'warn', 17, 'v3.4.1', 'heute, 08:16'],
   ['06', 'err', 64, 'v3.3.0', 'heute, 08:17'],
   ['07', 'ok', 57, 'v3.4.1', 'heute, 08:14'],
-  ['08', 'depot', 100, 'v3.4.1', 'gestern, 17:42']
+  ['08', 'idle', 100, 'v3.4.1', 'gestern, 17:42']
 ]
-const RF_TAG = {
-  ok: ['success', 'circle-check', 'Auf Strecke'],
-  warn: ['warning', 'circle-alert', 'Akku niedrig'],
-  err: ['error', 'circle-x', 'Fehler: Bremse'],
-  depot: ['default', 'circle-minus', 'Im Depot']
-}
-const sorter = (up = false) => `<svg width="9" height="13" viewBox="0 0 9 13"><path d="M4.5 1 L8 5 H1 Z" fill="${up ? YELLOW : '#BFBFBF'}"/><path d="M4.5 12 L8 8 H1 Z" fill="#BFBFBF"/></svg>`
-const doneIcon = '<svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#52C41A"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-const battery = pct => `<div class="pg"><span class="tr"><span style="width:${pct}%;background:${pct < 25 ? '#FF4D4F' : '#52C41A'}"></span></span>${pct === 100 ? doneIcon : `<span class="pt">${pct}%</span>`}</div>`
+const RF_TAG = { ok: 'Auf Strecke', warn: 'Akku niedrig', err: 'Fehler: Bremse', idle: 'Im Depot' }
+const battery = pct => `<div class="pg"><span class="tr"><span style="width:${pct}%;background:${pct < 25 ? '#EF4444' : '#22C55E'}"></span></span><span class="pt tnum">${pct} %</span></div>`
+const akkuLine = curve([83, 82, 82, 80, 81, 79, 79, 78, 78], 66, 28, 3)
 
 const coaster = {
   glow: YELLOW,
   w: 1346,
   h: 880,
   css: `
-.rf{left:0;top:36px;width:1040px;height:800px;display:flex;background:#F5F5F5;color:rgba(0,0,0,.88);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;font-size:14px;line-height:22px;font-feature-settings:normal}
-.rf .i g{stroke-width:1.7}
-.rf .sd{width:200px;flex:none;background:#fff;border-right:1px solid #F0F0F0;display:flex;flex-direction:column}
-.rf .tt{height:64px;flex:none;display:flex;align-items:center;gap:8px;padding:0 24px;border-bottom:1px solid #F0F0F0;font-weight:700;font-size:15px}
-.rf .tt .lg{width:24px;height:24px;border-radius:6px;background:${YELLOW};color:#fff;display:grid;place-items:center}
-.rf .mn{flex:1;padding:4px 0}
-.rf .mi{display:flex;align-items:center;gap:10px;height:40px;margin:4px;padding:0 16px 0 24px;border-radius:8px}
-.rf .mi.on{background:#FFFBE6;color:${YELLOW}}
-.rf .trg{height:48px;flex:none;border-top:1px solid #F0F0F0;display:grid;place-items:center}
+.rf{left:0;top:36px;width:1040px;height:800px;display:flex;background:#FAFAFA;color:#18181B;font-size:13px;line-height:1.4}
+.rf small{display:block}
+.rf .sd{width:216px;flex:none;background:#F4F4F5;border-right:1px solid #E4E4E7;display:flex;flex-direction:column;padding:16px 12px 12px}
+.rf .br{display:flex;align-items:center;gap:10px;padding:2px 8px 16px;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.rf .lg{width:28px;height:28px;border-radius:8px;background:linear-gradient(180deg,#FFC53D,${YELLOW});color:#2B1D00;display:grid;place-items:center}
+.rf .ws{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#fff;box-shadow:0 0 0 1px #E4E4E7,0 1px 2px rgba(0,0,0,.04)}
+.rf .ws .wi{width:30px;height:30px;border-radius:8px;background:#18181B;color:#fff;display:grid;place-items:center}
+.rf .ws b{display:block;font-size:13px}
+.rf .ws small{font-size:11.5px;color:#71717A}
+.rf .ws>.i{margin-left:auto;color:#A1A1AA}
+.rf .cap{margin:18px 10px 6px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A1A1AA}
+.rf .mi{display:flex;align-items:center;gap:10px;height:34px;margin-bottom:2px;padding:0 10px;border-radius:8px;font-weight:500;color:#52525B}
+.rf .mi .i{color:#71717A}
+.rf .mi.on{background:#fff;color:#18181B;font-weight:600;box-shadow:0 0 0 1px #E4E4E7,0 1px 2px rgba(0,0,0,.05)}
+.rf .mi.on .i{color:#D48806}
+.rf .mi em{margin-left:auto;font-style:normal;font-size:11px;font-weight:600;color:#71717A}
+.rf .mi em.bd{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#FEF3C7;color:#92400E;display:grid;place-items:center}
+.rf .me{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 8px 2px;border-top:1px solid #E4E4E7}
+.rf .me b{display:block;font-size:12.5px}
+.rf .me small{font-size:11px;color:#71717A}
+.rf .me>.i{margin-left:auto;color:#A1A1AA}
+.rf .avt{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#52525B,#18181B);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:600}
 .rf .mc{flex:1;min-width:0;display:flex;flex-direction:column}
-.rf .hdr{height:64px;flex:none;background:#fff;display:flex;align-items:center;justify-content:flex-end;padding:0 24px;border-bottom:1px solid #F0F0F0}
-.rf .tg{position:relative;width:44px;height:22px;border-radius:11px;background:rgba(0,0,0,.25)}
-.rf .tg::before{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,35,11,.2)}
-.rf .tg span{position:absolute;right:6px;top:2px;font-size:11px;line-height:18px}
-.rf .usr{display:flex;align-items:center;gap:16px;margin-left:16px;font-weight:600}
-.rf .avt{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.25);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:500}
-.rf .cnt{padding:24px}
-.rf .ph{background:#fff;border-radius:8px;padding:16px 24px 24px}
-.rf .bc{gap:8px;color:rgba(0,0,0,.45)}
-.rf .bc b{font-weight:400;color:rgba(0,0,0,.88)}
-.rf .ttl{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
-.rf .ttl h2{font-size:20px;font-weight:600;line-height:32px}
-.rf .btnp{display:flex;align-items:center;gap:8px;height:32px;padding:0 15px;border-radius:6px;background:${YELLOW};color:#fff;box-shadow:0 2px 0 rgba(255,215,5,.1)}
-.rf table{width:100%;margin-top:16px;border-collapse:separate;border-spacing:0;table-layout:fixed}
-.rf th{position:relative;background:#FAFAFA;text-align:left;font-weight:600;padding:16px;border-bottom:1px solid #F0F0F0;white-space:nowrap}
-.rf th:first-child{border-top-left-radius:8px}
-.rf th:last-child{border-top-right-radius:8px}
-.rf th:not(:last-child)::before{content:'';position:absolute;right:0;top:50%;width:1px;height:1.6em;transform:translateY(-50%);background:#F0F0F0}
-.rf th .row{justify-content:space-between;gap:6px}
-.rf th .i{color:#BFBFBF}
-.rf td{padding:16px;border-bottom:1px solid #F0F0F0;white-space:nowrap}
-.rf tr.hov td{background:#FAFAFA}
-.rf .tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border-radius:4px;font-size:12px;line-height:20px;border:1px solid}
-.rf .tag.success{background:#F6FFED;border-color:#B7EB8F;color:#52C41A}
-.rf .tag.warning{background:#FFFBE6;border-color:#FFE58F;color:${YELLOW}}
-.rf .tag.error{background:#FFF2F0;border-color:#FFCCC7;color:#FF4D4F}
-.rf .tag.default{background:#FAFAFA;border-color:#D9D9D9;color:rgba(0,0,0,.88)}
+.rf .tb{height:56px;flex:none;display:flex;align-items:center;gap:10px;padding:0 28px;border-bottom:1px solid #E4E4E7;background:#fff}
+.rf .bc{gap:8px;color:#71717A}
+.rf .bc b{color:#18181B}
+.rf .bc .i{color:#D4D4D8}
+.rf .srch{margin-left:auto;display:flex;align-items:center;gap:8px;width:230px;height:34px;padding:0 7px 0 10px;border-radius:9px;background:#F4F4F5;color:#A1A1AA}
+.rf .srch kbd{margin-left:auto;font:500 11px Inter,sans-serif;padding:2px 6px;border-radius:5px;background:#fff;color:#71717A;box-shadow:0 0 0 1px #E4E4E7}
+.rf .ib{position:relative;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:#52525B;box-shadow:inset 0 0 0 1px #E4E4E7}
+.rf .ib i{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:${YELLOW};box-shadow:0 0 0 2px #fff}
+.rf .cnt{padding:22px 60px 0 28px}
+.rf .ttl{display:flex;align-items:flex-end;justify-content:space-between}
+.rf .ttl h2{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.rf .ttl p{font-size:12.5px;color:#71717A;margin-top:3px}
+.rf .btn{display:flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:9px;font-weight:600;background:#fff;box-shadow:0 0 0 1px #E4E4E7,0 1px 2px rgba(0,0,0,.04)}
+.rf .btn.pri{background:linear-gradient(180deg,#FFC53D,${YELLOW});color:#2B1D00;box-shadow:0 0 0 1px #E8A00C,0 6px 14px -6px rgba(250,173,20,.7)}
+.rf .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.rf .kpi{position:relative;height:92px;background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 0 0 1px #E4E4E7,0 1px 2px rgba(0,0,0,.03)}
+.rf .kpi small{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:500;color:#71717A}
+.rf .kpi small .i{color:#A1A1AA}
+.rf .kpi b{display:block;font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-top:6px}
+.rf .kpi b span{font-size:13px;color:#A1A1AA;font-weight:600;letter-spacing:0}
+.rf .kpi p{font-size:11.5px;color:#71717A;margin-top:4px}
+.rf .kpi .mix{display:flex;gap:2px;height:5px;margin-top:10px}
+.rf .kpi .mix i{border-radius:3px}
+.rf .kpi .sp{position:absolute;right:14px;bottom:14px}
+.rf .tbl{margin-top:16px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px #E4E4E7,0 1px 2px rgba(0,0,0,.03)}
+.rf .bar{display:flex;align-items:center;gap:8px;height:50px;padding:0 12px}
+.rf .tabs{display:flex;padding:3px;border-radius:9px;background:#F4F4F5}
+.rf .tabs a{display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:#71717A}
+.rf .tabs a span{font-size:11px;color:#A1A1AA}
+.rf .tabs a.on{background:#fff;color:#18181B;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.rf .bar .btn{height:30px;padding:0 10px;font-size:12.5px;font-weight:500;color:#3F3F46}
+.rf .bar .btn:first-of-type{margin-left:auto}
+.rf table{width:100%;border-collapse:collapse;table-layout:fixed}
+.rf th{height:36px;padding:0 12px;text-align:left;font-size:11.5px;font-weight:500;color:#71717A;background:#FAFAFA;border-top:1px solid #EEEEF0;border-bottom:1px solid #EEEEF0;white-space:nowrap}
+.rf th .i{display:inline-block;vertical-align:-2px;margin-left:4px;color:#A1A1AA}
+.rf td{height:48px;padding:0 12px;border-bottom:1px solid #F4F4F5;white-space:nowrap}
+.rf th:first-child,.rf td:first-child{padding-left:16px}
+.rf tr.sel td{background:#FFFBEB}
+.rf tr.sel td:first-child{box-shadow:inset 2px 0 0 ${YELLOW}}
+.rf .veh{display:flex;align-items:center;gap:10px;font-weight:600}
+.rf .veh .no{width:28px;height:28px;border-radius:8px;background:#F4F4F5;color:#52525B;display:grid;place-items:center;font:500 11.5px 'JetBrains Mono',monospace}
+.rf tr.sel .no{background:#FDE68A;color:#78350F}
+.rf .tag{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border-radius:11px;font-size:12px;font-weight:500}
+.rf .tag i{width:6px;height:6px;border-radius:50%}
+.rf .tag.ok{background:#F0FDF4;color:#15803D}
+.rf .tag.ok i{background:#22C55E}
+.rf .tag.warn{background:#FFFBEB;color:#B45309}
+.rf .tag.warn i{background:#F59E0B}
+.rf .tag.err{background:#FEF2F2;color:#B91C1C}
+.rf .tag.err i{background:#EF4444}
+.rf .tag.idle{background:#F4F4F5;color:#52525B}
+.rf .tag.idle i{background:#A1A1AA}
 .rf .pg{display:flex;align-items:center;gap:8px}
-.rf .pg .tr{width:80px;height:6px;border-radius:3px;background:rgba(0,0,0,.06);overflow:hidden}
+.rf .pg .tr{width:60px;height:6px;border-radius:3px;background:#F0F0F2;overflow:hidden}
 .rf .pg .tr span{display:block;height:100%;border-radius:3px}
-.rf .pg .pt{font-size:12px}
-.rf .acts{display:flex;gap:8px}
-.rf .ab{width:24px;height:24px;border-radius:4px;border:1px solid #D9D9D9;display:grid;place-items:center;background:#fff;box-shadow:0 2px 0 rgba(0,0,0,.02)}
-.rf .ab.dg{border-color:#FF4D4F;color:#FF4D4F}
-.rf .pag{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-.rf .pa{min-width:32px;height:32px;border-radius:6px;display:grid;place-items:center}
-.rf .pa.on{border:1px solid ${YELLOW};color:${YELLOW};font-weight:600}
-.rf .pa.dis{color:rgba(0,0,0,.25)}
+.rf .pg .pt{font-size:12.5px;color:#3F3F46}
+.rf .ver{font-family:'JetBrains Mono',monospace;font-size:12px;color:#3F3F46}
+.rf .ver u{margin-left:7px;padding:2px 6px;border-radius:5px;background:#FEF3C7;color:#92400E;font:600 10.5px Inter,sans-serif;text-decoration:none}
+.rf .dt{color:#52525B}
+.rf .more{color:#A1A1AA}
+.rf .ft{display:flex;align-items:center;justify-content:space-between;height:46px;padding:0 12px 0 16px;font-size:12.5px;color:#71717A}
+.rf .pag{display:flex;gap:4px}
+.rf .pa{min-width:28px;height:28px;border-radius:7px;display:grid;place-items:center;font-weight:500;color:#52525B}
+.rf .pa.on{background:#18181B;color:#fff}
+.rf .pa.dis{color:#D4D4D8}
 .screen{background:#F5F5F5}
 ${coasterScreenCss}`,
   get html() {
     return `
 <div class="win rf">
   <aside class="sd">
-    <div class="tt"><span class="lg">${icon('mountain', 15)}</span>Rodel-Service</div>
-    <nav class="mn">
-      <div class="mi">${icon('layout-dashboard', 15)}Dashboard</div>
-      <div class="mi">${icon('route', 15)}Bahnen</div>
-      <div class="mi on">${icon('gauge', 15)}Fahrzeuge</div>
-      <div class="mi">${icon('activity', 15)}Diagnosen</div>
-      <div class="mi">${icon('wrench', 15)}Wartung</div>
-      <div class="mi">${icon('users', 15)}Benutzer</div>
-      <div class="mi">${icon('log-out', 15)}Abmelden</div>
-    </nav>
-    <div class="trg">${icon('chevron-left', 15)}</div>
+    <div class="br"><span class="lg">${icon('mountain', 16)}</span>Rodel-Service</div>
+    <div class="ws"><span class="wi">${icon('route', 15)}</span><div><b>Bahn Nord</b><small>40 Fahrzeuge</small></div>${icon('chevrons-up-down', 15)}</div>
+    <div class="cap">Betrieb</div>
+    <div class="mi">${icon('layout-dashboard', 16)}Übersicht</div>
+    <div class="mi on">${icon('gauge', 16)}Fahrzeuge<em>40</em></div>
+    <div class="mi">${icon('activity', 16)}Diagnosen<em class="bd">3</em></div>
+    <div class="mi">${icon('wrench', 16)}Wartung</div>
+    <div class="cap">Verwaltung</div>
+    <div class="mi">${icon('route', 16)}Bahnen</div>
+    <div class="mi">${icon('users', 16)}Benutzer</div>
+    <div class="mi">${icon('settings', 16)}Einstellungen</div>
+    <div class="me"><span class="avt">JS</span><div><b>J. Steiner</b><small>Installateur</small></div>${icon('ellipsis', 16)}</div>
   </aside>
   <div class="mc">
-    <header class="hdr">
-      <span class="tg"><span>🔆</span></span>
-      <span class="usr">J. Steiner<span class="avt">JS</span></span>
+    <header class="tb">
+      <div class="bc row"><span>Bahnen</span>${icon('chevron-right', 14)}<span>Bahn Nord</span>${icon('chevron-right', 14)}<b>Fahrzeuge</b></div>
+      <span class="srch">${icon('search', 15)}Suchen …<kbd>⌘K</kbd></span>
+      <span class="ib">${icon('bell', 16)}<i></i></span>
     </header>
     <div class="cnt">
-      <div class="ph">
-        <div class="bc row">${icon('house', 14)}<span>/</span><span>Bahnen</span><span>/</span><span>Bahn Nord</span><span>/</span><b>Fahrzeuge</b></div>
-        <div class="ttl"><h2>Fahrzeuge</h2><a class="btnp">${icon('square-plus', 15)}Erstellen</a></div>
+      <div class="ttl">
+        <div><h2>Fahrzeuge</h2><p>Bahn Nord · zuletzt abgeglichen heute, 08:17</p></div>
+        <div class="row" style="gap:8px"><a class="btn">${icon('download', 15)}Export</a><a class="btn pri">${icon('activity', 15)}Diagnose starten</a></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><small>Auf Strecke${icon('route', 14)}</small><b class="tnum">34 <span>/ 40</span></b><div class="mix"><i style="flex:34;background:#22C55E"></i><i style="flex:1;background:#F59E0B"></i><i style="flex:1;background:#EF4444"></i><i style="flex:4;background:#D4D4D8"></i></div></div>
+        <div class="kpi"><small>Ø Akkustand${icon('battery-medium', 14)}</small><b class="tnum">78 %</b><p>1 unter 25 %</p><svg class="sp" width="66" height="28" viewBox="0 0 66 28"><path d="${akkuLine.d}" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="kpi"><small>Offene Fehler${icon('triangle-alert', 14)}</small><b class="tnum" style="color:#B91C1C">1</b><p>Rodel 06 · Bremse</p></div>
+        <div class="kpi"><small>Diagnosen heute${icon('activity', 14)}</small><b class="tnum">37</b><p>3 warten auf Abgleich</p></div>
+      </div>
+      <div class="tbl">
+        <div class="bar">
+          <div class="tabs"><a class="on">Alle<span>40</span></a><a>Auf Strecke<span>34</span></a><a>Warnungen<span>2</span></a><a>Im Depot<span>4</span></a></div>
+          <a class="btn">${icon('list-filter', 14)}Filter</a><a class="btn">${icon('columns-3', 14)}Spalten</a>
+        </div>
         <table>
-          <colgroup><col style="width:72px"><col style="width:150px"><col style="width:150px"><col style="width:100px"><col style="width:152px"><col></colgroup>
-          <thead><tr>
-            <th><span class="row">Nr.${sorter(true)}</span></th>
-            <th><span class="row">Status${icon('funnel', 12)}</span></th>
-            <th><span class="row">Akku${sorter()}</span></th>
-            <th>Firmware</th>
-            <th><span class="row">Letzte Diagnose${sorter()}</span></th>
-            <th>Aktionen</th>
-          </tr></thead>
+          <colgroup><col style="width:150px"><col style="width:140px"><col style="width:130px"><col style="width:126px"><col><col style="width:44px"></colgroup>
+          <thead><tr><th>Fahrzeug${icon('arrow-up', 12)}</th><th>Status</th><th>Akku</th><th>Firmware</th><th>Letzte Diagnose</th><th></th></tr></thead>
           <tbody>
-            ${RF_ROWS.map(([n, s, pct, fw, last]) => {
-              const [kind, ic, label] = RF_TAG[s]
-              return `<tr class="${n === '07' ? 'hov' : ''}">
-                <td>${n}</td>
-                <td><span class="tag ${kind}">${icon(ic, 12)}${label}</span></td>
-                <td>${battery(pct)}</td>
-                <td>${fw}</td>
-                <td>${last}</td>
-                <td><div class="acts"><span class="ab">${icon('pencil', 13)}</span><span class="ab">${icon('eye', 13)}</span><span class="ab dg">${icon('trash-2', 13)}</span></div></td>
-              </tr>`
-            }).join('')}
+            ${RF_ROWS.map(([n, s, pct, fw, last]) => `<tr class="${n === '07' ? 'sel' : ''}">
+              <td><div class="veh"><span class="no">${n}</span>Rodel ${n}</div></td>
+              <td><span class="tag ${s}"><i></i>${RF_TAG[s]}</span></td>
+              <td>${battery(pct)}</td>
+              <td><span class="ver">${fw}${fw === 'v3.4.1' ? '' : '<u>Update</u>'}</span></td>
+              <td class="dt">${last}</td>
+              <td class="more">${icon(n === '07' ? 'chevron-right' : 'ellipsis', 16)}</td>
+            </tr>`).join('')}
           </tbody>
         </table>
-        <div class="pag"><span class="pa dis">${icon('chevron-left', 14)}</span><span class="pa on">1</span><span class="pa">2</span><span class="pa">3</span><span class="pa">4</span><span class="pa">5</span><span class="pa">${icon('chevron-right', 14)}</span></div>
+        <div class="ft"><span>1–8 von 40 Fahrzeugen</span><div class="pag"><span class="pa dis">${icon('chevron-left', 14)}</span><span class="pa on">1</span><span class="pa">2</span><span class="pa">3</span><span class="pa">4</span><span class="pa">5</span><span class="pa">${icon('chevron-right', 14)}</span></div></div>
       </div>
     </div>
   </div>

@@ -64,6 +64,12 @@ const vercelRoutes = [
     src: '^/downloads/Lebenslauf_Gmainer_public\\.pdf$',
     headers: { Link: `<${siteUrl}/resume>; rel="canonical"` },
     continue: true
+  },
+  // The .md versions repeat a page's text; search engines should index the page.
+  {
+    src: '^/(.+)\\.md$',
+    headers: { Link: `<${siteUrl}/$1>; rel="canonical"` },
+    continue: true
   }
 ]
 
